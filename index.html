@@ -1,0 +1,1184 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowStudio AI</title>
+    <meta name="description" content="FlowStudio AI is a workflow canvas for composing, deploying, and observing agent systems.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
+  </head>
+  <body class="bg-stone-50 text-stone-950 antialiased" style="font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+    <style>
+      @keyframes flow {
+        to { stroke-dashoffset: -28; }
+      }
+      @keyframes node {
+        0%, 18%, 100% { background:#fff; color:#18181b; border-color:#e7e5e4; transform:translateY(0); }
+        30%, 52% { background:#18181b; color:#fff; border-color:#18181b; transform:translateY(-2px); }
+      }
+      @keyframes pulse {
+        0%, 100% { opacity:.3; transform:scale(.85); }
+        50% { opacity:1; transform:scale(1); }
+      }
+      .flow-line { stroke-dasharray: 5 10; animation:flow 1.2s linear infinite; }
+      .node-a { animation:node 5s cubic-bezier(.2,0,0,1) infinite; }
+      .node-b { animation:node 5s cubic-bezier(.2,0,0,1) -3.7s infinite; }
+      .node-c { animation:node 5s cubic-bezier(.2,0,0,1) -2.5s infinite; }
+      .node-d { animation:node 5s cubic-bezier(.2,0,0,1) -1.25s infinite; }
+      .signal { animation:pulse 1.4s ease-in-out infinite; }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation:none !important; scroll-behavior:auto !important; }
+      }
+    </style>
+
+    <header class="sticky top-0 z-50 border-b border-stone-200/80 bg-stone-50/85 backdrop-blur-xl">
+      <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8">
+        <a href="#top" class="flex items-center gap-2.5">
+          <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/ba89b8b7-69a2-402f-87bc-145d1eab5988_320w.png" alt="FlowStudio AI logo" class="h-9 w-auto shrink-0 object-contain">
+        </a>
+
+        <nav class="hidden items-center gap-7 text-sm font-medium text-stone-500 md:flex">
+          <a href="#product" class="transition hover:text-stone-950">Product</a>
+          <a href="#workflow" class="transition hover:text-stone-950">
+            Workflow
+          </a>
+          <a href="#tools" class="transition hover:text-stone-950">Tools</a>
+          <a href="#marketplace" class="transition hover:text-stone-950">
+            Marketplace
+          </a>
+          <a href="#pricing" class="transition hover:text-stone-950">Pricing</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <a href="#contact" class="hidden text-sm font-medium text-stone-600 transition hover:text-stone-950 sm:block">
+            Sign in
+          </a>
+          <a href="#contact" class="inline-flex h-9 items-center gap-2 rounded-md bg-stone-950 px-3.5 text-sm font-medium text-white transition hover:bg-stone-800">
+            Join waitlist
+            <iconify-icon icon="solar:arrow-right-linear" width="16" stroke-width="1.5"></iconify-icon>
+          </a>
+          <button id="mobileMenuButton" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Toggle menu" class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 text-stone-600 transition hover:bg-stone-100 md:hidden">
+            <iconify-icon id="mobileMenuIcon" icon="solar:hamburger-menu-linear" width="20" stroke-width="1.5"></iconify-icon>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="hidden border-t border-stone-200 bg-stone-50 px-5 py-3 md:hidden">
+        <nav class="flex flex-col text-sm font-medium text-stone-600">
+          <a href="#product" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Product</a>
+          <a href="#workflow" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Workflow</a>
+          <a href="#tools" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Tools</a>
+          <a href="#marketplace" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Marketplace</a>
+          <a href="#pricing" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Pricing</a>
+          <a href="#contact" class="mt-1 rounded-md border-t border-stone-200 px-3 py-2.5 pt-3.5 transition hover:bg-stone-100 hover:text-stone-950">Sign in</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="relative overflow-hidden px-5 pb-20 pt-20 sm:pt-28 lg:px-8 lg:pb-28">
+        <div class="absolute inset-x-0 top-0 -z-10 h-[32rem] bg-[radial-gradient(circle_at_50%_-8%,rgba(190,242,100,0.24),transparent_52%)]"></div>
+
+        <div class="mx-auto flex max-w-7xl flex-col items-center text-center">
+          <div class="inline-flex items-center gap-2 rounded-md border border-stone-200 bg-white px-2.5 py-1.5 shadow-sm">
+            <span class="signal size-1.5 rounded-full bg-lime-500"></span>
+            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-500">
+              Pre-launch · early access
+            </span>
+          </div>
+
+          <h1 class="mt-7 max-w-5xl text-5xl font-semibold leading-[0.98] tracking-tight text-stone-950 sm:text-6xl lg:text-8xl">
+            Agents think. Tools act.
+            <br class="hidden sm:block">
+            Workflows run. You win.
+          </h1>
+
+          <p class="mt-7 max-w-2xl text-base leading-7 text-stone-600 sm:text-lg">
+            FlowStudio is where agents, tools, and workflows come together.
+            Build anything from a simple automation to a full agent team,
+            all on one canvas.
+          </p>
+
+          <form id="waitlistForm" class="mt-9 flex w-full max-w-none flex-col gap-2 sm:max-w-lg sm:flex-row">
+            <label class="sr-only" for="email">Work email</label>
+            <input id="email" type="email" required="" placeholder="you@company.com" class="h-14 w-full min-w-0 rounded-md border border-stone-300 bg-white px-4 text-base outline-none transition placeholder:text-stone-400 focus:border-stone-950 focus:ring-2 focus:ring-stone-950/10 sm:h-12 sm:flex-1 sm:text-sm">
+            <button class="inline-flex h-14 items-center justify-center gap-2 rounded-md bg-stone-950 px-5 text-base font-medium text-white transition hover:bg-stone-800 sm:h-12 sm:text-sm" type="submit">
+              Join waitlist
+              <iconify-icon icon="solar:arrow-right-linear" width="16" stroke-width="1.5"></iconify-icon>
+            </button>
+          </form>
+          <p id="formMessage" class="mt-3 min-h-4 text-xs text-stone-500">
+            Early access opens in waves. No spam, one email at launch.
+          </p>
+
+          <div class="mt-12 flex flex-wrap justify-center gap-x-4 gap-y-2 font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+              Sequential
+            </span>
+            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+              /
+            </span>
+            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+              Parallel
+            </span>
+            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+              /
+            </span>
+            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+              Hierarchical
+            </span>
+            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+              /
+            </span>
+            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+              Hybrid
+            </span>
+            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+              /
+            </span>
+            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+              Collaborative
+            </span>
+            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+              /
+            </span>
+            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+              Event-driven
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section class="border-y border-stone-200 bg-white px-5 py-10 lg:px-8">
+        <div class="mx-auto flex max-w-6xl flex-col items-center gap-6">
+          <p class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+            Building on FlowStudio AI in private beta
+          </p>
+          <div class="flex flex-wrap items-center justify-center gap-x-11 gap-y-5 text-lg font-semibold tracking-tight text-stone-400 sm:text-xl">
+            <span class="font-mono font-normal uppercase tracking-[0.18em]">
+              NumLK
+            </span>
+            <span class="font-semibold tracking-tight">CedarStreet</span>
+            <span class="font-mono lowercase tracking-tight">
+              smart
+              <span class="font-semibold">schema</span>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section id="workflow" class="scroll-mt-16 px-5 py-20 lg:px-8 lg:py-28">
+        <div class="mx-auto max-w-6xl">
+          <div class="max-w-2xl">
+            <p class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+              Orchestration
+            </p>
+            <h2 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+              Six workflow modes. One canvas.
+            </h2>
+            <p class="mt-5 text-base leading-7 text-stone-600">
+              Choose the coordination pattern that fits the work: straight
+              pipelines, concurrent specialists, delegated teams, flexible
+              stages, iterative collaboration, or reactive event flows.
+            </p>
+          </div>
+
+          <div id="patternTabs" class="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <button data-pattern="sequential" class="pattern-tab rounded-lg border border-stone-950 bg-stone-950 p-5 text-left text-white">
+              <iconify-icon icon="solar:arrow-right-linear" width="27" stroke-width="1.5"></iconify-icon>
+              <p class="mt-5 font-mono text-xs uppercase tracking-[0.12em] text-white/50">
+                Mode 01
+              </p>
+              <p class="mt-2 text-lg font-semibold tracking-tight">
+                Sequential
+              </p>
+              <p class="mt-2 text-sm leading-5 text-white/65">
+                Each agent passes its output to the next.
+              </p>
+            </button>
+            <button data-pattern="parallel" class="pattern-tab rounded-lg border border-stone-200 bg-white p-5 text-left transition hover:bg-stone-100">
+              <iconify-icon icon="solar:sort-horizontal-linear" width="27" stroke-width="1.5"></iconify-icon>
+              <p class="mt-5 font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                Mode 02
+              </p>
+              <p class="mt-2 text-lg font-semibold tracking-tight">Parallel</p>
+              <p class="mt-2 text-sm leading-5 text-stone-500">
+                Independent agents run at once, then results collect.
+              </p>
+            </button>
+            <button data-pattern="hierarchical" class="pattern-tab rounded-lg border border-stone-200 bg-white p-5 text-left transition hover:bg-stone-100">
+              <iconify-icon icon="solar:cpu-linear" width="27" stroke-width="1.5"></iconify-icon>
+              <p class="mt-5 font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                Mode 03
+              </p>
+              <p class="mt-2 text-lg font-semibold tracking-tight">
+                Hierarchical
+              </p>
+              <p class="mt-2 text-sm leading-5 text-stone-500">
+                A coordinator delegates to specialists and assembles the answer.
+              </p>
+            </button>
+            <button data-pattern="hybrid" class="pattern-tab rounded-lg border border-stone-200 bg-white p-5 text-left transition hover:bg-stone-100">
+              <iconify-icon icon="solar:sort-horizontal-linear" width="27" stroke-width="1.5"></iconify-icon>
+              <p class="mt-5 font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                Mode 04
+              </p>
+              <p class="mt-2 text-lg font-semibold tracking-tight">Hybrid</p>
+              <p class="mt-2 text-sm leading-5 text-stone-500">
+                Combine ordered stages with concurrent groups.
+              </p>
+            </button>
+            <button data-pattern="collaborative" class="pattern-tab rounded-lg border border-stone-200 bg-white p-5 text-left transition hover:bg-stone-100">
+              <iconify-icon icon="solar:restart-linear" width="27" stroke-width="1.5"></iconify-icon>
+              <p class="mt-5 font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                Mode 05
+              </p>
+              <p class="mt-2 text-lg font-semibold tracking-tight">
+                Collaborative
+              </p>
+              <p class="mt-2 text-sm leading-5 text-stone-500">
+                Agents refine shared work together over multiple rounds.
+              </p>
+            </button>
+            <button data-pattern="event-driven" class="pattern-tab rounded-lg border border-stone-200 bg-white p-5 text-left transition hover:bg-stone-100">
+              <iconify-icon icon="solar:bell-linear" width="27" stroke-width="1.5"></iconify-icon>
+              <p class="mt-5 font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                Mode 06
+              </p>
+              <p class="mt-2 text-lg font-semibold tracking-tight">
+                Event-driven
+              </p>
+              <p class="mt-2 text-sm leading-5 text-stone-500">
+                Named events trigger the next agents when they are ready.
+              </p>
+            </button>
+          </div>
+
+          <div id="demoPanel" class="mt-5 overflow-hidden rounded-xl border border-stone-200 bg-white">
+            <div class="flex flex-col items-start gap-2 border-b border-stone-200 bg-stone-50 px-5 py-3 sm:flex-row sm:items-center sm:justify-between">
+              <div class="flex items-center gap-2">
+                <span class="size-1.5 rounded-full bg-lime-500"></span>
+                <span id="demoRun" class="font-mono text-xs uppercase tracking-[0.12em] text-stone-500">
+                  run/sequential-triage
+                </span>
+              </div>
+              <span id="demoStats" class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400 sm:text-right">
+                4 nodes · 3.6s · 1 pass
+              </span>
+            </div>
+            <div class="grid min-h-72 min-w-0 place-items-center bg-stone-50 p-6 text-center">
+              <div class="w-full min-w-0">
+                <div class="text-center">
+                  <div id="demoIcon" class="mx-auto flex size-12 items-center justify-center rounded-lg bg-stone-950 text-white">
+                    <iconify-icon icon="solar:arrow-right-linear" width="24" stroke-width="1.5"></iconify-icon>
+                  </div>
+                  <h3 id="demoTitle" class="mt-5 text-xl font-semibold tracking-tight">
+                    A typed hand-off at every step.
+                  </h3>
+                  <p id="demoText" class="mx-auto mt-3 max-w-lg text-sm leading-6 text-stone-600">
+                    Each agent receives the previous output as a typed payload,
+                    so a broken hand-off fails at design time rather than during
+                    a live run.
+                  </p>
+                </div>
+                <div id="demoCanvas" class="relative mt-8 w-full overflow-x-auto overflow-y-hidden rounded-lg bg-transparent p-5 sm:p-8 lg:min-h-[42rem]">
+                  <svg class="relative block w-full min-w-[640px] sm:min-w-0" viewBox="0 0 960 452" fill="none" role="img" aria-label="Sequential agent workflow">
+                    <defs>
+                      <pattern id="workflow-grid" width="16" height="16" patternUnits="userSpaceOnUse">
+                        <circle cx="1" cy="1" r="0.7" fill="#d6d3d1"></circle>
+                      </pattern>
+                    </defs>
+                    <rect width="960" height="452" fill="url(#workflow-grid)"></rect>
+                    <rect x="32" y="32" width="896" height="388" rx="12" fill="white" stroke="#e7e5e4"></rect>
+                    <text x="64" y="68" fill="#a8a29e" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11" letter-spacing="1.4">
+                      01 — SEQUENTIAL
+                    </text>
+                    <path class="flow-line" d="M240 224H288" stroke="#18181b" stroke-width="1.5"></path>
+                    <path class="flow-line" d="M456 224H504" stroke="#18181b" stroke-width="1.5"></path>
+                    <path class="flow-line" d="M672 224H720" stroke="#18181b" stroke-width="1.5"></path>
+                    <g transform="translate(72 170)">
+                      <rect width="168" height="108" rx="10" fill="#18181b" stroke="#18181b"></rect>
+                      <g transform="translate(14 14) scale(0.83)" fill="none" stroke="#bef264" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 8V4H8"></path>
+                        <rect x="4" y="8" width="16" height="12" rx="2"></rect>
+                        <path d="M2 14h2"></path>
+                        <path d="M20 14h2"></path>
+                        <path d="M15 13v2"></path>
+                        <path d="M9 13v2"></path>
+                      </g>
+                      <text x="44" y="27" fill="#ffffff" font-family="Inter, sans-serif" font-size="12.5">
+                        Intake
+                      </text>
+                      <text x="44" y="41" fill="#bef264" font-family="ui-monospace, monospace" font-size="8.5" letter-spacing="0.8">
+                        AGENT
+                      </text>
+                      <rect x="14" y="52" width="140" height="20" rx="6" fill="#27272a" stroke="#3f3f46"></rect>
+                      <text x="24" y="65.5" fill="rgba(255,255,255,0.7)" font-family="ui-monospace, monospace" font-size="9">
+                        fetch_ticket
+                      </text>
+                      <rect x="14" y="76" width="140" height="20" rx="6" fill="#27272a" stroke="#3f3f46"></rect>
+                      <text x="24" y="89.5" fill="rgba(255,255,255,0.7)" font-family="ui-monospace, monospace" font-size="9">
+                        parse_email
+                      </text>
+                    </g>
+                    <g transform="translate(288 170)">
+                      <rect width="168" height="108" rx="10" fill="#ffffff" stroke="#d6d3d1"></rect>
+                      <g transform="translate(14 14) scale(0.83)" fill="none" stroke="#57534e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 8V4H8"></path>
+                        <rect x="4" y="8" width="16" height="12" rx="2"></rect>
+                        <path d="M2 14h2"></path>
+                        <path d="M20 14h2"></path>
+                        <path d="M15 13v2"></path>
+                        <path d="M9 13v2"></path>
+                      </g>
+                      <text x="44" y="27" fill="#18181b" font-family="Inter, sans-serif" font-size="12.5">
+                        Classify
+                      </text>
+                      <text x="44" y="41" fill="#a8a29e" font-family="ui-monospace, monospace" font-size="8.5" letter-spacing="0.8">
+                        AGENT
+                      </text>
+                      <rect x="14" y="52" width="140" height="20" rx="6" fill="#fafaf9" stroke="#e7e5e4"></rect>
+                      <text x="24" y="65.5" fill="#57534e" font-family="ui-monospace, monospace" font-size="9">
+                        search_catalog
+                      </text>
+                      <rect x="14" y="76" width="140" height="20" rx="6" fill="#fafaf9" stroke="#e7e5e4"></rect>
+                      <text x="24" y="89.5" fill="#57534e" font-family="ui-monospace, monospace" font-size="9">
+                        score_intent
+                      </text>
+                    </g>
+                    <g transform="translate(504 170)">
+                      <rect width="168" height="108" rx="10" fill="#ffffff" stroke="#d6d3d1"></rect>
+                      <g transform="translate(14 14) scale(0.83)" fill="none" stroke="#57534e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 8V4H8"></path>
+                        <rect x="4" y="8" width="16" height="12" rx="2"></rect>
+                        <path d="M2 14h2"></path>
+                        <path d="M20 14h2"></path>
+                        <path d="M15 13v2"></path>
+                        <path d="M9 13v2"></path>
+                      </g>
+                      <text x="44" y="27" fill="#18181b" font-family="Inter, sans-serif" font-size="12.5">
+                        Enrich
+                      </text>
+                      <text x="44" y="41" fill="#a8a29e" font-family="ui-monospace, monospace" font-size="8.5" letter-spacing="0.8">
+                        TOOL
+                      </text>
+                      <rect x="14" y="52" width="140" height="20" rx="6" fill="#fafaf9" stroke="#e7e5e4"></rect>
+                      <text x="24" y="65.5" fill="#57534e" font-family="ui-monospace, monospace" font-size="9">
+                        execute_query
+                      </text>
+                      <rect x="14" y="76" width="140" height="20" rx="6" fill="#fafaf9" stroke="#e7e5e4"></rect>
+                      <text x="24" y="89.5" fill="#57534e" font-family="ui-monospace, monospace" font-size="9">
+                        crm_lookup
+                      </text>
+                    </g>
+                    <g transform="translate(720 170)">
+                      <rect width="168" height="108" rx="10" fill="#ffffff" stroke="#d6d3d1"></rect>
+                      <g transform="translate(14 14) scale(0.83)" fill="none" stroke="#57534e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 8V4H8"></path>
+                        <rect x="4" y="8" width="16" height="12" rx="2"></rect>
+                        <path d="M2 14h2"></path>
+                        <path d="M20 14h2"></path>
+                        <path d="M15 13v2"></path>
+                        <path d="M9 13v2"></path>
+                      </g>
+                      <text x="44" y="27" fill="#18181b" font-family="Inter, sans-serif" font-size="12.5">
+                        Route
+                      </text>
+                      <text x="44" y="41" fill="#a8a29e" font-family="ui-monospace, monospace" font-size="8.5" letter-spacing="0.8">
+                        OUTPUT
+                      </text>
+                      <rect x="14" y="52" width="140" height="20" rx="6" fill="#fafaf9" stroke="#e7e5e4"></rect>
+                      <text x="24" y="65.5" fill="#57534e" font-family="ui-monospace, monospace" font-size="9">
+                        assign_owner
+                      </text>
+                      <rect x="14" y="76" width="140" height="20" rx="6" fill="#fafaf9" stroke="#e7e5e4"></rect>
+                      <text x="24" y="89.5" fill="#57534e" font-family="ui-monospace, monospace" font-size="9">
+                        post_slack
+                      </text>
+                    </g>
+                    <text x="64" y="396" fill="#57534e" font-family="Inter, sans-serif" font-size="13">
+                      One typed output moves through each step in order.
+                    </text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="product" class="scroll-mt-16 border-y border-stone-200 bg-white px-5 py-20 lg:px-8 lg:py-28">
+        <div class="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
+          <div>
+            <p class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+              Agent configuration
+            </p>
+            <h2 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+              Every agent is configured, not conjured.
+            </h2>
+            <p class="mt-5 text-base leading-7 text-stone-600">
+              Open any node and get the whole surface: model, prompt, tool
+              grants, retry policy, timeouts, and memory. Set it per agent,
+              override it per run.
+            </p>
+
+            <div class="mt-8 rounded-xl border border-stone-200 p-6">
+              <div class="flex items-center justify-between">
+                <span class="flex size-11 items-center justify-center rounded-md border border-stone-300 font-mono text-sm text-stone-500">
+                  CI
+                </span>
+                <span class="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                  <span class="size-1.5 rounded-full bg-lime-500"></span>
+                  Deployed
+                </span>
+              </div>
+              <h3 class="mt-5 text-xl font-semibold tracking-tight">
+                Classify intent
+              </h3>
+              <p class="mt-1 font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                Router agent
+              </p>
+              <p class="mt-4 text-sm leading-6 text-stone-600">
+                Reads an inbound ticket, resolves it to one of six intents, and
+                hands the label downstream. Escalates when confidence drops.
+              </p>
+            </div>
+          </div>
+
+          <div class="overflow-hidden rounded-xl border border-stone-200 bg-white shadow-sm">
+            <div class="flex flex-col items-start gap-1 border-b border-stone-200 bg-stone-50 px-5 py-3 sm:flex-row sm:items-center sm:justify-between">
+              <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-500">
+                agents/classify-intent · config
+              </span>
+              <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                v4 · draft
+              </span>
+            </div>
+
+            <div class="grid gap-3 border-b border-stone-200 p-5 sm:grid-cols-[7rem_1fr]">
+              <span class="pt-2 font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                Model
+              </span>
+              <div class="flex flex-wrap gap-2">
+                <button class="model-chip rounded-md bg-stone-950 px-3 py-2 font-mono text-xs text-white" data-model="claude-sonnet-4-6">
+                  claude-sonnet-4-6
+                </button>
+                <button class="model-chip rounded-md border border-stone-200 px-3 py-2 font-mono text-xs" data-model="gpt-4o">
+                  gpt-4o
+                </button>
+                <button class="model-chip rounded-md border border-stone-200 px-3 py-2 font-mono text-xs" data-model="llama-3.1-70b">
+                  llama-3.1-70b
+                </button>
+              </div>
+            </div>
+
+            <div class="grid gap-3 border-b border-stone-200 p-5 sm:grid-cols-[7rem_1fr]">
+              <span class="pt-1 font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                Prompt
+              </span>
+              <p class="rounded-md border border-stone-200 bg-stone-50 p-3 font-mono text-xs leading-6 text-stone-700">
+                Classify each inbound ticket into one of six intents. Return the
+                label and a confidence score, nothing else. Below 0.7
+                confidence, return
+                <span class="text-stone-400">unknown</span>
+                .
+              </p>
+            </div>
+
+            <div class="grid gap-3 border-b border-stone-200 p-5 sm:grid-cols-[7rem_1fr]">
+              <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                Tools
+              </span>
+              <div class="space-y-2">
+                <button class="tool-toggle flex w-full items-start gap-3 rounded-md p-2 text-left hover:bg-stone-50" data-enabled="true">
+                  <span class="tool-check flex size-4 items-center justify-center rounded border border-stone-950 bg-stone-950 text-xs text-white">
+                    ✓
+                  </span>
+                  <code class="w-24 shrink-0 pt-0.5 text-xs sm:w-36">
+                    search_catalog
+                  </code>
+                  <span class="min-w-0 flex-1 text-xs text-stone-500">
+                    Semantic search over indexed sources
+                  </span>
+                </button>
+                <button class="tool-toggle flex w-full items-start gap-3 rounded-md p-2 text-left hover:bg-stone-50" data-enabled="true">
+                  <span class="tool-check flex size-4 items-center justify-center rounded border border-stone-950 bg-stone-950 text-xs text-white">
+                    ✓
+                  </span>
+                  <code class="w-24 shrink-0 pt-0.5 text-xs sm:w-36">
+                    execute_query
+                  </code>
+                  <span class="min-w-0 flex-1 text-xs text-stone-500">
+                    Read-only warehouse access
+                  </span>
+                </button>
+                <button class="tool-toggle flex w-full items-start gap-3 rounded-md p-2 text-left hover:bg-stone-50" data-enabled="false">
+                  <span class="tool-check flex size-4 items-center justify-center rounded border border-stone-300 bg-white text-xs text-transparent">
+                    ✓
+                  </span>
+                  <code class="w-24 shrink-0 pt-0.5 text-xs sm:w-36">
+                    post_slack
+                  </code>
+                  <span class="min-w-0 flex-1 text-xs text-stone-500">
+                    Notify a channel on escalation
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between gap-4 bg-stone-50 px-5 py-4">
+              <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                Changes apply on next run
+              </span>
+              <button id="saveAgent" class="rounded-md bg-stone-950 px-3 py-2 text-xs font-medium text-white transition hover:bg-stone-800">
+                Save agent
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tools" class="scroll-mt-16 border-y border-stone-200 bg-white px-5 py-20 lg:px-8 lg:py-28">
+        <div class="mx-auto max-w-6xl">
+          <div class="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+            <div class="max-w-2xl">
+              <p class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+                Tools &amp; connectors
+              </p>
+              <h2 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+                Ship with what's built. Extend past it in minutes.
+              </h2>
+              <p class="mt-5 text-base leading-7 text-stone-600">
+                A growing catalog of production-ready connectors covers the
+                common cases. For everything else, two ways to add exactly
+                the tool your agent needs — no waiting on a roadmap.
+              </p>
+            </div>
+            <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+              11 tools · 5 categories · unlimited custom
+            </span>
+          </div>
+
+          <div class="mt-10 grid gap-3 sm:grid-cols-2">
+            <div class="rounded-xl border border-stone-200 bg-stone-950 p-6 text-white">
+              <div class="flex items-center gap-2.5">
+                <span class="flex size-9 items-center justify-center rounded-md bg-white/10">
+                  <iconify-icon icon="solar:magic-stick-3-linear" width="18" stroke-width="1.5" style="color:#bef264"></iconify-icon>
+                </span>
+                <span class="font-mono text-xs uppercase tracking-[0.12em] text-white/50">
+                  Coding agent
+                </span>
+              </div>
+              <h3 class="mt-5 text-lg font-semibold tracking-tight">
+                Prompt a tool into existence
+              </h3>
+              <p class="mt-2 text-sm leading-6 text-white/60">
+                Describe the API call or workflow step you need in plain
+                language. The coding agent writes the tool, the schema, and
+                the auth handshake — ready to attach to any agent.
+              </p>
+            </div>
+            <div class="rounded-xl border border-stone-200 p-6">
+              <div class="flex items-center gap-2.5">
+                <span class="flex size-9 items-center justify-center rounded-md bg-stone-100">
+                  <iconify-icon icon="solar:code-2-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon>
+                </span>
+                <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                  Built-in IDE
+                </span>
+              </div>
+              <h3 class="mt-5 text-lg font-semibold tracking-tight">
+                Or write it yourself
+              </h3>
+              <p class="mt-2 text-sm leading-6 text-stone-600">
+                A full code editor lives inside the platform. Edit a
+                generated tool line by line, or start from a blank file —
+                nothing to install locally.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-14 space-y-10">
+            <div>
+              <div class="flex items-center gap-2">
+                <iconify-icon icon="solar:chat-round-dots-linear" width="15" stroke-width="1.5" class="text-stone-400"></iconify-icon>
+                <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+                  Messaging
+                </span>
+              </div>
+              <div class="mt-4 grid gap-3 md:grid-cols-3">
+                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
+                  <div class="flex items-center gap-2.5">
+                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
+                      <iconify-icon icon="logos:telegram" width="18"></iconify-icon>
+                    </span>
+                    <h3 class="font-semibold tracking-tight">Telegram</h3>
+                  </div>
+                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
+                    <li>Send a message to a private chat, group, or channel via a bot</li>
+                    <li>Auto-splits messages over Telegram's 4096-character limit</li>
+                  </ul>
+                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
+                    Broadcast a marketing update to the official channel.
+                  </p>
+                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
+                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">TELEGRAM_BOT_TOKEN</code>
+                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">TELEGRAM_CHAT_ID</code>
+                  </div>
+                </article>
+                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
+                  <div class="flex items-center gap-2.5">
+                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
+                      <iconify-icon icon="logos:discord-icon" width="18"></iconify-icon>
+                    </span>
+                    <h3 class="font-semibold tracking-tight">Discord</h3>
+                  </div>
+                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
+                    <li>Send a message to a Discord channel via webhook</li>
+                    <li>Auto-splits messages over 2000 characters</li>
+                  </ul>
+                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
+                    Post automated build and deploy alerts into a team channel.
+                  </p>
+                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
+                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">DISCORD_WEBHOOK_URL</code>
+                  </div>
+                </article>
+                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
+                  <div class="flex items-center gap-2.5">
+                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
+                      <iconify-icon icon="solar:letter-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon>
+                    </span>
+                    <h3 class="font-semibold tracking-tight">Email</h3>
+                  </div>
+                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
+                    <li>Send email via SMTP to any provider — Gmail, Outlook, Zoho, and more</li>
+                  </ul>
+                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
+                    Send a daily or weekly report directly to stakeholders.
+                  </p>
+                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
+                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">SMTP_HOST</code>
+                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">SMTP_USERNAME</code>
+                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">SMTP_PASSWORD</code>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center gap-2">
+                <iconify-icon icon="solar:folder-linear" width="15" stroke-width="1.5" class="text-stone-400"></iconify-icon>
+                <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+                  Productivity
+                </span>
+              </div>
+              <div class="mt-4 grid gap-3 md:grid-cols-3">
+                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
+                  <div class="flex items-center gap-2.5">
+                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
+                      <iconify-icon icon="logos:google-calendar" width="18"></iconify-icon>
+                    </span>
+                    <h3 class="font-semibold tracking-tight">Google Calendar</h3>
+                  </div>
+                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
+                    <li>Create an event with title, time, description, and location</li>
+                    <li>Read or list upcoming events</li>
+                  </ul>
+                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
+                    Auto-schedule a follow-up meeting after a call.
+                  </p>
+                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
+                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">GOOGLE_CLIENT_ID</code>
+                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">GOOGLE_REFRESH_TOKEN</code>
+                  </div>
+                </article>
+                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
+                  <div class="flex items-center gap-2.5">
+                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
+                      <iconify-icon icon="logos:notion-icon" width="18"></iconify-icon>
+                    </span>
+                    <h3 class="font-semibold tracking-tight">Notion</h3>
+                  </div>
+                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
+                    <li>Read pages and entries from a Notion database</li>
+                    <li>Write a new page with styled, structured content</li>
+                  </ul>
+                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
+                    Write a research summary into a team knowledge base.
+                  </p>
+                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
+                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">NOTION_API_KEY</code>
+                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">NOTION_DATABASE_ID</code>
+                  </div>
+                </article>
+                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
+                  <div class="flex items-center gap-2.5">
+                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
+                      <iconify-icon icon="logos:google-sheets" width="18"></iconify-icon>
+                    </span>
+                    <h3 class="font-semibold tracking-tight">Google Sheets</h3>
+                  </div>
+                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
+                    <li>Read a specific cell range</li>
+                    <li>Append new rows — never overwrites existing data</li>
+                  </ul>
+                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
+                    Log every lead or transaction as a new row.
+                  </p>
+                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
+                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">GOOGLE_SHEET_ID</code>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center gap-2">
+                <iconify-icon icon="solar:database-linear" width="15" stroke-width="1.5" class="text-stone-400"></iconify-icon>
+                <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+                  Database
+                </span>
+              </div>
+              <div class="mt-4 grid gap-3 md:grid-cols-3">
+                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
+                  <div class="flex items-center gap-2.5">
+                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
+                      <iconify-icon icon="solar:database-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon>
+                    </span>
+                    <h3 class="font-semibold tracking-tight">Run SQL Query</h3>
+                  </div>
+                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
+                    <li>Executes any SQL statement against Postgres, MySQL, or SQLite</li>
+                    <li>No safety rails — runs exactly what it's given</li>
+                  </ul>
+                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
+                    Pull live sales or usage figures to answer a question.
+                  </p>
+                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
+                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">CONNECTION_URL</code>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center gap-2">
+                <iconify-icon icon="solar:users-group-rounded-linear" width="15" stroke-width="1.5" class="text-stone-400"></iconify-icon>
+                <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+                  CRM
+                </span>
+              </div>
+              <div class="mt-4 grid gap-3 md:grid-cols-3">
+                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
+                  <div class="flex items-center gap-2.5">
+                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
+                      <iconify-icon icon="logos:hubspot" width="18"></iconify-icon>
+                    </span>
+                    <h3 class="font-semibold tracking-tight">HubSpot</h3>
+                  </div>
+                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
+                    <li>Create, update, and look up contacts and companies</li>
+                    <li>Create deals, update stage, and log notes</li>
+                  </ul>
+                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
+                    Auto-create a contact and deal from an inbound lead form.
+                  </p>
+                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
+                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">HUBSPOT_ACCESS_TOKEN</code>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center gap-2">
+                <iconify-icon icon="solar:widget-6-linear" width="15" stroke-width="1.5" class="text-stone-400"></iconify-icon>
+                <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+                  Utilities
+                </span>
+              </div>
+              <div class="mt-4 grid gap-3 md:grid-cols-3">
+                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
+                  <div class="flex items-center gap-2.5">
+                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
+                      <iconify-icon icon="solar:document-text-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon>
+                    </span>
+                    <h3 class="font-semibold tracking-tight">Markdown to PDF</h3>
+                  </div>
+                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
+                    <li>Converts markdown-lite text into a PDF</li>
+                    <li>Returns the file as base64</li>
+                  </ul>
+                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
+                    Turn a drafted report into a polished, shareable PDF.
+                  </p>
+                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
+                    <span class="font-mono text-[10px] uppercase tracking-[0.1em] text-stone-400">No auth required</span>
+                  </div>
+                </article>
+                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
+                  <div class="flex items-center gap-2.5">
+                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
+                      <iconify-icon icon="solar:global-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon>
+                    </span>
+                    <h3 class="font-semibold tracking-tight">Generic HTTP Request</h3>
+                  </div>
+                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
+                    <li>Calls any REST API with custom headers, params, and body</li>
+                  </ul>
+                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
+                    Fallback for reaching a service with no dedicated tool yet.
+                  </p>
+                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
+                    <span class="font-mono text-[10px] uppercase tracking-[0.1em] text-stone-400">Keys passed per call</span>
+                  </div>
+                </article>
+                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
+                  <div class="flex items-center gap-2.5">
+                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
+                      <iconify-icon icon="solar:radar-2-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon>
+                    </span>
+                    <h3 class="font-semibold tracking-tight">Fetch URL HTML</h3>
+                  </div>
+                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
+                    <li>Fetches a webpage and returns cleaned, readable text</li>
+                    <li>Renders JS when available, falls back to static HTML</li>
+                  </ul>
+                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
+                    Extract details from a job listing or article page.
+                  </p>
+                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
+                    <span class="font-mono text-[10px] uppercase tracking-[0.1em] text-stone-400">No auth required</span>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="marketplace" class="scroll-mt-16 px-5 py-20 lg:px-8 lg:py-28">
+        <div class="mx-auto max-w-6xl">
+          <div class="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+            <div class="max-w-2xl">
+              <div class="flex items-center gap-3">
+                <p class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+                  Marketplace
+                </p>
+                <span class="inline-flex items-center gap-1.5 rounded-full bg-amber-100 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-amber-700">
+                  <span class="size-1.5 rounded-full bg-amber-500"></span>
+                  Coming soon
+                </span>
+              </div>
+              <h2 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+                Someone has probably built it already.
+              </h2>
+              <p class="mt-5 text-base leading-7 text-stone-600">
+                Install a finished workflow instead of drawing one. Every
+                listing will explain what it does, which tools it needs, and
+                what it costs. Fork it after install and it is yours to
+                change. In active development — previews below.
+              </p>
+            </div>
+            <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+              In development · join the waitlist for early access
+            </span>
+          </div>
+
+          <div class="mt-10 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+            <article class="relative flex min-h-64 flex-col overflow-hidden rounded-xl border border-stone-200 bg-white p-6 opacity-90 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-stone-200/50">
+              <span class="absolute right-4 top-4 rounded-full bg-stone-100 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-stone-400">
+                Preview
+              </span>
+              <div class="flex justify-between font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                <span>Support</span>
+                <span class="text-stone-950">$29</span>
+              </div>
+              <h3 class="mt-5 text-lg font-semibold tracking-tight">
+                Support triage and refunds
+              </h3>
+              <p class="mt-3 text-sm leading-6 text-stone-600">
+                Classifies tickets, checks order state, issues threshold
+                refunds, and escalates everything else to a human.
+              </p>
+              <div class="mt-auto flex items-center justify-between border-t border-stone-200 pt-4 text-xs text-stone-500">
+                <span>Northbeam</span>
+                <span class="font-mono">11 nodes</span>
+              </div>
+            </article>
+            <article class="relative flex min-h-64 flex-col overflow-hidden rounded-xl border border-stone-200 bg-white p-6 opacity-90 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-stone-200/50">
+              <span class="absolute right-4 top-4 rounded-full bg-stone-100 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-stone-400">
+                Preview
+              </span>
+              <div class="flex justify-between font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                <span>Finance</span>
+                <span>Free</span>
+              </div>
+              <h3 class="mt-5 text-lg font-semibold tracking-tight">
+                Invoice ingestion to ledger
+              </h3>
+              <p class="mt-3 text-sm leading-6 text-stone-600">
+                Watches a mailbox, extracts line items from invoice PDFs, and
+                posts them to your ledger behind a review gate.
+              </p>
+              <div class="mt-auto flex items-center justify-between border-t border-stone-200 pt-4 text-xs text-stone-500">
+                <span>FlowStudio AI</span>
+                <span class="font-mono">8 nodes</span>
+              </div>
+            </article>
+            <article class="relative flex min-h-64 flex-col overflow-hidden rounded-xl border border-stone-200 bg-white p-6 opacity-90 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-stone-200/50">
+              <span class="absolute right-4 top-4 rounded-full bg-stone-100 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-stone-400">
+                Preview
+              </span>
+              <div class="flex justify-between font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                <span>Sales</span>
+                <span class="text-stone-950">$49</span>
+              </div>
+              <h3 class="mt-5 text-lg font-semibold tracking-tight">
+                Lead enrichment and routing
+              </h3>
+              <p class="mt-3 text-sm leading-6 text-stone-600">
+                Enriches inbound leads from six sources, scores against your
+                ICP, and assigns an owner in the CRM.
+              </p>
+              <div class="mt-auto flex items-center justify-between border-t border-stone-200 pt-4 text-xs text-stone-500">
+                <span>Arclight</span>
+                <span class="font-mono">14 nodes</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="border-y border-stone-200 bg-white px-5 py-20 lg:px-8 lg:py-28">
+        <div class="mx-auto max-w-6xl">
+          <div class="max-w-2xl">
+            <p class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+              Ownership
+            </p>
+            <h2 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+              Bring your own everything.
+            </h2>
+            <p class="mt-5 text-base leading-7 text-stone-600">
+              Your tools. Your connectors. Your agents. Your provider keys.
+              FlowStudio AI is the surface they run on, not a catalogue you have
+              to live inside.
+            </p>
+          </div>
+
+          <div class="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <article class="rounded-xl border border-stone-200 p-6">
+              <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                01 — Tools
+              </span>
+              <iconify-icon class="mt-7 block" icon="solar:code-square-linear" width="24" stroke-width="1.5"></iconify-icon>
+              <h3 class="mt-4 font-semibold tracking-tight">
+                Any function is a node
+              </h3>
+              <p class="mt-2 text-sm leading-6 text-stone-600">
+                Write it in TypeScript or Python, give it a schema, publish it.
+              </p>
+            </article>
+            <article class="rounded-xl border border-stone-200 p-6">
+              <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                02 — Agents
+              </span>
+              <iconify-icon class="mt-7 block" icon="solar:cpu-linear" width="24" stroke-width="1.5"></iconify-icon>
+              <h3 class="mt-4 font-semibold tracking-tight">
+                Own the whole loop
+              </h3>
+              <p class="mt-2 text-sm leading-6 text-stone-600">
+                Prompt, memory policy, grants, retry budget, and stop condition.
+              </p>
+            </article>
+            <article class="rounded-xl border border-stone-200 p-6">
+              <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                03 — Connectors
+              </span>
+              <iconify-icon class="mt-7 block" icon="solar:link-linear" width="24" stroke-width="1.5"></iconify-icon>
+              <h3 class="mt-4 font-semibold tracking-tight">
+                Auth once, reuse everywhere
+              </h3>
+              <p class="mt-2 text-sm leading-6 text-stone-600">
+                Point at internal services and let every graph reach them.
+              </p>
+            </article>
+            <article class="rounded-xl border border-stone-200 p-6">
+              <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                04 — Models
+              </span>
+              <iconify-icon class="mt-7 block" icon="solar:key-linear" width="24" stroke-width="1.5"></iconify-icon>
+              <h3 class="mt-4 font-semibold tracking-tight">
+                Your keys, your endpoint
+              </h3>
+              <p class="mt-2 text-sm leading-6 text-stone-600">
+                Hosted providers or a self-hosted model behind your VPC.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="pricing" class="scroll-mt-16 px-5 py-20 lg:px-8 lg:py-28">
+        <div class="mx-auto max-w-6xl">
+          <div class="mx-auto max-w-2xl text-center">
+            <p class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+              Pricing
+            </p>
+            <h2 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+              Start free. Talk to us for the rest.
+            </h2>
+            <p class="mt-5 text-base leading-7 text-stone-600">
+              Usage-based tiers are still being finalized ahead of launch.
+              Get started on the free plan today, or reach out for custom or
+              enterprise terms.
+            </p>
+          </div>
+
+          <div class="mx-auto mt-12 grid max-w-3xl overflow-hidden rounded-xl border border-stone-200 bg-stone-200 sm:grid-cols-2 sm:gap-px">
+            <article class="flex min-h-96 flex-col bg-white p-7">
+              <p class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                Free
+              </p>
+              <p class="mt-5 text-5xl font-medium tracking-tight">$0</p>
+              <p class="mt-2 text-sm text-stone-500">For trying the canvas</p>
+              <ul class="mt-8 space-y-3 text-sm text-stone-600">
+                <li>3 graphs</li>
+                <li>1K runs / month</li>
+                <li>Community support</li>
+                <li>Bring your own keys</li>
+              </ul>
+              <a href="#contact" class="mt-auto inline-flex h-10 items-center justify-center rounded-md border border-stone-300 text-sm font-medium transition hover:bg-stone-100">
+                Join waitlist
+              </a>
+            </article>
+            <article class="flex min-h-96 flex-col bg-stone-950 p-7 text-white">
+              <div class="flex items-center gap-2">
+                <p class="font-mono text-xs uppercase tracking-[0.12em] text-white/50">
+                  Custom &amp; Enterprise
+                </p>
+                <span class="size-1.5 rounded-full bg-lime-400"></span>
+              </div>
+              <p class="mt-5 text-5xl font-medium tracking-tight">Contact us</p>
+              <p class="mt-2 text-sm text-white/55">
+                Pricing shaped around your usage and requirements
+              </p>
+              <ul class="mt-8 space-y-3 text-sm text-white/70">
+                <li>Unlimited graphs and higher run volume</li>
+                <li>Custom tools and connectors</li>
+                <li>VPC, on-prem, or dedicated runtime</li>
+                <li>SSO, SCIM, audit logs, and support SLA</li>
+              </ul>
+              <a href="#contact" class="mt-auto inline-flex h-10 items-center justify-center rounded-md bg-lime-300 text-sm font-medium text-stone-950 transition hover:bg-lime-200">
+                Talk to us
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="scroll-mt-16 border-t border-stone-200 bg-stone-950 px-5 py-20 text-white lg:px-8 lg:py-28">
+        <div class="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_26rem] lg:items-end">
+          <div>
+            <p class="font-mono text-xs uppercase tracking-[0.14em] text-white/40">
+              Early access
+            </p>
+            <h2 class="mt-4 max-w-2xl text-4xl font-semibold tracking-tight sm:text-5xl">
+              Tell us what you're orchestrating.
+            </h2>
+            <p class="mt-5 max-w-xl text-base leading-7 text-white/60">
+              Teams with a concrete use case move up the queue. We reply within
+              two working days.
+            </p>
+            <div class="mt-9 flex flex-wrap gap-6 text-sm text-white/60">
+              <a href="mailto:hello@flowstudio-ai.com" class="transition hover:text-white">
+                hello@flowstudio-ai.com
+              </a>
+              <a href="mailto:sales@flowstudio-ai.com" class="transition hover:text-white">
+                sales@flowstudio-ai.com
+              </a>
+            </div>
+          </div>
+
+          <form id="contactForm" class="rounded-xl bg-white p-6 text-stone-950">
+            <label class="block text-sm font-medium" for="contactEmail">
+              Work email
+            </label>
+            <input id="contactEmail" required="" type="email" placeholder="you@company.com" class="mt-2 h-10 w-full rounded-md border border-stone-300 px-3 text-sm outline-none focus:border-stone-950 focus:ring-2 focus:ring-stone-950/10">
+
+            <label class="mt-4 block text-sm font-medium" for="useCase">
+              What are you building?
+            </label>
+            <textarea id="useCase" required="" rows="3" placeholder="Support triage across internal systems, with a human handoff branch." class="mt-2 w-full resize-none rounded-md border border-stone-300 px-3 py-2.5 text-sm leading-5 outline-none focus:border-stone-950 focus:ring-2 focus:ring-stone-950/10"></textarea>
+
+            <button type="submit" class="mt-5 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-stone-950 text-sm font-medium text-white transition hover:bg-stone-800">
+              Request early access
+              <iconify-icon icon="solar:arrow-right-linear" width="16" stroke-width="1.5"></iconify-icon>
+            </button>
+            <p id="contactMessage" class="mt-3 min-h-4 text-center text-xs text-stone-500"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-stone-950 px-5 pb-8 pt-12 text-white lg:px-8">
+      <div class="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-10 border-b border-white/10 pb-10 lg:grid-cols-4">
+        <div>
+          <div class="flex items-center gap-2.5">
+            <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/260ec907-d40b-412e-8453-16c8a770d2d0_320w.png" alt="FlowStudio AI Logo" class="h-18 w-auto shrink-0 object-contain">
+          </div>
+          <p class="mt-4 max-w-52 text-sm leading-6 text-white/50">
+            A workflow canvas for agent orchestration.
+          </p>
+        </div>
+        <div>
+          <p class="font-mono text-xs uppercase tracking-[0.12em] text-white/35">
+            Product
+          </p>
+          <div class="mt-4 space-y-3 text-sm text-white/60">
+            <a class="block hover:text-white" href="#product">How it works</a>
+            <a class="block hover:text-white" href="#workflow">Workflow</a>
+            <a class="block hover:text-white" href="#tools">Tools</a>
+            <a class="block hover:text-white" href="#pricing">Pricing</a>
+          </div>
+        </div>
+        <div>
+          <p class="font-mono text-xs uppercase tracking-[0.12em] text-white/35">
+            Company
+          </p>
+          <div class="mt-4 space-y-3 text-sm text-white/60">
+            <a class="block hover:text-white" href="#contact">Contact</a>
+            <a class="block hover:text-white" href="mailto:hello@flowstudio-ai.com">
+              Careers
+            </a>
+            <a class="block hover:text-white" href="#top">About</a>
+          </div>
+        </div>
+        <div>
+          <p class="font-mono text-xs uppercase tracking-[0.12em] text-white/35">
+            Legal
+          </p>
+          <div class="mt-4 space-y-3 text-sm text-white/60">
+            <a class="block hover:text-white" href="#top">Privacy</a>
+            <a class="block hover:text-white" href="#top">Terms</a>
+            <a class="block hover:text-white" href="#top">Security</a>
+          </div>
+        </div>
+      </div>
+      <div class="mx-auto flex max-w-6xl flex-col justify-between gap-4 pt-7 text-xs text-white/40 sm:flex-row sm:items-center">
+        <span>© 2026 FlowStudio AI</span>
+      </div>
+    </footer>
+
+    <script>
+      const patterns={sequential:{run:"run/sequential-triage",stats:"4 nodes · 3.6s · 1 pass",icon:"solar:arrow-right-linear",title:"A typed hand-off at every step.",text:"Each agent receives the previous output as a typed payload, so a broken hand-off fails at design time rather than during a live run."},parallel:{run:"run/parallel-research",stats:"5 nodes · 4.7s · 3 concurrent",icon:"solar:sort-horizontal-linear",title:"Fan out without losing the thread.",text:"All agents start with the same input and run independently. When every branch finishes, their results are collected together."},hierarchical:{run:"run/coordinator-delegation",stats:"5 nodes · 4.1s · 1 coordinator",icon:"solar:cpu-linear",title:"One coordinator, many specialists.",text:"A coordinator agent plans the work, calls specialist agents as tools, and brings their outputs into one final answer."},hybrid:{run:"run/hybrid-enrichment",stats:"6 nodes · 5.2s · 2 concurrent stages",icon:"solar:sort-horizontal-linear",title:"Fan out, gather, then move forward.",text:"Group independent agents to run in parallel, collect their results, and feed them into the next ordered stage of the workflow."},collaborative:{run:"run/collaborative-review",stats:"4 agents · 3 rounds · 6.8s",icon:"solar:restart-linear",title:"Refine the work together.",text:"Each agent sees the previous round's output and improves it through repeated passes of review and refinement."},"event-driven":{run:"run/event-routing",stats:"6 nodes · 4 events · reactive",icon:"solar:bell-linear",title:"Let events decide what runs next.",text:"Agents wait for named events and emit new ones when they finish, activating only the paths required by each result."}};document.querySelectorAll(".pattern-tab").forEach(button=>{button.addEventListener("click",()=>{const data=patterns[button.dataset.pattern];document.querySelectorAll(".pattern-tab").forEach(tab=>{tab.className="pattern-tab rounded-lg border border-stone-200 bg-white p-5 text-left transition hover:bg-stone-100";const p=tab.querySelectorAll("p");p[0].className="mt-5 font-mono text-xs uppercase tracking-[0.12em] text-stone-400";p[1].className="mt-2 text-lg font-semibold tracking-tight";p[2].className="mt-2 text-sm leading-5 text-stone-500"});button.className="pattern-tab rounded-lg border border-stone-950 bg-stone-950 p-5 text-left text-white";const p=button.querySelectorAll("p");p[0].className="mt-5 font-mono text-xs uppercase tracking-[0.12em] text-white/50";p[1].className="mt-2 text-lg font-semibold tracking-tight";p[2].className="mt-2 text-sm leading-5 text-white/65";document.getElementById("demoRun").textContent=data.run;document.getElementById("demoStats").textContent=data.stats;document.getElementById("demoTitle").textContent=data.title;document.getElementById("demoText").textContent=data.text;document.getElementById("demoIcon").innerHTML=`<iconify-icon icon="${data.icon}" width="24" stroke-width="1.5"></iconify-icon>`})});document.querySelectorAll(".model-chip").forEach(button=>{button.addEventListener("click",()=>{document.querySelectorAll(".model-chip").forEach(chip=>{chip.className="model-chip rounded-md border border-stone-200 px-3 py-2 font-mono text-xs"});button.className="model-chip rounded-md bg-stone-950 px-3 py-2 font-mono text-xs text-white"})});document.querySelectorAll(".tool-toggle").forEach(button=>{button.addEventListener("click",()=>{const enabled=button.dataset.enabled==="true",check=button.querySelector(".tool-check");button.dataset.enabled=String(!enabled);check.className=!enabled?"tool-check flex size-4 items-center justify-center rounded border border-stone-950 bg-stone-950 text-xs text-white":"tool-check flex size-4 items-center justify-center rounded border border-stone-300 bg-white text-xs text-transparent"})});document.getElementById("saveAgent").addEventListener("click",event=>{event.currentTarget.textContent="Saved";setTimeout(()=>event.currentTarget.textContent="Save agent",1500)});document.getElementById("waitlistForm").addEventListener("submit",event=>{event.preventDefault();document.getElementById("formMessage").textContent="You're on the list. We’ll be in touch soon.";event.currentTarget.reset()});document.getElementById("contactForm").addEventListener("submit",event=>{event.preventDefault();document.getElementById("contactMessage").textContent="Thanks — your early access request has been received.";event.currentTarget.reset()});const mobileMenu=document.getElementById("mobileMenu"),mobileMenuButton=document.getElementById("mobileMenuButton"),mobileMenuIcon=document.getElementById("mobileMenuIcon");function setMobileMenu(open){mobileMenu.classList.toggle("hidden",!open);mobileMenuButton.setAttribute("aria-expanded",String(open));mobileMenuIcon.setAttribute("icon",open?"solar:close-square-linear":"solar:hamburger-menu-linear")}mobileMenuButton.addEventListener("click",()=>setMobileMenu(mobileMenu.classList.contains("hidden")));mobileMenu.querySelectorAll("a").forEach(link=>link.addEventListener("click",()=>setMobileMenu(false)));
+    </script>
+    <script>
+      const wfd={sequential:{label:'Sequential agent workflow',title:'01 — SEQUENTIAL',note:'One typed output moves through each step in order.',viewH:452,boxH:388,noteY:396,nodes:[[72,170,168,108,'Intake','AGENT',1,['fetch_ticket','parse_email']],[288,170,168,108,'Classify','AGENT',0,['search_catalog','score_intent']],[504,170,168,108,'Enrich','TOOL',0,['execute_query','crm_lookup']],[720,170,168,108,'Route','OUTPUT',0,['assign_owner','post_slack']]],paths:['M240 224H288','M456 224H504','M672 224H720']},parallel:{label:'Parallel agent workflow',title:'02 — PARALLEL',note:'Independent tasks fan out, then join into one result.',viewH:530,boxH:466,noteY:474,nodes:[[72,170,156,108,'Intake','AGENT',1,['fetch_ticket','parse_email']],[340,92,200,80,'Research','AGENT',0,['web_search']],[340,184,200,80,'Retrieve','TOOL',0,['vector_search']],[340,276,200,80,'Lookup','TOOL',0,['execute_query']],[700,170,188,108,'Join results','OUTPUT',1,['merge_payload','rank_results']]],paths:['M228 224H340','M284 224V132H340','M284 224V316H340','M540 224H700','M540 132H644V224','M540 316H644V224']},hierarchical:{label:'Hierarchical agent workflow',title:'03 — HIERARCHICAL',note:'A coordinator delegates specialist work, then assembles one answer.',viewH:536,boxH:472,noteY:480,nodes:[[72,170,168,108,'Request','INPUT',1,['customer_brief','constraints']],[304,170,200,108,'Coordinator','AGENT',0,['plan_work','delegate']],[592,86,168,80,'Research','AGENT',0,['web_search']],[592,184,168,80,'Analyst','AGENT',0,['analyze_data']],[592,282,168,80,'Writer','AGENT',0,['draft_response']],[776,170,112,108,'Answer','OUTPUT',1,['assemble']]],paths:['M240 224H304','M504 224H592','M552 224V126H592','M552 224V322H592','M760 224H776','M760 126H768V224','M760 322H768V224']},hybrid:{label:'Hybrid agent workflow',title:'04 — HYBRID',note:'Ordered stages contain concurrent specialist groups before moving forward.',viewH:536,boxH:472,noteY:480,nodes:[[56,170,144,108,'Intake','AGENT',1,['parse_brief','set_context']],[264,86,176,80,'Enrich','TOOL',0,['crm_lookup']],[264,184,176,80,'Research','AGENT',0,['web_search']],[264,282,176,80,'Score','TOOL',0,['score_intent']],[520,170,176,108,'Synthesize','AGENT',1,['merge_context','plan_next']],[720,126,168,80,'Draft','AGENT',0,['compose_reply']],[720,242,168,80,'Review','AGENT',0,['policy_check']]],paths:['M200 224H264','M232 224V126H264','M232 224V322H264','M440 224H520','M440 126H480V224','M440 322H480V224','M696 224H708','M708 224V166H720','M708 224V282H720']},collaborative:{label:'Collaborative agent workflow',title:'05 — COLLABORATIVE',note:'Agents review shared work together through repeated refinement rounds.',viewH:532,boxH:468,noteY:476,nodes:[[72,170,168,108,'Brief','INPUT',1,['requirements','context']],[304,170,168,108,'Draft','AGENT',0,['compose_version','share_work']],[536,90,168,80,'Critic','AGENT',0,['review_draft']],[536,278,168,80,'Expert','AGENT',0,['add_evidence']],[720,170,168,108,'Refine','AGENT',1,['merge_feedback','publish']]],paths:['M240 224H304','M472 224H496','M496 224V130H536','M496 224V318H536','M704 130H712V224','M704 318H712V224','M712 224H720','M804 278V410H388V278']},'event-driven':{label:'Event-driven agent workflow',title:'06 — EVENT-DRIVEN',note:'Named events activate only the agents required by each result.',viewH:536,boxH:472,noteY:480,nodes:[[64,170,168,108,'Ticket received','EVENT',1,['ticket.created','payload']],[304,86,184,80,'Urgent route','AGENT',0,['priority.high']],[304,184,184,80,'Standard route','AGENT',0,['priority.normal']],[304,282,184,80,'Escalation','AGENT',0,['risk.detected']],[640,126,128,80,'Notify','OUTPUT',0,['send_alert']],[640,242,128,80,'Resolve','OUTPUT',1,['update_ticket']],[784,184,104,108,'Trace','LOG',0,['record_run']]],paths:['M232 224H304','M264 224V126H304','M264 224V322H304','M488 126H560V166H640','M488 224H560V282','M488 322H560V282','M560 282H640','M768 166H776V238','M768 282H776V238','M776 238H784']}};
+      function wfIcon(color,compact){return `<g transform='translate(14 ${compact?12:14}) scale(${compact?0.75:0.83})' fill='none' stroke='${color}' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M12 8V4H8'></path><rect x='4' y='8' width='16' height='12' rx='2'></rect><path d='M2 14h2'></path><path d='M20 14h2'></path><path d='M15 13v2'></path><path d='M9 13v2'></path></g>`}
+      function wfNode(n){const x=n[0],y=n[1],w=n[2],h=n[3],t=n[4],k=n[5],dark=n[6],chips=n[7];const c=h<100;const cf=dark?'#27272a':'#fafaf9',cs=dark?'#3f3f46':'#e7e5e4',ct=dark?'rgba(255,255,255,0.7)':'#57534e';let s=`<g transform='translate(${x} ${y})'><rect width='${w}' height='${h}' rx='10' fill='${dark?'#18181b':'#ffffff'}' stroke='${dark?'#18181b':'#d6d3d1'}'></rect>`;s+=wfIcon(dark?'#bef264':'#57534e',c);s+=`<text x='${c?42:44}' y='${c?24:27}' fill='${dark?'#ffffff':'#18181b'}' font-family='Inter, sans-serif' font-size='${c?12:12.5}'>${t}</text><text x='${c?42:44}' y='${c?38:41}' fill='${dark?'#bef264':'#a8a29e'}' font-family='ui-monospace, monospace' font-size='8.5' letter-spacing='0.8'>${k}</text>`;chips.forEach(function(ch,i){const cy=(c?48:52)+i*24;s+=`<rect x='14' y='${cy}' width='${w-28}' height='20' rx='6' fill='${cf}' stroke='${cs}'></rect><text x='24' y='${cy+13.5}' fill='${ct}' font-family='ui-monospace, monospace' font-size='9'>${ch}</text>`});return s+'</g>'}
+      function renderWorkflowDiagram(type){const d=wfd[type];if(!d)return;const paths=d.paths.map(function(p){return `<path class='flow-line' d='${p}' stroke='#18181b' stroke-width='1.5'></path>`}).join('');const nodes=d.nodes.map(function(n){return wfNode(n)}).join('');const viewH=d.viewH,boxH=d.boxH,noteY=d.noteY;document.getElementById('demoCanvas').innerHTML=`<svg class='relative block w-full min-w-[640px] sm:min-w-0' viewBox='0 0 960 ${viewH}' fill='none' role='img' aria-label='${d.label}'><defs><pattern id='workflow-grid' width='16' height='16' patternUnits='userSpaceOnUse'><circle cx='1' cy='1' r='0.7' fill='#d6d3d1'></circle></pattern></defs><rect width='960' height='${viewH}' fill='url(#workflow-grid)'></rect><rect x='32' y='32' width='896' height='${boxH}' rx='12' fill='white' stroke='#e7e5e4'></rect><text x='64' y='68' fill='#a8a29e' font-family='ui-monospace, SFMono-Regular, monospace' font-size='11' letter-spacing='1.4'>${d.title}</text>${paths}${nodes}<text x='64' y='${noteY}' fill='#57534e' font-family='Inter, sans-serif' font-size='13'>${d.note}</text></svg>`}
+      document.querySelectorAll('.pattern-tab').forEach(function(b){b.addEventListener('click',function(){renderWorkflowDiagram(b.dataset.pattern);if(window.innerWidth<1024){document.getElementById('demoPanel').scrollIntoView({behavior:'smooth',block:'start'})}})});
+    </script>
+  
+</body></html>
