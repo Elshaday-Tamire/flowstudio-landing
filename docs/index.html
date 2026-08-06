@@ -25,6 +25,40 @@
       .node-c { animation:node 5s cubic-bezier(.2,0,0,1) -2.5s infinite; }
       .node-d { animation:node 5s cubic-bezier(.2,0,0,1) -1.25s infinite; }
       .signal { animation:pulse 1.4s ease-in-out infinite; }
+      @keyframes marquee-left {
+        to { transform:translateX(-50%); }
+      }
+      @keyframes marquee-right {
+        from { transform:translateX(-50%); }
+      }
+      .marquee-row {
+        overflow:hidden;
+        -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+        mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+      }
+      .marquee-track { display:flex; width:max-content; animation:marquee-left 34s linear infinite; }
+      .marquee-track.reverse { animation-name:marquee-right; animation-duration:38s; }
+      .marquee-row:hover .marquee-track { animation-play-state:paused; }
+      .tool-chip { transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+      .tool-chip:hover { transform:translateY(-3px); box-shadow:0 8px 20px -8px rgba(0,0,0,0.15); border-color:#d6d3d1; }
+      .nav-drop { position:relative; }
+      .nav-drop-panel {
+        position:absolute; left:50%; top:100%; width:17rem;
+        transform:translate(-50%, 2px);
+        opacity:0; visibility:hidden; pointer-events:none;
+        transition:opacity .15s ease, transform .15s ease;
+        padding-top:0.625rem;
+      }
+      .nav-drop:hover > .nav-drop-panel,
+      .nav-drop:focus-within > .nav-drop-panel,
+      .nav-drop.open > .nav-drop-panel {
+        opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 0);
+      }
+      .nav-caret { transition:transform .15s ease; }
+      .nav-drop:hover .nav-caret, .nav-drop:focus-within .nav-caret, .nav-drop.open .nav-caret { transform:rotate(180deg); }
+      details > summary { list-style:none; cursor:pointer; }
+      details > summary::-webkit-details-marker { display:none; }
+      details > summary::marker { content:''; }
       @media (prefers-reduced-motion: reduce) {
         *, *::before, *::after { animation:none !important; scroll-behavior:auto !important; }
       }
@@ -37,14 +71,90 @@
         </a>
 
         <nav class="hidden items-center gap-7 text-sm font-medium text-stone-500 md:flex">
-          <a href="#product" class="transition hover:text-stone-950">Product</a>
-          <a href="#workflow" class="transition hover:text-stone-950">
-            Workflow
-          </a>
-          <a href="#tools" class="transition hover:text-stone-950">Tools</a>
-          <a href="#marketplace" class="transition hover:text-stone-950">
-            Marketplace
-          </a>
+          <div class="nav-drop">
+            <a href="#workflow" class="flex items-center gap-1 py-2 transition hover:text-stone-950">
+              Workflow
+              <iconify-icon class="nav-caret" icon="solar:alt-arrow-down-linear" width="13" stroke-width="2"></iconify-icon>
+            </a>
+            <div class="nav-drop-panel">
+              <div class="rounded-xl border border-stone-200 bg-white p-1.5 shadow-lg shadow-stone-950/5">
+                <a href="#workflow" data-pattern="sequential" class="nav-pattern-link flex items-start gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-stone-100">
+                  <iconify-icon icon="solar:arrow-right-linear" width="16" stroke-width="1.5" class="mt-0.5 shrink-0 text-stone-400"></iconify-icon>
+                  <span>
+                    <span class="block text-sm font-medium text-stone-800">Sequential</span>
+                    <span class="block text-xs text-stone-500">Each agent passes its output to the next</span>
+                  </span>
+                </a>
+                <a href="#workflow" data-pattern="parallel" class="nav-pattern-link flex items-start gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-stone-100">
+                  <iconify-icon icon="solar:sort-horizontal-linear" width="16" stroke-width="1.5" class="mt-0.5 shrink-0 text-stone-400"></iconify-icon>
+                  <span>
+                    <span class="block text-sm font-medium text-stone-800">Parallel</span>
+                    <span class="block text-xs text-stone-500">Independent agents run at once</span>
+                  </span>
+                </a>
+                <a href="#workflow" data-pattern="hierarchical" class="nav-pattern-link flex items-start gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-stone-100">
+                  <iconify-icon icon="solar:cpu-linear" width="16" stroke-width="1.5" class="mt-0.5 shrink-0 text-stone-400"></iconify-icon>
+                  <span>
+                    <span class="block text-sm font-medium text-stone-800">Hierarchical</span>
+                    <span class="block text-xs text-stone-500">A coordinator delegates to specialists</span>
+                  </span>
+                </a>
+                <a href="#workflow" data-pattern="hybrid" class="nav-pattern-link flex items-start gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-stone-100">
+                  <iconify-icon icon="solar:sort-horizontal-linear" width="16" stroke-width="1.5" class="mt-0.5 shrink-0 text-stone-400"></iconify-icon>
+                  <span>
+                    <span class="block text-sm font-medium text-stone-800">Hybrid</span>
+                    <span class="block text-xs text-stone-500">Ordered stages with concurrent groups</span>
+                  </span>
+                </a>
+                <a href="#workflow" data-pattern="collaborative" class="nav-pattern-link flex items-start gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-stone-100">
+                  <iconify-icon icon="solar:restart-linear" width="16" stroke-width="1.5" class="mt-0.5 shrink-0 text-stone-400"></iconify-icon>
+                  <span>
+                    <span class="block text-sm font-medium text-stone-800">Collaborative</span>
+                    <span class="block text-xs text-stone-500">Agents refine shared work together</span>
+                  </span>
+                </a>
+                <a href="#workflow" data-pattern="event-driven" class="nav-pattern-link flex items-start gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-stone-100">
+                  <iconify-icon icon="solar:bell-linear" width="16" stroke-width="1.5" class="mt-0.5 shrink-0 text-stone-400"></iconify-icon>
+                  <span>
+                    <span class="block text-sm font-medium text-stone-800">Event-driven</span>
+                    <span class="block text-xs text-stone-500">Named events trigger the next agents</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a href="#agents" class="transition hover:text-stone-950">Agents</a>
+
+          <div class="nav-drop">
+            <a href="#tools" class="flex items-center gap-1 py-2 transition hover:text-stone-950">
+              Tools
+              <iconify-icon class="nav-caret" icon="solar:alt-arrow-down-linear" width="13" stroke-width="2"></iconify-icon>
+            </a>
+            <div class="nav-drop-panel">
+              <div class="rounded-xl border border-stone-200 bg-white p-1.5 shadow-lg shadow-stone-950/5">
+                <a href="#tools-builtin" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-stone-100">
+                  <iconify-icon icon="solar:database-linear" width="16" stroke-width="1.5" class="shrink-0 text-stone-400"></iconify-icon>
+                  <span class="text-sm font-medium text-stone-800">Built-in tools</span>
+                </a>
+                <a href="#tools-custom" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-stone-100">
+                  <iconify-icon icon="solar:code-2-linear" width="16" stroke-width="1.5" class="shrink-0 text-stone-400"></iconify-icon>
+                  <span class="text-sm font-medium text-stone-800">Custom tools</span>
+                </a>
+                <a href="#tools-community" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-stone-100">
+                  <iconify-icon icon="solar:users-group-rounded-linear" width="16" stroke-width="1.5" class="shrink-0 text-stone-400"></iconify-icon>
+                  <span class="text-sm font-medium text-stone-800">Community tools</span>
+                </a>
+                <a href="#tools-mcp" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-stone-100">
+                  <iconify-icon icon="solar:global-linear" width="16" stroke-width="1.5" class="shrink-0 text-stone-400"></iconify-icon>
+                  <span class="text-sm font-medium text-stone-800">MCP tools</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a href="#marketplace" class="transition hover:text-stone-950">Marketplace</a>
+
           <a href="#pricing" class="transition hover:text-stone-950">Pricing</a>
         </nav>
 
@@ -64,11 +174,40 @@
 
       <div id="mobileMenu" class="hidden border-t border-stone-200 bg-stone-50 px-5 py-3 md:hidden">
         <nav class="flex flex-col text-sm font-medium text-stone-600">
-          <a href="#product" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Product</a>
-          <a href="#workflow" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Workflow</a>
-          <a href="#tools" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Tools</a>
+          <details class="group">
+            <summary class="flex items-center justify-between rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">
+              <a href="#workflow">Workflow</a>
+              <iconify-icon class="transition-transform duration-150 group-open:rotate-180" icon="solar:alt-arrow-down-linear" width="14" stroke-width="2"></iconify-icon>
+            </summary>
+            <div class="ml-3 flex flex-col border-l border-stone-200 pl-3">
+              <a href="#workflow" data-pattern="sequential" class="nav-pattern-link rounded-md px-3 py-2 text-stone-500 transition hover:bg-stone-100 hover:text-stone-950">Sequential</a>
+              <a href="#workflow" data-pattern="parallel" class="nav-pattern-link rounded-md px-3 py-2 text-stone-500 transition hover:bg-stone-100 hover:text-stone-950">Parallel</a>
+              <a href="#workflow" data-pattern="hierarchical" class="nav-pattern-link rounded-md px-3 py-2 text-stone-500 transition hover:bg-stone-100 hover:text-stone-950">Hierarchical</a>
+              <a href="#workflow" data-pattern="hybrid" class="nav-pattern-link rounded-md px-3 py-2 text-stone-500 transition hover:bg-stone-100 hover:text-stone-950">Hybrid</a>
+              <a href="#workflow" data-pattern="collaborative" class="nav-pattern-link rounded-md px-3 py-2 text-stone-500 transition hover:bg-stone-100 hover:text-stone-950">Collaborative</a>
+              <a href="#workflow" data-pattern="event-driven" class="nav-pattern-link rounded-md px-3 py-2 text-stone-500 transition hover:bg-stone-100 hover:text-stone-950">Event-driven</a>
+            </div>
+          </details>
+
+          <a href="#agents" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Agents</a>
+
+          <details class="group">
+            <summary class="flex items-center justify-between rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">
+              <a href="#tools">Tools</a>
+              <iconify-icon class="transition-transform duration-150 group-open:rotate-180" icon="solar:alt-arrow-down-linear" width="14" stroke-width="2"></iconify-icon>
+            </summary>
+            <div class="ml-3 flex flex-col border-l border-stone-200 pl-3">
+              <a href="#tools-builtin" class="rounded-md px-3 py-2 text-stone-500 transition hover:bg-stone-100 hover:text-stone-950">Built-in tools</a>
+              <a href="#tools-custom" class="rounded-md px-3 py-2 text-stone-500 transition hover:bg-stone-100 hover:text-stone-950">Custom tools</a>
+              <a href="#tools-community" class="rounded-md px-3 py-2 text-stone-500 transition hover:bg-stone-100 hover:text-stone-950">Community tools</a>
+              <a href="#tools-mcp" class="rounded-md px-3 py-2 text-stone-500 transition hover:bg-stone-100 hover:text-stone-950">MCP tools</a>
+            </div>
+          </details>
+
           <a href="#marketplace" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Marketplace</a>
+
           <a href="#pricing" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Pricing</a>
+
           <a href="#contact" class="mt-1 rounded-md border-t border-stone-200 px-3 py-2.5 pt-3.5 transition hover:bg-stone-100 hover:text-stone-950">Sign in</a>
         </nav>
       </div>
@@ -406,7 +545,7 @@
         </div>
       </section>
 
-      <section id="product" class="scroll-mt-16 border-y border-stone-200 bg-white px-5 py-20 lg:px-8 lg:py-28">
+      <section id="agents" class="scroll-mt-16 border-y border-stone-200 bg-white px-5 py-20 lg:px-8 lg:py-28">
         <div class="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
           <div>
             <p class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
@@ -545,312 +684,197 @@
                 Tools &amp; connectors
               </p>
               <h2 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-                Ship with what's built. Extend past it in minutes.
+                Four ways to put a tool in an agent's hands.
               </h2>
               <p class="mt-5 text-base leading-7 text-stone-600">
-                A growing catalog of production-ready connectors covers the
-                common cases. For everything else, two ways to add exactly
-                the tool your agent needs — no waiting on a roadmap.
+                Start from what's built in, prompt or code your own, tap into
+                what the community has already shipped, or plug in any MCP
+                server and let the agent discover what's there.
               </p>
             </div>
             <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-              11 tools · 5 categories · unlimited custom
+              Built-in · Custom · Community · MCP
             </span>
           </div>
 
-          <div class="mt-10 grid gap-3 sm:grid-cols-2">
-            <div class="rounded-xl border border-stone-200 bg-stone-950 p-6 text-white">
-              <div class="flex items-center gap-2.5">
-                <span class="flex size-9 items-center justify-center rounded-md bg-white/10">
-                  <iconify-icon icon="solar:magic-stick-3-linear" width="18" stroke-width="1.5" style="color:#bef264"></iconify-icon>
-                </span>
-                <span class="font-mono text-xs uppercase tracking-[0.12em] text-white/50">
-                  Coding agent
-                </span>
-              </div>
-              <h3 class="mt-5 text-lg font-semibold tracking-tight">
-                Prompt a tool into existence
-              </h3>
-              <p class="mt-2 text-sm leading-6 text-white/60">
-                Describe the API call or workflow step you need in plain
-                language. The coding agent writes the tool, the schema, and
-                the auth handshake — ready to attach to any agent.
-              </p>
-            </div>
-            <div class="rounded-xl border border-stone-200 p-6">
-              <div class="flex items-center gap-2.5">
-                <span class="flex size-9 items-center justify-center rounded-md bg-stone-100">
-                  <iconify-icon icon="solar:code-2-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon>
-                </span>
-                <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                  Built-in IDE
-                </span>
-              </div>
-              <h3 class="mt-5 text-lg font-semibold tracking-tight">
-                Or write it yourself
-              </h3>
-              <p class="mt-2 text-sm leading-6 text-stone-600">
-                A full code editor lives inside the platform. Edit a
-                generated tool line by line, or start from a blank file —
-                nothing to install locally.
-              </p>
-            </div>
-          </div>
-
-          <div class="mt-14 space-y-10">
-            <div>
-              <div class="flex items-center gap-2">
-                <iconify-icon icon="solar:chat-round-dots-linear" width="15" stroke-width="1.5" class="text-stone-400"></iconify-icon>
-                <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-                  Messaging
-                </span>
-              </div>
-              <div class="mt-4 grid gap-3 md:grid-cols-3">
-                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
-                  <div class="flex items-center gap-2.5">
-                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
-                      <iconify-icon icon="logos:telegram" width="18"></iconify-icon>
-                    </span>
-                    <h3 class="font-semibold tracking-tight">Telegram</h3>
-                  </div>
-                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
-                    <li>Send a message to a private chat, group, or channel via a bot</li>
-                    <li>Auto-splits messages over Telegram's 4096-character limit</li>
-                  </ul>
-                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
-                    Broadcast a marketing update to the official channel.
-                  </p>
-                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
-                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">TELEGRAM_BOT_TOKEN</code>
-                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">TELEGRAM_CHAT_ID</code>
-                  </div>
-                </article>
-                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
-                  <div class="flex items-center gap-2.5">
-                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
-                      <iconify-icon icon="logos:discord-icon" width="18"></iconify-icon>
-                    </span>
-                    <h3 class="font-semibold tracking-tight">Discord</h3>
-                  </div>
-                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
-                    <li>Send a message to a Discord channel via webhook</li>
-                    <li>Auto-splits messages over 2000 characters</li>
-                  </ul>
-                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
-                    Post automated build and deploy alerts into a team channel.
-                  </p>
-                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
-                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">DISCORD_WEBHOOK_URL</code>
-                  </div>
-                </article>
-                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
-                  <div class="flex items-center gap-2.5">
-                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
-                      <iconify-icon icon="solar:letter-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon>
-                    </span>
-                    <h3 class="font-semibold tracking-tight">Email</h3>
-                  </div>
-                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
-                    <li>Send email via SMTP to any provider — Gmail, Outlook, Zoho, and more</li>
-                  </ul>
-                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
-                    Send a daily or weekly report directly to stakeholders.
-                  </p>
-                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
-                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">SMTP_HOST</code>
-                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">SMTP_USERNAME</code>
-                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">SMTP_PASSWORD</code>
-                  </div>
-                </article>
-              </div>
-            </div>
-
-            <div>
-              <div class="flex items-center gap-2">
-                <iconify-icon icon="solar:folder-linear" width="15" stroke-width="1.5" class="text-stone-400"></iconify-icon>
-                <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-                  Productivity
-                </span>
-              </div>
-              <div class="mt-4 grid gap-3 md:grid-cols-3">
-                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
-                  <div class="flex items-center gap-2.5">
-                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
-                      <iconify-icon icon="logos:google-calendar" width="18"></iconify-icon>
-                    </span>
-                    <h3 class="font-semibold tracking-tight">Google Calendar</h3>
-                  </div>
-                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
-                    <li>Create an event with title, time, description, and location</li>
-                    <li>Read or list upcoming events</li>
-                  </ul>
-                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
-                    Auto-schedule a follow-up meeting after a call.
-                  </p>
-                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
-                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">GOOGLE_CLIENT_ID</code>
-                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">GOOGLE_REFRESH_TOKEN</code>
-                  </div>
-                </article>
-                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
-                  <div class="flex items-center gap-2.5">
-                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
-                      <iconify-icon icon="logos:notion-icon" width="18"></iconify-icon>
-                    </span>
-                    <h3 class="font-semibold tracking-tight">Notion</h3>
-                  </div>
-                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
-                    <li>Read pages and entries from a Notion database</li>
-                    <li>Write a new page with styled, structured content</li>
-                  </ul>
-                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
-                    Write a research summary into a team knowledge base.
-                  </p>
-                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
-                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">NOTION_API_KEY</code>
-                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">NOTION_DATABASE_ID</code>
-                  </div>
-                </article>
-                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
-                  <div class="flex items-center gap-2.5">
-                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
-                      <iconify-icon icon="logos:google-sheets" width="18"></iconify-icon>
-                    </span>
-                    <h3 class="font-semibold tracking-tight">Google Sheets</h3>
-                  </div>
-                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
-                    <li>Read a specific cell range</li>
-                    <li>Append new rows — never overwrites existing data</li>
-                  </ul>
-                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
-                    Log every lead or transaction as a new row.
-                  </p>
-                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
-                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">GOOGLE_SHEET_ID</code>
-                  </div>
-                </article>
-              </div>
-            </div>
-
-            <div>
+          <div class="mt-14 space-y-14">
+            <div id="tools-builtin" class="scroll-mt-24">
               <div class="flex items-center gap-2">
                 <iconify-icon icon="solar:database-linear" width="15" stroke-width="1.5" class="text-stone-400"></iconify-icon>
                 <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-                  Database
+                  Built-in tools
                 </span>
               </div>
-              <div class="mt-4 grid gap-3 md:grid-cols-3">
-                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
-                  <div class="flex items-center gap-2.5">
-                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
-                      <iconify-icon icon="solar:database-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon>
-                    </span>
-                    <h3 class="font-semibold tracking-tight">Run SQL Query</h3>
-                  </div>
-                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
-                    <li>Executes any SQL statement against Postgres, MySQL, or SQLite</li>
-                    <li>No safety rails — runs exactly what it's given</li>
-                  </ul>
-                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
-                    Pull live sales or usage figures to answer a question.
-                  </p>
-                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
-                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">CONNECTION_URL</code>
-                  </div>
-                </article>
+              <p class="mt-2 max-w-xl text-sm leading-6 text-stone-500">
+                Ready on every agent from the first run — nothing to install or configure.
+              </p>
+              <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                <div class="tool-chip flex flex-col items-center gap-3 rounded-xl border border-stone-200 bg-white px-4 py-6 text-center">
+                  <span class="flex size-11 items-center justify-center rounded-md bg-stone-100">
+                    <iconify-icon icon="solar:database-linear" width="20" stroke-width="1.5" class="text-stone-600"></iconify-icon>
+                  </span>
+                  <h3 class="text-sm font-semibold tracking-tight">Get Database Schema</h3>
+                </div>
+                <div class="tool-chip flex flex-col items-center gap-3 rounded-xl border border-stone-200 bg-white px-4 py-6 text-center">
+                  <span class="flex size-11 items-center justify-center rounded-md bg-stone-100">
+                    <iconify-icon icon="solar:code-2-linear" width="20" stroke-width="1.5" class="text-stone-600"></iconify-icon>
+                  </span>
+                  <h3 class="text-sm font-semibold tracking-tight">Run SQL</h3>
+                </div>
+                <div class="tool-chip flex flex-col items-center gap-3 rounded-xl border border-stone-200 bg-white px-4 py-6 text-center">
+                  <span class="flex size-11 items-center justify-center rounded-md bg-stone-100">
+                    <iconify-icon icon="solar:document-text-linear" width="20" stroke-width="1.5" class="text-stone-600"></iconify-icon>
+                  </span>
+                  <h3 class="text-sm font-semibold tracking-tight">Search Document</h3>
+                </div>
+                <div class="tool-chip flex flex-col items-center gap-3 rounded-xl border border-stone-200 bg-white px-4 py-6 text-center">
+                  <span class="flex size-11 items-center justify-center rounded-md bg-stone-100">
+                    <iconify-icon icon="solar:folder-linear" width="20" stroke-width="1.5" class="text-stone-600"></iconify-icon>
+                  </span>
+                  <h3 class="text-sm font-semibold tracking-tight">Session &amp; Memory</h3>
+                </div>
               </div>
             </div>
 
-            <div>
+            <div id="tools-custom" class="scroll-mt-24">
+              <div class="flex items-center gap-2">
+                <iconify-icon icon="solar:code-2-linear" width="15" stroke-width="1.5" class="text-stone-400"></iconify-icon>
+                <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
+                  Custom tools
+                </span>
+              </div>
+              <p class="mt-2 max-w-xl text-sm leading-6 text-stone-500">
+                Any Python tool, built on our tool-agnostic agent framework — by prompt or by hand.
+              </p>
+              <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                <div class="rounded-xl border border-stone-200 bg-stone-950 p-6 text-white">
+                  <div class="flex items-center gap-2.5">
+                    <span class="flex size-9 items-center justify-center rounded-md bg-white/10">
+                      <iconify-icon icon="solar:magic-stick-3-linear" width="18" stroke-width="1.5" style="color:#bef264"></iconify-icon>
+                    </span>
+                    <span class="font-mono text-xs uppercase tracking-[0.12em] text-white/50">
+                      Coding agent
+                    </span>
+                  </div>
+                  <h3 class="mt-5 text-lg font-semibold tracking-tight">
+                    Prompt a tool into existence
+                  </h3>
+                  <p class="mt-2 text-sm leading-6 text-white/60">
+                    Describe the API call or workflow step you need in plain
+                    language. The coding agent writes the tool, the schema, and
+                    the auth handshake — ready to attach to any agent.
+                  </p>
+                </div>
+                <div class="rounded-xl border border-stone-200 p-6">
+                  <div class="flex items-center gap-2.5">
+                    <span class="flex size-9 items-center justify-center rounded-md bg-stone-100">
+                      <iconify-icon icon="solar:code-2-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon>
+                    </span>
+                    <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                      Built-in IDE
+                    </span>
+                  </div>
+                  <h3 class="mt-5 text-lg font-semibold tracking-tight">
+                    Or write it yourself
+                  </h3>
+                  <p class="mt-2 text-sm leading-6 text-stone-600">
+                    A full code editor lives inside the platform. Edit a
+                    generated tool line by line, or start from a blank file —
+                    nothing to install locally.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div id="tools-community" class="scroll-mt-24">
               <div class="flex items-center gap-2">
                 <iconify-icon icon="solar:users-group-rounded-linear" width="15" stroke-width="1.5" class="text-stone-400"></iconify-icon>
                 <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-                  CRM
+                  Community tools
                 </span>
               </div>
-              <div class="mt-4 grid gap-3 md:grid-cols-3">
-                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
-                  <div class="flex items-center gap-2.5">
-                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
-                      <iconify-icon icon="logos:hubspot" width="18"></iconify-icon>
-                    </span>
-                    <h3 class="font-semibold tracking-tight">HubSpot</h3>
+              <p class="mt-2 max-w-xl text-sm leading-6 text-stone-500">
+                Built by the community, reviewed, and approved for everyone — this isn't just a tool catalog, it's who's building alongside you.
+              </p>
+              <div class="mt-5 space-y-3">
+                <div class="marquee-row">
+                  <div class="marquee-track gap-3 pr-3">
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:slack-icon" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Slack</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:telegram" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Telegram</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:discord-icon" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Discord</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="solar:letter-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon><span class="text-sm font-medium text-stone-700">Email</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:google-calendar" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Google Calendar</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:notion-icon" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Notion</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:slack-icon" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Slack</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:telegram" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Telegram</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:discord-icon" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Discord</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="solar:letter-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon><span class="text-sm font-medium text-stone-700">Email</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:google-calendar" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Google Calendar</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:notion-icon" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Notion</span></span>
                   </div>
-                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
-                    <li>Create, update, and look up contacts and companies</li>
-                    <li>Create deals, update stage, and log notes</li>
-                  </ul>
-                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
-                    Auto-create a contact and deal from an inbound lead form.
-                  </p>
-                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
-                    <code class="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] text-stone-500">HUBSPOT_ACCESS_TOKEN</code>
+                </div>
+                <div class="marquee-row">
+                  <div class="marquee-track reverse gap-3 pr-3">
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="selfhst:google-sheets" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Google Sheets</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:hubspot" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">HubSpot</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="solar:document-text-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon><span class="text-sm font-medium text-stone-700">Markdown to PDF</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="solar:global-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon><span class="text-sm font-medium text-stone-700">Generic HTTP Request</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="solar:radar-2-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon><span class="text-sm font-medium text-stone-700">Fetch URL HTML</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="selfhst:google-sheets" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Google Sheets</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:hubspot" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">HubSpot</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="solar:document-text-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon><span class="text-sm font-medium text-stone-700">Markdown to PDF</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="solar:global-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon><span class="text-sm font-medium text-stone-700">Generic HTTP Request</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="solar:radar-2-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon><span class="text-sm font-medium text-stone-700">Fetch URL HTML</span></span>
                   </div>
-                </article>
+                </div>
               </div>
             </div>
 
-            <div>
+            <div id="tools-mcp" class="scroll-mt-24">
               <div class="flex items-center gap-2">
-                <iconify-icon icon="solar:widget-6-linear" width="15" stroke-width="1.5" class="text-stone-400"></iconify-icon>
+                <iconify-icon icon="solar:global-linear" width="15" stroke-width="1.5" class="text-stone-400"></iconify-icon>
                 <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-                  Utilities
+                  MCP tools
                 </span>
               </div>
-              <div class="mt-4 grid gap-3 md:grid-cols-3">
-                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
+              <p class="mt-2 max-w-xl text-sm leading-6 text-stone-500">
+                Connect any MCP server and let the agent discover what it can do.
+              </p>
+              <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                <div class="tool-chip rounded-xl border border-stone-200 p-6">
                   <div class="flex items-center gap-2.5">
-                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
-                      <iconify-icon icon="solar:document-text-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon>
-                    </span>
-                    <h3 class="font-semibold tracking-tight">Markdown to PDF</h3>
-                  </div>
-                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
-                    <li>Converts markdown-lite text into a PDF</li>
-                    <li>Returns the file as base64</li>
-                  </ul>
-                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
-                    Turn a drafted report into a polished, shareable PDF.
-                  </p>
-                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
-                    <span class="font-mono text-[10px] uppercase tracking-[0.1em] text-stone-400">No auth required</span>
-                  </div>
-                </article>
-                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
-                  <div class="flex items-center gap-2.5">
-                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
+                    <span class="flex size-9 items-center justify-center rounded-md bg-stone-100">
                       <iconify-icon icon="solar:global-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon>
                     </span>
-                    <h3 class="font-semibold tracking-tight">Generic HTTP Request</h3>
+                    <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                      Any server
+                    </span>
                   </div>
-                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
-                    <li>Calls any REST API with custom headers, params, and body</li>
-                  </ul>
-                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
-                    Fallback for reaching a service with no dedicated tool yet.
+                  <h3 class="mt-5 text-lg font-semibold tracking-tight">
+                    Bring your own MCP server
+                  </h3>
+                  <p class="mt-2 text-sm leading-6 text-stone-600">
+                    Point an agent at any MCP endpoint — authenticated or open —
+                    and it's connected. No custom integration to write.
                   </p>
-                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
-                    <span class="font-mono text-[10px] uppercase tracking-[0.1em] text-stone-400">Keys passed per call</span>
-                  </div>
-                </article>
-                <article class="flex flex-col rounded-xl border border-stone-200 p-5">
+                </div>
+                <div class="tool-chip rounded-xl border border-stone-200 p-6">
                   <div class="flex items-center gap-2.5">
-                    <span class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-stone-50">
+                    <span class="flex size-9 items-center justify-center rounded-md bg-stone-100">
                       <iconify-icon icon="solar:radar-2-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon>
                     </span>
-                    <h3 class="font-semibold tracking-tight">Fetch URL HTML</h3>
+                    <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
+                      Auto-discovery
+                    </span>
                   </div>
-                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-sm leading-5 text-stone-600">
-                    <li>Fetches a webpage and returns cleaned, readable text</li>
-                    <li>Renders JS when available, falls back to static HTML</li>
-                  </ul>
-                  <p class="mt-3 text-xs italic leading-5 text-stone-500">
-                    Extract details from a job listing or article page.
+                  <h3 class="mt-5 text-lg font-semibold tracking-tight">
+                    Discover, then decide
+                  </h3>
+                  <p class="mt-2 text-sm leading-6 text-stone-600">
+                    Every tool the server exposes shows up automatically —
+                    pick exactly which ones an agent is allowed to use.
                   </p>
-                  <div class="mt-4 flex flex-wrap gap-1.5 border-t border-stone-100 pt-3">
-                    <span class="font-mono text-[10px] uppercase tracking-[0.1em] text-stone-400">No auth required</span>
-                  </div>
-                </article>
+                </div>
               </div>
             </div>
           </div>
@@ -967,7 +991,7 @@
           </div>
 
           <div class="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <article class="rounded-xl border border-stone-200 p-6">
+            <article id="marketplace-tools" class="scroll-mt-24 rounded-xl border border-stone-200 p-6">
               <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
                 01 — Tools
               </span>
@@ -979,7 +1003,7 @@
                 Write it in TypeScript or Python, give it a schema, publish it.
               </p>
             </article>
-            <article class="rounded-xl border border-stone-200 p-6">
+            <article id="marketplace-agents" class="scroll-mt-24 rounded-xl border border-stone-200 p-6">
               <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
                 02 — Agents
               </span>
@@ -991,7 +1015,7 @@
                 Prompt, memory policy, grants, retry budget, and stop condition.
               </p>
             </article>
-            <article class="rounded-xl border border-stone-200 p-6">
+            <article id="marketplace-connectors" class="scroll-mt-24 rounded-xl border border-stone-200 p-6">
               <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
                 03 — Connectors
               </span>
@@ -1003,7 +1027,7 @@
                 Point at internal services and let every graph reach them.
               </p>
             </article>
-            <article class="rounded-xl border border-stone-200 p-6">
+            <article id="marketplace-models" class="scroll-mt-24 rounded-xl border border-stone-200 p-6">
               <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
                 04 — Models
               </span>
@@ -1036,7 +1060,7 @@
           </div>
 
           <div class="mx-auto mt-12 grid max-w-3xl overflow-hidden rounded-xl border border-stone-200 bg-stone-200 sm:grid-cols-2 sm:gap-px">
-            <article class="flex min-h-96 flex-col bg-white p-7">
+            <article id="pricing-free" class="scroll-mt-24 flex min-h-96 flex-col bg-white p-7">
               <p class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
                 Free
               </p>
@@ -1052,7 +1076,7 @@
                 Join waitlist
               </a>
             </article>
-            <article class="flex min-h-96 flex-col bg-stone-950 p-7 text-white">
+            <article id="pricing-enterprise" class="scroll-mt-24 flex min-h-96 flex-col bg-stone-950 p-7 text-white">
               <div class="flex items-center gap-2">
                 <p class="font-mono text-xs uppercase tracking-[0.12em] text-white/50">
                   Custom &amp; Enterprise
@@ -1125,7 +1149,9 @@
       <div class="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-10 border-b border-white/10 pb-10 lg:grid-cols-4">
         <div>
           <div class="flex items-center gap-2.5">
-            <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/260ec907-d40b-412e-8453-16c8a770d2d0_320w.png" alt="FlowStudio AI Logo" class="h-18 w-auto shrink-0 object-contain">
+            <a href="#top">
+              <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/260ec907-d40b-412e-8453-16c8a770d2d0_320w.png" alt="FlowStudio AI Logo" class="h-18 w-auto shrink-0 object-contain">
+            </a>
           </div>
           <p class="mt-4 max-w-52 text-sm leading-6 text-white/50">
             A workflow canvas for agent orchestration.
@@ -1136,7 +1162,7 @@
             Product
           </p>
           <div class="mt-4 space-y-3 text-sm text-white/60">
-            <a class="block hover:text-white" href="#product">How it works</a>
+            <a class="block hover:text-white" href="#agents">How it works</a>
             <a class="block hover:text-white" href="#workflow">Workflow</a>
             <a class="block hover:text-white" href="#tools">Tools</a>
             <a class="block hover:text-white" href="#pricing">Pricing</a>
@@ -1179,6 +1205,25 @@
       function wfNode(n){const x=n[0],y=n[1],w=n[2],h=n[3],t=n[4],k=n[5],dark=n[6],chips=n[7];const c=h<100;const cf=dark?'#27272a':'#fafaf9',cs=dark?'#3f3f46':'#e7e5e4',ct=dark?'rgba(255,255,255,0.7)':'#57534e';let s=`<g transform='translate(${x} ${y})'><rect width='${w}' height='${h}' rx='10' fill='${dark?'#18181b':'#ffffff'}' stroke='${dark?'#18181b':'#d6d3d1'}'></rect>`;s+=wfIcon(dark?'#bef264':'#57534e',c);s+=`<text x='${c?42:44}' y='${c?24:27}' fill='${dark?'#ffffff':'#18181b'}' font-family='Inter, sans-serif' font-size='${c?12:12.5}'>${t}</text><text x='${c?42:44}' y='${c?38:41}' fill='${dark?'#bef264':'#a8a29e'}' font-family='ui-monospace, monospace' font-size='8.5' letter-spacing='0.8'>${k}</text>`;chips.forEach(function(ch,i){const cy=(c?48:52)+i*24;s+=`<rect x='14' y='${cy}' width='${w-28}' height='20' rx='6' fill='${cf}' stroke='${cs}'></rect><text x='24' y='${cy+13.5}' fill='${ct}' font-family='ui-monospace, monospace' font-size='9'>${ch}</text>`});return s+'</g>'}
       function renderWorkflowDiagram(type){const d=wfd[type];if(!d)return;const paths=d.paths.map(function(p){return `<path class='flow-line' d='${p}' stroke='#18181b' stroke-width='1.5'></path>`}).join('');const nodes=d.nodes.map(function(n){return wfNode(n)}).join('');const viewH=d.viewH,boxH=d.boxH,noteY=d.noteY;document.getElementById('demoCanvas').innerHTML=`<svg class='relative block w-full min-w-[640px] sm:min-w-0' viewBox='0 0 960 ${viewH}' fill='none' role='img' aria-label='${d.label}'><defs><pattern id='workflow-grid' width='16' height='16' patternUnits='userSpaceOnUse'><circle cx='1' cy='1' r='0.7' fill='#d6d3d1'></circle></pattern></defs><rect width='960' height='${viewH}' fill='url(#workflow-grid)'></rect><rect x='32' y='32' width='896' height='${boxH}' rx='12' fill='white' stroke='#e7e5e4'></rect><text x='64' y='68' fill='#a8a29e' font-family='ui-monospace, SFMono-Regular, monospace' font-size='11' letter-spacing='1.4'>${d.title}</text>${paths}${nodes}<text x='64' y='${noteY}' fill='#57534e' font-family='Inter, sans-serif' font-size='13'>${d.note}</text></svg>`}
       document.querySelectorAll('.pattern-tab').forEach(function(b){b.addEventListener('click',function(){renderWorkflowDiagram(b.dataset.pattern);if(window.innerWidth<1024){document.getElementById('demoPanel').scrollIntoView({behavior:'smooth',block:'start'})}})});
+      document.querySelectorAll('.nav-pattern-link').forEach(function(link){link.addEventListener('click',function(e){e.preventDefault();var tab=document.querySelector('.pattern-tab[data-pattern="'+link.dataset.pattern+'"]');if(tab)tab.click();var panel=document.getElementById('demoPanel');if(panel)panel.scrollIntoView({behavior:'smooth',block:'start'})})});
+      document.querySelectorAll('.nav-drop').forEach(function(drop){
+        var trigger=drop.querySelector('a');
+        if(!trigger)return;
+        trigger.addEventListener('click',function(){
+          var willOpen=!drop.classList.contains('open');
+          document.querySelectorAll('.nav-drop.open').forEach(function(d){if(d!==drop)d.classList.remove('open')});
+          drop.classList.toggle('open',willOpen);
+        });
+      });
+      document.querySelectorAll('.nav-drop-panel a').forEach(function(a){
+        a.addEventListener('click',function(){var drop=a.closest('.nav-drop');if(drop)drop.classList.remove('open')});
+      });
+      document.addEventListener('click',function(e){
+        document.querySelectorAll('.nav-drop.open').forEach(function(d){if(!d.contains(e.target))d.classList.remove('open')});
+      });
+      document.addEventListener('keydown',function(e){
+        if(e.key==='Escape')document.querySelectorAll('.nav-drop.open').forEach(function(d){d.classList.remove('open')});
+      });
     </script>
   
 </body></html>
