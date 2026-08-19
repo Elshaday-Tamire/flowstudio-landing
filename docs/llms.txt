@@ -1,0 +1,33 @@
+# FlowStudio
+
+> A visual workflow canvas for building agent systems — made by Crestward Labs.
+
+FlowStudio is where agents, tools, and workflows come together. Build anything from a simple automation to a full agent team, all on one canvas.
+
+## Workflow Patterns
+
+FlowStudio supports every major multi-agent workflow pattern:
+
+- **Sequential**: Each agent passes its output to the next in a step-by-step pipeline.
+- **Parallel**: Independent agents run at the same time for maximum throughput.
+- **Hierarchical**: A coordinator agent delegates tasks to specialist sub-agents.
+- **Collaborative**: Agents refine shared work together as peers.
+- **Event-driven**: Named events trigger the next agents in the workflow.
+- **Hybrid**: Ordered stages with concurrent groups — any combination of the above.
+
+## What You Can Build
+
+- Simple single-step automations
+- Multi-step agent pipelines
+- Full agent teams with tool access
+- Event-triggered workflows
+- Research and analysis agents
+- Document processing pipelines
+
+## Made By
+
+FlowStudio is built by Crestward Labs, an agentic AI systems and software engineering practice.
+
+- Website: https://flowstudio-ai.com
+- Made by: https://crestwardlabs.com
+- Contact: hello@crestwardlabs.com
