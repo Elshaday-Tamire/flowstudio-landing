@@ -247,11 +247,11 @@
         </nav>
 
         <div class="flex items-center gap-3">
-          <a href="#contact" class="hidden text-sm font-medium text-stone-600 transition hover:text-stone-950 sm:block">
+          <a href="https://app.flowstudio-ai.com/login" target="_blank" rel="noopener noreferrer" class="hidden text-sm font-medium text-stone-600 transition hover:text-stone-950 sm:block">
             Sign in
           </a>
-          <a href="#contact" class="inline-flex h-9 items-center gap-2 rounded-md bg-stone-950 px-3.5 text-sm font-medium text-white transition hover:bg-stone-800">
-            Join waitlist
+          <a href="https://app.flowstudio-ai.com/signup" target="_blank" rel="noopener noreferrer" class="inline-flex h-9 items-center gap-2 rounded-md bg-stone-950 px-3.5 text-sm font-medium text-white transition hover:bg-stone-800">
+            Get early access
             <iconify-icon icon="solar:arrow-right-linear" width="16" stroke-width="1.5"></iconify-icon>
           </a>
           <button id="mobileMenuButton" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Toggle menu" class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 text-stone-600 transition hover:bg-stone-100 md:hidden">
@@ -296,7 +296,7 @@
 
           <a href="#pricing" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Pricing</a>
 
-          <a href="#contact" class="mt-1 rounded-md border-t border-stone-200 px-3 py-2.5 pt-3.5 transition hover:bg-stone-100 hover:text-stone-950">Sign in</a>
+          <a href="https://app.flowstudio-ai.com/login" target="_blank" rel="noopener noreferrer" class="mt-1 rounded-md border-t border-stone-200 px-3 py-2.5 pt-3.5 transition hover:bg-stone-100 hover:text-stone-950">Sign in</a>
         </nav>
       </div>
     </header>
@@ -325,16 +325,17 @@
             all on one canvas.
           </p>
 
-          <form id="waitlistForm" class="mt-9 flex w-full max-w-none flex-col gap-2 sm:max-w-lg sm:flex-row">
-            <label class="sr-only" for="email">Work email</label>
-            <input id="email" type="email" required="" placeholder="you@company.com" class="h-14 w-full min-w-0 rounded-md border border-stone-300 bg-white px-4 text-base outline-none transition placeholder:text-stone-400 focus:border-stone-950 focus:ring-2 focus:ring-stone-950/10 sm:h-12 sm:flex-1 sm:text-sm">
-            <button class="inline-flex h-14 items-center justify-center gap-2 rounded-md bg-stone-950 px-5 text-base font-medium text-white transition hover:bg-stone-800 sm:h-12 sm:text-sm" type="submit">
-              Join waitlist
+          <div class="mt-9 flex w-full max-w-none flex-col items-center gap-3 sm:w-auto sm:flex-row sm:justify-center">
+            <a href="https://app.flowstudio-ai.com/signup" target="_blank" rel="noopener noreferrer" class="inline-flex h-14 w-full items-center justify-center gap-2 rounded-md bg-stone-950 px-8 text-base font-medium text-white transition hover:bg-stone-800 sm:h-12 sm:w-auto sm:text-sm">
+              Get early access
               <iconify-icon icon="solar:arrow-right-linear" width="16" stroke-width="1.5"></iconify-icon>
-            </button>
-          </form>
-          <p id="formMessage" class="mt-3 min-h-4 text-xs text-stone-500">
-            Early access opens in waves. No spam, one email at launch.
+            </a>
+            <a href="https://app.flowstudio-ai.com/login" target="_blank" rel="noopener noreferrer" class="inline-flex h-14 w-full items-center justify-center rounded-md border border-stone-300 bg-white px-8 text-base font-medium text-stone-700 transition hover:bg-stone-100 hover:text-stone-950 sm:h-12 sm:w-auto sm:text-sm">
+              Sign in
+            </a>
+          </div>
+          <p class="mt-3 min-h-4 text-xs text-stone-500">
+            Be one of the first in - no waitlist, just sign up and start building.
           </p>
 
           <div class="mt-12 flex flex-wrap justify-center gap-x-4 gap-y-2 font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
@@ -381,10 +382,16 @@
             Building on FlowStudio AI in private beta
           </p>
           <div class="flex flex-wrap items-center justify-center gap-x-11 gap-y-5 text-lg font-semibold tracking-tight text-stone-400 sm:text-xl">
-            <span class="font-mono font-normal uppercase tracking-[0.18em]">
-              NumLK
-            </span>
-            <span class="font-semibold tracking-tight">CedarStreet</span>
+            <a href="https://numlk.io" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2.5 grayscale transition hover:grayscale-0">
+              <img src="assets/numlk-icon.png" alt="" class="h-5 w-5 object-contain opacity-60 transition group-hover:opacity-100">
+              <span class="font-mono font-normal uppercase tracking-[0.18em] transition group-hover:text-stone-600">
+                NumLK
+              </span>
+            </a>
+            <a href="https://cedarstreet.io" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2.5 grayscale transition hover:grayscale-0">
+              <img src="assets/cedarstreet-icon.png" alt="" class="h-5 w-5 object-contain opacity-60 transition group-hover:opacity-100">
+              <span class="font-semibold tracking-tight transition group-hover:text-stone-600">CedarStreet</span>
+            </a>
             <span class="font-mono lowercase tracking-tight">
               smart
               <span class="font-semibold">schema</span>
@@ -893,12 +900,14 @@
                     <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="solar:letter-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon><span class="text-sm font-medium text-stone-700">Email</span></span>
                     <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:google-calendar" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Google Calendar</span></span>
                     <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:notion-icon" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Notion</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:salesforce" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Salesforce</span></span>
                     <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:slack-icon" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Slack</span></span>
                     <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:telegram" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Telegram</span></span>
                     <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:discord-icon" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Discord</span></span>
                     <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="solar:letter-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon><span class="text-sm font-medium text-stone-700">Email</span></span>
                     <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:google-calendar" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Google Calendar</span></span>
                     <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:notion-icon" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Notion</span></span>
+                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:salesforce" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Salesforce</span></span>
                   </div>
                 </div>
                 <div class="marquee-row">
@@ -977,10 +986,6 @@
                 <p class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
                   Marketplace
                 </p>
-                <span class="inline-flex items-center gap-1.5 rounded-full bg-amber-100 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-amber-700">
-                  <span class="size-1.5 rounded-full bg-amber-500"></span>
-                  Coming soon
-                </span>
               </div>
               <h2 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
                 Someone has probably built it already.
@@ -992,9 +997,9 @@
                 change. In active development - previews below.
               </p>
             </div>
-            <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-              In development · join the waitlist for early access
-            </span>
+            <a href="https://app.flowstudio-ai.com/signup" target="_blank" rel="noopener noreferrer" class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400 transition hover:text-stone-950">
+              In development · get early access
+            </a>
           </div>
 
           <div class="mt-10 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
@@ -1141,9 +1146,9 @@
               Start free. Talk to us for the rest.
             </h2>
             <p class="mt-5 text-base leading-7 text-stone-600">
-              Usage-based tiers are still being finalized ahead of launch.
-              Get started on the free plan today, or reach out for custom or
-              enterprise terms.
+              The free plan has what you need to start building. Need more
+              volume, dedicated infrastructure, or custom terms? Just reach
+              out.
             </p>
           </div>
 
@@ -1153,15 +1158,15 @@
                 Free
               </p>
               <p class="mt-5 text-5xl font-medium tracking-tight">$0</p>
-              <p class="mt-2 text-sm text-stone-500">For trying the canvas</p>
+              <p class="mt-2 text-sm text-stone-500">Everything you need to get started</p>
               <ul class="mt-8 space-y-3 text-sm text-stone-600">
-                <li>3 graphs</li>
-                <li>1K runs / month</li>
+                <li>Every workflow pattern &amp; built-in tool</li>
+                <li>Generous monthly usage to build and test</li>
                 <li>Community support</li>
                 <li>Bring your own keys</li>
               </ul>
-              <a href="#contact" class="mt-auto inline-flex h-10 items-center justify-center rounded-md border border-stone-300 text-sm font-medium transition hover:bg-stone-100">
-                Join waitlist
+              <a href="https://app.flowstudio-ai.com/signup" target="_blank" rel="noopener noreferrer" class="mt-auto inline-flex h-10 items-center justify-center rounded-md border border-stone-300 text-sm font-medium transition hover:bg-stone-100">
+                Get started free
               </a>
             </article>
             <article id="pricing-enterprise" class="scroll-mt-24 flex min-h-96 flex-col bg-stone-950 p-7 text-white">
@@ -1193,14 +1198,15 @@
         <div class="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_26rem] lg:items-end">
           <div>
             <p class="font-mono text-xs uppercase tracking-[0.14em] text-white/40">
-              Early access
+              Talk to sales
             </p>
             <h2 class="mt-4 max-w-2xl text-4xl font-semibold tracking-tight sm:text-5xl">
               Tell us what you're orchestrating.
             </h2>
             <p class="mt-5 max-w-xl text-base leading-7 text-white/60">
-              Teams with a concrete use case move up the queue. We reply within
-              two working days.
+              Need more than the free plan - higher volume, dedicated
+              infrastructure, or custom terms? Tell us what you're building
+              and we'll reply within two working days.
             </p>
             <div class="mt-9 flex flex-wrap gap-6 text-sm text-white/60">
               <a href="mailto:hello@flowstudio-ai.com" class="transition hover:text-white">
@@ -1223,9 +1229,9 @@
             </label>
             <textarea id="useCase" required="" rows="3" placeholder="Support triage across internal systems, with a human handoff branch." class="mt-2 w-full resize-none rounded-md border border-stone-300 px-3 py-2.5 text-sm leading-5 outline-none focus:border-stone-950 focus:ring-2 focus:ring-stone-950/10"></textarea>
 
-            <button type="submit" class="mt-5 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-stone-950 text-sm font-medium text-white transition hover:bg-stone-800">
-              Request early access
-              <iconify-icon icon="solar:arrow-right-linear" width="16" stroke-width="1.5"></iconify-icon>
+            <button type="submit" class="mt-5 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-stone-950 text-sm font-medium text-white transition hover:bg-stone-800 disabled:opacity-70">
+              <span id="contactSubmitLabel">Send message</span>
+              <iconify-icon id="contactSubmitIcon" icon="solar:arrow-right-linear" width="16" stroke-width="1.5"></iconify-icon>
             </button>
             <p id="contactMessage" class="mt-3 min-h-4 text-center text-xs text-stone-500"></p>
           </form>
@@ -1234,7 +1240,7 @@
     </main>
 
     <footer class="bg-stone-950 px-5 pb-8 pt-12 text-white lg:px-8">
-      <div class="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-10 border-b border-white/10 pb-10 lg:grid-cols-4">
+      <div class="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-10 border-b border-white/10 pb-10 lg:grid-cols-3">
         <div>
           <div class="flex items-center gap-2.5">
             <a href="#top">
@@ -1262,20 +1268,7 @@
           </p>
           <div class="mt-4 space-y-3 text-sm text-white/60">
             <a class="block hover:text-white" href="#contact">Contact</a>
-            <a class="block hover:text-white" href="mailto:hello@flowstudio-ai.com">
-              Careers
-            </a>
             <a class="block hover:text-white" href="#top">About</a>
-          </div>
-        </div>
-        <div>
-          <p class="font-mono text-xs uppercase tracking-[0.12em] text-white/35">
-            Legal
-          </p>
-          <div class="mt-4 space-y-3 text-sm text-white/60">
-            <a class="block hover:text-white" href="#top">Privacy</a>
-            <a class="block hover:text-white" href="#top">Terms</a>
-            <a class="block hover:text-white" href="#top">Security</a>
           </div>
         </div>
       </div>
@@ -1285,7 +1278,7 @@
     </footer>
 
     <script>
-      const patterns={sequential:{run:"run/sequential-triage",stats:"4 nodes · 3.6s · 1 pass",icon:"solar:arrow-right-linear",title:"A typed hand-off at every step.",text:"Each agent receives the previous output as a typed payload, so a broken hand-off fails at design time rather than during a live run."},parallel:{run:"run/parallel-research",stats:"5 nodes · 4.7s · 3 concurrent",icon:"solar:sort-horizontal-linear",title:"Fan out without losing the thread.",text:"All agents start with the same input and run independently. When every branch finishes, their results are collected together."},hierarchical:{run:"run/coordinator-delegation",stats:"5 nodes · 4.1s · 1 coordinator",icon:"solar:cpu-linear",title:"One coordinator, many specialists.",text:"A coordinator agent plans the work, calls specialist agents as tools, and brings their outputs into one final answer."},hybrid:{run:"run/hybrid-enrichment",stats:"6 nodes · 5.2s · 2 concurrent stages",icon:"solar:sort-horizontal-linear",title:"Fan out, gather, then move forward.",text:"Group independent agents to run in parallel, collect their results, and feed them into the next ordered stage of the workflow."},collaborative:{run:"run/collaborative-review",stats:"4 agents · 3 rounds · 6.8s",icon:"solar:restart-linear",title:"Refine the work together.",text:"Each agent sees the previous round's output and improves it through repeated passes of review and refinement."},"event-driven":{run:"run/event-routing",stats:"6 nodes · 4 events · reactive",icon:"solar:bell-linear",title:"Let events decide what runs next.",text:"Agents wait for named events and emit new ones when they finish, activating only the paths required by each result."}};document.querySelectorAll(".pattern-tab").forEach(button=>{button.addEventListener("click",()=>{const data=patterns[button.dataset.pattern];document.querySelectorAll(".pattern-tab").forEach(tab=>{tab.className="pattern-tab rounded-lg border border-stone-200 bg-white p-5 text-left transition hover:bg-stone-100";const p=tab.querySelectorAll("p");p[0].className="mt-5 font-mono text-xs uppercase tracking-[0.12em] text-stone-400";p[1].className="mt-2 text-lg font-semibold tracking-tight";p[2].className="mt-2 text-sm leading-5 text-stone-500"});button.className="pattern-tab rounded-lg border border-stone-950 bg-stone-950 p-5 text-left text-white";const p=button.querySelectorAll("p");p[0].className="mt-5 font-mono text-xs uppercase tracking-[0.12em] text-white/50";p[1].className="mt-2 text-lg font-semibold tracking-tight";p[2].className="mt-2 text-sm leading-5 text-white/65";document.getElementById("demoRun").textContent=data.run;document.getElementById("demoStats").textContent=data.stats;document.getElementById("demoTitle").textContent=data.title;document.getElementById("demoText").textContent=data.text;document.getElementById("demoIcon").innerHTML=`<iconify-icon icon="${data.icon}" width="24" stroke-width="1.5"></iconify-icon>`})});document.querySelectorAll(".model-chip").forEach(button=>{button.addEventListener("click",()=>{document.querySelectorAll(".model-chip").forEach(chip=>{chip.className="model-chip rounded-md border border-stone-200 px-3 py-2 font-mono text-xs"});button.className="model-chip rounded-md bg-stone-950 px-3 py-2 font-mono text-xs text-white"})});document.querySelectorAll(".tool-toggle").forEach(button=>{button.addEventListener("click",()=>{const enabled=button.dataset.enabled==="true",check=button.querySelector(".tool-check");button.dataset.enabled=String(!enabled);check.className=!enabled?"tool-check flex size-4 items-center justify-center rounded border border-stone-950 bg-stone-950 text-xs text-white":"tool-check flex size-4 items-center justify-center rounded border border-stone-300 bg-white text-xs text-transparent"})});document.getElementById("saveAgent").addEventListener("click",event=>{event.currentTarget.textContent="Saved";setTimeout(()=>event.currentTarget.textContent="Save agent",1500)});document.getElementById("waitlistForm").addEventListener("submit",event=>{event.preventDefault();document.getElementById("formMessage").textContent="You're on the list. We’ll be in touch soon.";event.currentTarget.reset()});document.getElementById("contactForm").addEventListener("submit",event=>{event.preventDefault();document.getElementById("contactMessage").textContent="Thanks - your early access request has been received.";event.currentTarget.reset()});const mobileMenu=document.getElementById("mobileMenu"),mobileMenuButton=document.getElementById("mobileMenuButton"),mobileMenuIcon=document.getElementById("mobileMenuIcon");function setMobileMenu(open){mobileMenu.classList.toggle("hidden",!open);mobileMenuButton.setAttribute("aria-expanded",String(open));mobileMenuIcon.setAttribute("icon",open?"solar:close-square-linear":"solar:hamburger-menu-linear")}mobileMenuButton.addEventListener("click",()=>setMobileMenu(mobileMenu.classList.contains("hidden")));mobileMenu.querySelectorAll("a").forEach(link=>link.addEventListener("click",()=>setMobileMenu(false)));
+      const patterns={sequential:{run:"run/sequential-triage",stats:"4 nodes · 3.6s · 1 pass",icon:"solar:arrow-right-linear",title:"A typed hand-off at every step.",text:"Each agent receives the previous output as a typed payload, so a broken hand-off fails at design time rather than during a live run."},parallel:{run:"run/parallel-research",stats:"5 nodes · 4.7s · 3 concurrent",icon:"solar:sort-horizontal-linear",title:"Fan out without losing the thread.",text:"All agents start with the same input and run independently. When every branch finishes, their results are collected together."},hierarchical:{run:"run/coordinator-delegation",stats:"5 nodes · 4.1s · 1 coordinator",icon:"solar:cpu-linear",title:"One coordinator, many specialists.",text:"A coordinator agent plans the work, calls specialist agents as tools, and brings their outputs into one final answer."},hybrid:{run:"run/hybrid-enrichment",stats:"6 nodes · 5.2s · 2 concurrent stages",icon:"solar:sort-horizontal-linear",title:"Fan out, gather, then move forward.",text:"Group independent agents to run in parallel, collect their results, and feed them into the next ordered stage of the workflow."},collaborative:{run:"run/collaborative-review",stats:"4 agents · 3 rounds · 6.8s",icon:"solar:restart-linear",title:"Refine the work together.",text:"Each agent sees the previous round's output and improves it through repeated passes of review and refinement."},"event-driven":{run:"run/event-routing",stats:"6 nodes · 4 events · reactive",icon:"solar:bell-linear",title:"Let events decide what runs next.",text:"Agents wait for named events and emit new ones when they finish, activating only the paths required by each result."}};document.querySelectorAll(".pattern-tab").forEach(button=>{button.addEventListener("click",()=>{const data=patterns[button.dataset.pattern];document.querySelectorAll(".pattern-tab").forEach(tab=>{tab.className="pattern-tab rounded-lg border border-stone-200 bg-white p-5 text-left transition hover:bg-stone-100";const p=tab.querySelectorAll("p");p[0].className="mt-5 font-mono text-xs uppercase tracking-[0.12em] text-stone-400";p[1].className="mt-2 text-lg font-semibold tracking-tight";p[2].className="mt-2 text-sm leading-5 text-stone-500"});button.className="pattern-tab rounded-lg border border-stone-950 bg-stone-950 p-5 text-left text-white";const p=button.querySelectorAll("p");p[0].className="mt-5 font-mono text-xs uppercase tracking-[0.12em] text-white/50";p[1].className="mt-2 text-lg font-semibold tracking-tight";p[2].className="mt-2 text-sm leading-5 text-white/65";document.getElementById("demoRun").textContent=data.run;document.getElementById("demoStats").textContent=data.stats;document.getElementById("demoTitle").textContent=data.title;document.getElementById("demoText").textContent=data.text;document.getElementById("demoIcon").innerHTML=`<iconify-icon icon="${data.icon}" width="24" stroke-width="1.5"></iconify-icon>`})});document.querySelectorAll(".model-chip").forEach(button=>{button.addEventListener("click",()=>{document.querySelectorAll(".model-chip").forEach(chip=>{chip.className="model-chip rounded-md border border-stone-200 px-3 py-2 font-mono text-xs"});button.className="model-chip rounded-md bg-stone-950 px-3 py-2 font-mono text-xs text-white"})});document.querySelectorAll(".tool-toggle").forEach(button=>{button.addEventListener("click",()=>{const enabled=button.dataset.enabled==="true",check=button.querySelector(".tool-check");button.dataset.enabled=String(!enabled);check.className=!enabled?"tool-check flex size-4 items-center justify-center rounded border border-stone-950 bg-stone-950 text-xs text-white":"tool-check flex size-4 items-center justify-center rounded border border-stone-300 bg-white text-xs text-transparent"})});document.getElementById("saveAgent").addEventListener("click",event=>{event.currentTarget.textContent="Saved";setTimeout(()=>event.currentTarget.textContent="Save agent",1500)});const mobileMenu=document.getElementById("mobileMenu"),mobileMenuButton=document.getElementById("mobileMenuButton"),mobileMenuIcon=document.getElementById("mobileMenuIcon");function setMobileMenu(open){mobileMenu.classList.toggle("hidden",!open);mobileMenuButton.setAttribute("aria-expanded",String(open));mobileMenuIcon.setAttribute("icon",open?"solar:close-square-linear":"solar:hamburger-menu-linear")}mobileMenuButton.addEventListener("click",()=>setMobileMenu(mobileMenu.classList.contains("hidden")));mobileMenu.querySelectorAll("a").forEach(link=>link.addEventListener("click",()=>setMobileMenu(false)));
     </script>
     <script>
       const wfd={sequential:{label:'Sequential agent workflow',title:'01 - SEQUENTIAL',note:'One typed output moves through each step in order.',viewH:452,boxH:388,noteY:396,nodes:[[72,170,168,108,'Intake','AGENT',1,['fetch_ticket','parse_email']],[288,170,168,108,'Classify','AGENT',0,['search_catalog','score_intent']],[504,170,168,108,'Enrich','TOOL',0,['execute_query','crm_lookup']],[720,170,168,108,'Route','OUTPUT',0,['assign_owner','post_slack']]],paths:['M240 224H288','M456 224H504','M672 224H720']},parallel:{label:'Parallel agent workflow',title:'02 - PARALLEL',note:'Independent tasks fan out, then join into one result.',viewH:530,boxH:466,noteY:474,nodes:[[72,170,156,108,'Intake','AGENT',1,['fetch_ticket','parse_email']],[340,92,200,80,'Research','AGENT',0,['web_search']],[340,184,200,80,'Retrieve','TOOL',0,['vector_search']],[340,276,200,80,'Lookup','TOOL',0,['execute_query']],[700,170,188,108,'Join results','OUTPUT',1,['merge_payload','rank_results']]],paths:['M228 224H340','M284 224V132H340','M284 224V316H340','M540 224H700','M540 132H644V224','M540 316H644V224']},hierarchical:{label:'Hierarchical agent workflow',title:'03 - HIERARCHICAL',note:'A coordinator delegates specialist work, then assembles one answer.',viewH:536,boxH:472,noteY:480,nodes:[[72,170,168,108,'Request','INPUT',1,['customer_brief','constraints']],[304,170,200,108,'Coordinator','AGENT',0,['plan_work','delegate']],[592,86,168,80,'Research','AGENT',0,['web_search']],[592,184,168,80,'Analyst','AGENT',0,['analyze_data']],[592,282,168,80,'Writer','AGENT',0,['draft_response']],[776,170,112,108,'Answer','OUTPUT',1,['assemble']]],paths:['M240 224H304','M504 224H592','M552 224V126H592','M552 224V322H592','M760 224H776','M760 126H768V224','M760 322H768V224']},hybrid:{label:'Hybrid agent workflow',title:'04 - HYBRID',note:'Ordered stages contain concurrent specialist groups before moving forward.',viewH:536,boxH:472,noteY:480,nodes:[[56,170,144,108,'Intake','AGENT',1,['parse_brief','set_context']],[264,86,176,80,'Enrich','TOOL',0,['crm_lookup']],[264,184,176,80,'Research','AGENT',0,['web_search']],[264,282,176,80,'Score','TOOL',0,['score_intent']],[520,170,176,108,'Synthesize','AGENT',1,['merge_context','plan_next']],[720,126,168,80,'Draft','AGENT',0,['compose_reply']],[720,242,168,80,'Review','AGENT',0,['policy_check']]],paths:['M200 224H264','M232 224V126H264','M232 224V322H264','M440 224H520','M440 126H480V224','M440 322H480V224','M696 224H708','M708 224V166H720','M708 224V282H720']},collaborative:{label:'Collaborative agent workflow',title:'05 - COLLABORATIVE',note:'Agents review shared work together through repeated refinement rounds.',viewH:532,boxH:468,noteY:476,nodes:[[72,170,168,108,'Brief','INPUT',1,['requirements','context']],[304,170,168,108,'Draft','AGENT',0,['compose_version','share_work']],[536,90,168,80,'Critic','AGENT',0,['review_draft']],[536,278,168,80,'Expert','AGENT',0,['add_evidence']],[720,170,168,108,'Refine','AGENT',1,['merge_feedback','publish']]],paths:['M240 224H304','M472 224H496','M496 224V130H536','M496 224V318H536','M704 130H712V224','M704 318H712V224','M712 224H720','M804 278V410H388V278']},'event-driven':{label:'Event-driven agent workflow',title:'06 - EVENT-DRIVEN',note:'Named events activate only the agents required by each result.',viewH:536,boxH:472,noteY:480,nodes:[[64,170,168,108,'Ticket received','EVENT',1,['ticket.created','payload']],[304,86,184,80,'Urgent route','AGENT',0,['priority.high']],[304,184,184,80,'Standard route','AGENT',0,['priority.normal']],[304,282,184,80,'Escalation','AGENT',0,['risk.detected']],[640,126,128,80,'Notify','OUTPUT',0,['send_alert']],[640,242,128,80,'Resolve','OUTPUT',1,['update_ticket']],[784,184,104,108,'Trace','LOG',0,['record_run']]],paths:['M232 224H304','M264 224V126H304','M264 224V322H304','M488 126H560V166H640','M488 224H560V282','M488 322H560V282','M560 282H640','M768 166H776V238','M768 282H776V238','M776 238H784']}};
@@ -1313,5 +1306,71 @@
         if(e.key==='Escape')document.querySelectorAll('.nav-drop.open').forEach(function(d){d.classList.remove('open')});
       });
     </script>
-  
+    <script>
+      (function(){
+        var CONTACT_ENDPOINT='https://crestward-contact.crestward-landing-contact.workers.dev';
+        var form=document.getElementById('contactForm');
+        if(!form)return;
+        var mountedAt=Date.now();
+
+        var honeypot=document.createElement('input');
+        honeypot.type='text';
+        honeypot.name='company';
+        honeypot.tabIndex=-1;
+        honeypot.autocomplete='off';
+        honeypot.setAttribute('aria-hidden','true');
+        honeypot.style.cssText='position:absolute;left:-9999px;width:1px;height:1px;opacity:0;';
+        form.appendChild(honeypot);
+
+        var messageEl=document.getElementById('contactMessage');
+        var submitBtn=form.querySelector('button[type="submit"]');
+        var labelEl=document.getElementById('contactSubmitLabel');
+        var iconEl=document.getElementById('contactSubmitIcon');
+
+        var setSending=function(sending){
+          submitBtn.disabled=sending;
+          labelEl.textContent=sending?'Sending...':'Send message';
+          iconEl.setAttribute('icon',sending?'svg-spinners:180-ring-with-bg':'solar:arrow-right-linear');
+        };
+
+        var sendViaMailto=function(email,useCase){
+          var body='Email: '+email+'\n\nWhat they are building:\n'+useCase;
+          window.location.href='mailto:hello@flowstudio-ai.com?subject='+
+            encodeURIComponent('FlowStudio inquiry')+'&body='+encodeURIComponent(body);
+          messageEl.textContent="Your email is ready to send. If nothing opened, write to hello@flowstudio-ai.com directly.";
+          form.reset();
+        };
+
+        form.addEventListener('submit',async function(event){
+          event.preventDefault();
+          var email=document.getElementById('contactEmail').value.trim();
+          var useCase=document.getElementById('useCase').value.trim();
+          setSending(true);
+
+          try{
+            var res=await fetch(CONTACT_ENDPOINT,{
+              method:'POST',
+              headers:{'Content-Type':'application/json'},
+              body:JSON.stringify({
+                name:'',
+                email:email,
+                topic:'Website inquiry',
+                message:useCase,
+                company:honeypot.value,
+                elapsedMs:Date.now()-mountedAt,
+                source:'flowstudio'
+              })
+            });
+            if(!res.ok)throw new Error('bad response');
+            messageEl.textContent="Thanks - we'll get back to you within two working days.";
+            form.reset();
+          }catch(err){
+            sendViaMailto(email,useCase);
+          }finally{
+            setSending(false);
+          }
+        });
+      })();
+    </script>
+
 </body></html>
