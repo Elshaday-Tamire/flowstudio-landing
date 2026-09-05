@@ -1,0 +1,312 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service | FlowStudio</title>
+    <meta name="description" content="The terms that govern access to and use of FlowStudio, the agent workflow platform by Crestward Labs.">
+    <link rel="canonical" href="https://flowstudio-ai.com/terms.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://flowstudio-ai.com/terms.html">
+    <meta property="og:title" content="Terms of Service | FlowStudio">
+    <meta property="og:description" content="The terms that govern access to and use of FlowStudio, the agent workflow platform by Crestward Labs.">
+    <meta property="og:site_name" content="FlowStudio">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
+  </head>
+  <body class="bg-stone-50 text-stone-950 antialiased" style="font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+    <style>
+      .nav-drop { position:relative; }
+      .nav-drop-panel {
+        position:absolute; left:50%; top:100%; width:17rem;
+        transform:translate(-50%, 2px);
+        opacity:0; visibility:hidden; pointer-events:none;
+        transition:opacity .15s ease, transform .15s ease;
+        padding-top:0.625rem;
+      }
+      .nav-drop:hover > .nav-drop-panel,
+      .nav-drop:focus-within > .nav-drop-panel,
+      .nav-drop.open > .nav-drop-panel {
+        opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 0);
+      }
+      .nav-caret { transition:transform .15s ease; }
+      .nav-drop:hover .nav-caret, .nav-drop:focus-within .nav-caret, .nav-drop.open .nav-caret { transform:rotate(180deg); }
+      details > summary { list-style:none; cursor:pointer; }
+      details > summary::-webkit-details-marker { display:none; }
+      details > summary::marker { content:''; }
+      .toc-link.active { background:#f5f5f4; color:#1c1917; font-weight:500; }
+      .toc-link.active .toc-num { color:#4d7c0f; }
+      section[id] { scroll-margin-top:5.5rem; }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation:none !important; scroll-behavior:auto !important; }
+      }
+    </style>
+
+    <header class="sticky top-0 z-50 border-b border-stone-200/80 bg-stone-50/85 backdrop-blur-xl">
+      <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8">
+        <a href="index.html" class="flex items-center gap-2.5">
+          <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/ba89b8b7-69a2-402f-87bc-145d1eab5988_320w.png" alt="FlowStudio AI logo" class="h-9 w-auto shrink-0 object-contain">
+        </a>
+
+        <nav class="hidden items-center gap-7 text-sm font-medium text-stone-500 md:flex">
+          <a href="index.html#workflow" class="transition hover:text-stone-950">Workflow</a>
+          <a href="index.html#agents" class="transition hover:text-stone-950">Agents</a>
+          <a href="index.html#tools" class="transition hover:text-stone-950">Tools</a>
+          <a href="index.html#marketplace" class="transition hover:text-stone-950">Marketplace</a>
+          <a href="index.html#pricing" class="transition hover:text-stone-950">Pricing</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <a href="https://app.flowstudio-ai.com/login" target="_blank" rel="noopener noreferrer" class="hidden text-sm font-medium text-stone-600 transition hover:text-stone-950 sm:block">
+            Sign in
+          </a>
+          <a href="https://app.flowstudio-ai.com/signup" target="_blank" rel="noopener noreferrer" class="inline-flex h-9 items-center gap-2 rounded-md bg-stone-950 px-3.5 text-sm font-medium text-white transition hover:bg-stone-800">
+            Get early access
+            <iconify-icon icon="solar:arrow-right-linear" width="16" stroke-width="1.5"></iconify-icon>
+          </a>
+          <button id="mobileMenuButton" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Toggle menu" class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 text-stone-600 transition hover:bg-stone-100 md:hidden">
+            <iconify-icon id="mobileMenuIcon" icon="solar:hamburger-menu-linear" width="20" stroke-width="1.5"></iconify-icon>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="hidden border-t border-stone-200 bg-stone-50 px-5 py-3 md:hidden">
+        <nav class="flex flex-col text-sm font-medium text-stone-600">
+          <a href="index.html#workflow" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Workflow</a>
+          <a href="index.html#agents" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Agents</a>
+          <a href="index.html#tools" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Tools</a>
+          <a href="index.html#marketplace" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Marketplace</a>
+          <a href="index.html#pricing" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Pricing</a>
+          <a href="https://app.flowstudio-ai.com/login" target="_blank" rel="noopener noreferrer" class="mt-1 rounded-md border-t border-stone-200 px-3 py-2.5 pt-3.5 transition hover:bg-stone-100 hover:text-stone-950">Sign in</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="px-5 pb-8 pt-14 lg:px-8 lg:pt-16">
+        <div class="mx-auto max-w-6xl">
+          <p class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">Legal · Crestward Labs Inc.</p>
+          <h1 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Terms of Service</h1>
+          <div class="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-stone-500">
+            <span>Last updated: <span class="font-medium text-stone-700">September 5, 2026</span></span>
+            <span>Applies to: <span class="font-medium text-stone-700">flowstudio-ai.com and app.flowstudio-ai.com</span></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-5 pb-24 lg:px-8">
+        <div class="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_240px] lg:gap-16">
+
+          <details class="h-fit rounded-lg border border-stone-200 bg-white lg:order-2 lg:sticky lg:top-24 lg:open lg:border-none lg:bg-transparent">
+            <summary class="flex items-center justify-between px-4 py-3 text-sm font-medium text-stone-700 lg:hidden">
+              Contents
+              <iconify-icon icon="solar:alt-arrow-down-linear" width="14" stroke-width="2"></iconify-icon>
+            </summary>
+            <nav id="toc" class="flex flex-col gap-0.5 px-2 pb-3 lg:px-0 lg:pb-0"></nav>
+          </details>
+
+          <div id="content" class="min-w-0 max-w-2xl lg:order-1">
+            <p class="mb-10 text-base leading-7 text-stone-600">
+              These Terms of Service ("Terms") govern access to and use of FlowStudio, the multi-agent workflow platform made available at <strong class="font-medium text-stone-800">app.flowstudio-ai.com</strong> and described at <strong class="font-medium text-stone-800">flowstudio-ai.com</strong> (the "Service"), operated by <strong class="font-medium text-stone-800">Crestward Labs Inc.</strong>, of Vancouver, British Columbia, Canada ("Crestward Labs", "we", "us"). "Customer" and "you" mean the organization or individual that registers a FlowStudio account. By creating an account, connecting a workflow, or otherwise using the Service, you agree to these Terms on behalf of yourself and, where applicable, the organization you represent.
+            </p>
+
+            <section id="s1">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§1</span>Acceptance and authority</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">If you create a FlowStudio account or connect a tenant on behalf of a company or other organization, you represent that you have the authority to bind that organization to these Terms, and "you" refers to that organization.</p>
+            </section>
+
+            <section id="s2" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§2</span>The Service</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">FlowStudio is a visual builder for agentic workflows. It lets you compose agents, tools, Model Context Protocol (MCP) integrations, and custom code into automations that run under sequential, parallel, hierarchical, collaborative, event-driven, or hybrid orchestration patterns.</p>
+              <p class="mt-3 text-sm leading-7 text-stone-500 sm:text-base"><strong class="font-medium text-stone-700">Early access.</strong> FlowStudio is currently offered in pre-launch, early access. Features, availability, and pricing may change without notice, and we do not guarantee uninterrupted availability, data durability, or any specific level of performance during this period. We will use reasonable efforts to notify Customers of material changes affecting stored data.</p>
+            </section>
+
+            <section id="s3" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§3</span>Accounts and tenants</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">You may register using email and password, a passwordless email code, or an OAuth provider (currently Google or GitHub). Each organization operates within its own tenant. You are responsible for maintaining the confidentiality of your credentials and for all activity under your account, and must notify us promptly at <a class="text-lime-700 underline underline-offset-2 hover:text-lime-800" href="mailto:admin@flowstudio-ai.com">admin@flowstudio-ai.com</a> of any suspected unauthorized access. Information you provide on registration must be accurate and kept up to date.</p>
+            </section>
+
+            <section id="s4" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§4</span>Plans and fees</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">FlowStudio currently offers a Free plan available on self-serve signup, and Enterprise plans arranged directly with our team under a separate order form. If we introduce additional paid, self-serve plans, the fees, billing cadence, payment terms, and any applicable taxes for those plans will be presented to you at the time of purchase and are incorporated into these Terms by that reference. Enterprise pricing and payment terms are set out in the applicable order form, which forms part of these Terms for that Customer.</p>
+            </section>
+
+            <section id="s5" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§5</span>Bring-your-own AI provider keys</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">FlowStudio lets you connect your own accounts with third-party AI model providers (for example, OpenAI or Anthropic) and other services by supplying API credentials, which we store encrypted at rest and use solely to run workflows you configure. You are responsible for your account and any usage fees billed directly by those providers, for complying with each provider's own terms of use and acceptable use policies, and for reviewing outputs before relying on them. We make no representation about the accuracy, reliability, safety, or fitness of any output generated by a third-party AI model, and are not liable for the acts, omissions, downtime, or policy changes of any provider you connect.</p>
+            </section>
+
+            <section id="s6" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§6</span>Acceptable use</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">You will not use the Service to:</p>
+              <ol class="mt-3 list-[lower-alpha] space-y-2 pl-5 text-sm leading-7 text-stone-600 sm:text-base">
+                <li>generate, store, or distribute unlawful, infringing, or harmful content;</li>
+                <li>attempt to disable, bypass, or escape the isolation of the sandboxed code-execution environment, or interfere with resource limits, quotas, or other tenants;</li>
+                <li>connect to, query, or crawl any database, API, or website that you are not authorized to access, or in violation of that source's own terms;</li>
+                <li>use messaging-channel bots (Slack, Telegram, Discord, WhatsApp, or similar) to send unsolicited communications or otherwise violate the policies of the underlying platform;</li>
+                <li>reverse-engineer the Service except to the extent applicable law prohibits this restriction; or</li>
+                <li>use the Service in violation of applicable export control or economic sanctions laws.</li>
+              </ol>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">We may suspend or throttle activity that we reasonably believe violates this section.</p>
+            </section>
+
+            <section id="s7" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§7</span>Custom code and sandboxed execution</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">Custom tools you author run in an isolated, single-use container with enforced CPU, memory, wall-clock, and network-egress limits. We perform automated static analysis before code is stored, but we do not review, endorse, or warrant the correctness or safety of your code beyond that check. You are solely responsible for code you upload and any consequences of running it, and we may suspend execution that exceeds quotas or threatens the security of the Service.</p>
+            </section>
+
+            <section id="s8" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§8</span>Customer content and data sources</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">You retain all ownership rights in the workflows, agent configurations, custom tools, uploaded documents, and any data you connect through database connections, web crawling, or file uploads ("Customer Content"). You grant us a limited license to host, process, transmit, and execute Customer Content solely to provide the Service. You represent that you hold all rights, consents, and authorizations necessary to connect, upload, crawl, or otherwise provide any data to the Service, including any database you connect and any website you configure FlowStudio to crawl.</p>
+            </section>
+
+            <section id="s9" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§9</span>Third-party integrations and MCP servers</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">FlowStudio lets you connect AI model providers, Model Context Protocol (MCP) servers, and other external services that you configure. These third parties operate independently of Crestward Labs under their own terms. Once Customer Content reaches a service you configured, its handling is governed by that third party. We are not responsible for its acts, omissions, security practices, or availability, and recommend you review any third-party service before connecting it.</p>
+            </section>
+
+            <section id="s10" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§10</span>Marketplace</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">FlowStudio includes a marketplace where Customers can publish and acquire pre-built workflow templates. Where a template is offered for a fee, the price, license scope, and any creator revenue share are presented at the time of listing or purchase and are incorporated into these Terms by that reference. We may review, decline to list, or remove a template at our discretion, including for a violation of Section 6 (Acceptable Use) or a third party's intellectual property rights.</p>
+            </section>
+
+            <section id="s11" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§11</span>Intellectual property</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">Crestward Labs retains all right, title, and interest in the FlowStudio platform, the flowstudio_core engine, and all related trademarks and branding. Nothing in these Terms grants you rights in our intellectual property except as expressly stated. If you send us feedback about the Service, you grant us a perpetual, royalty-free license to use it without restriction.</p>
+            </section>
+
+            <section id="s12" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§12</span>Confidentiality</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">Each party will protect the other's non-public information disclosed in connection with the Service using at least the same degree of care it uses for its own confidential information, and will not disclose it except to personnel or subprocessors who need it to perform under these Terms. This obligation does not apply to information that is or becomes public through no fault of the receiving party, was already known to it, or is independently developed.</p>
+            </section>
+
+            <section id="s13" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§13</span>Privacy and data processing</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">Our <a class="text-lime-700 underline underline-offset-2 hover:text-lime-800" href="privacy.html">Privacy Policy</a> describes how we collect, use, and process personal data and Customer Content, including our role as a processor of Customer Content on your behalf, the sub-processors we use, our security measures, data retention, and data subject rights. It is incorporated into these Terms by reference.</p>
+            </section>
+
+            <section id="s14" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§14</span>Disclaimers</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">The Service, and any output generated using it, including AI-generated output, is provided "as is" and "as available." To the maximum extent permitted by law, we disclaim all warranties, express or implied, including merchantability, fitness for a particular purpose, and non-infringement. AI-generated output may be inaccurate, incomplete, or unsuitable for your purpose and must be independently reviewed before you rely on it, particularly in regulated, safety-critical, or high-stakes contexts.</p>
+            </section>
+
+            <section id="s15" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§15</span>Limitation of liability</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">To the maximum extent permitted by law, Crestward Labs' aggregate liability arising out of or relating to these Terms will not exceed the fees you paid us in the twelve (12) months preceding the claim, or CAD $100 if you are on the Free plan. Neither party will be liable for indirect, incidental, special, consequential, or punitive damages, or for lost profits, revenue, or data, even if advised of the possibility. This limitation does not apply to breach of Section 12 (Confidentiality), infringement of the other party's intellectual property, or a party's gross negligence or willful misconduct, to the extent such limitation is not permitted under the laws of British Columbia.</p>
+            </section>
+
+            <section id="s16" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§16</span>Indemnification</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">You will indemnify and hold Crestward Labs harmless from claims, damages, and expenses (including reasonable legal fees) arising from Customer Content, including data you connect, upload, or authorize FlowStudio to crawl without the necessary rights; your breach of these Terms; or your violation of applicable law.</p>
+            </section>
+
+            <section id="s17" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§17</span>Suspension and termination</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">We may suspend or terminate your access for breach of these Terms, suspected abuse, non-payment, or extended inactivity. You may close your account at any time. Following termination, you will have 30 days to export Customer Content before it is deleted in accordance with our Privacy Policy's retention terms, except where we are required by law to delete it sooner or retain it longer.</p>
+            </section>
+
+            <section id="s18" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§18</span>Export control and sanctions</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">You represent that you are not subject to Canadian, U.S., or other applicable trade sanctions, and that you will not use the Service in violation of export control or sanctions laws, including those imposed by the third-party AI providers you connect.</p>
+            </section>
+
+            <section id="s19" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§19</span>Governing law and venue</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">These Terms are governed by the laws of the Province of British Columbia and the federal laws of Canada applicable in that province, without regard to conflict-of-laws principles. The courts located in Vancouver, British Columbia have exclusive jurisdiction over any dispute arising from these Terms, and each party submits to that venue.</p>
+            </section>
+
+            <section id="s20" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§20</span>Changes to these Terms</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">We may update these Terms from time to time. We will notify you of material changes by email or in-product notice and update the "Last updated" date above. Continued use of the Service after changes take effect constitutes acceptance.</p>
+            </section>
+
+            <section id="s21" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§21</span>General</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">These Terms, together with the Privacy Policy and any Enterprise order form, are the entire agreement between you and Crestward Labs regarding the Service. If any provision is found unenforceable, the remaining provisions remain in effect. Our failure to enforce a provision is not a waiver of it. You may not assign these Terms without our consent; we may assign them in connection with a merger, acquisition, or sale of assets. Neither party is liable for delay caused by events beyond its reasonable control. Notices to you may be sent to the email address on your account; notices to us should go to the address in Section 22.</p>
+            </section>
+
+            <section id="s22" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§22</span>Contact</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">Crestward Labs Inc.<br>Vancouver, British Columbia, Canada<br><a class="text-lime-700 underline underline-offset-2 hover:text-lime-800" href="mailto:admin@flowstudio-ai.com">admin@flowstudio-ai.com</a></p>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-stone-950 px-5 pb-8 pt-12 text-white lg:px-8">
+      <div class="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-10 border-b border-white/10 pb-10 lg:grid-cols-3">
+        <div>
+          <div class="flex items-center gap-2.5">
+            <a href="index.html">
+              <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/260ec907-d40b-412e-8453-16c8a770d2d0_320w.png" alt="FlowStudio AI Logo" class="h-18 w-auto shrink-0 object-contain">
+            </a>
+          </div>
+          <p class="mt-4 max-w-52 text-sm leading-6 text-white/50">
+            A workflow canvas for agent orchestration.
+          </p>
+        </div>
+        <div>
+          <p class="font-mono text-xs uppercase tracking-[0.12em] text-white/35">
+            Product
+          </p>
+          <div class="mt-4 space-y-3 text-sm text-white/60">
+            <a class="block hover:text-white" href="index.html#agents">How it works</a>
+            <a class="block hover:text-white" href="index.html#workflow">Workflow</a>
+            <a class="block hover:text-white" href="index.html#tools">Tools</a>
+            <a class="block hover:text-white" href="index.html#pricing">Pricing</a>
+          </div>
+        </div>
+        <div>
+          <p class="font-mono text-xs uppercase tracking-[0.12em] text-white/35">
+            Company
+          </p>
+          <div class="mt-4 space-y-3 text-sm text-white/60">
+            <a class="block hover:text-white" href="index.html#contact">Contact</a>
+            <a class="block hover:text-white" href="index.html#top">About</a>
+            <a class="block hover:text-white" href="terms.html">Terms</a>
+            <a class="block hover:text-white" href="privacy.html">Privacy</a>
+          </div>
+        </div>
+      </div>
+      <div class="mx-auto flex max-w-6xl flex-col justify-between gap-4 pt-7 text-xs text-white/40 sm:flex-row sm:items-center">
+        <span>© 2026 FlowStudio AI</span>
+      </div>
+    </footer>
+
+    <script>
+      var mobileMenu=document.getElementById("mobileMenu"),mobileMenuButton=document.getElementById("mobileMenuButton"),mobileMenuIcon=document.getElementById("mobileMenuIcon");
+      function setMobileMenu(open){mobileMenu.classList.toggle("hidden",!open);mobileMenuButton.setAttribute("aria-expanded",String(open));mobileMenuIcon.setAttribute("icon",open?"solar:close-square-linear":"solar:hamburger-menu-linear")}
+      mobileMenuButton.addEventListener("click",function(){setMobileMenu(mobileMenu.classList.contains("hidden"))});
+      mobileMenu.querySelectorAll("a").forEach(function(link){link.addEventListener("click",function(){setMobileMenu(false)})});
+
+      (function(){
+        var sections=Array.prototype.slice.call(document.querySelectorAll('#content section[id]'));
+        var entries=sections.map(function(s){
+          var h2=s.querySelector('h2');
+          var num=h2.querySelector('span').textContent;
+          var label=h2.textContent.replace(num,'').trim();
+          return {id:s.id, num:num, label:label};
+        });
+        var toc=document.getElementById('toc');
+        entries.forEach(function(e){
+          var a=document.createElement('a');
+          a.href='#'+e.id;
+          a.className='toc-link flex items-baseline gap-2.5 rounded-md px-3 py-1.5 text-sm text-stone-500 transition hover:bg-stone-100 hover:text-stone-900';
+          a.innerHTML='<span class="toc-num w-6 shrink-0 font-mono text-xs text-stone-400">'+e.num+'</span><span>'+e.label+'</span>';
+          toc.appendChild(a);
+        });
+        var links=document.querySelectorAll('.toc-link');
+        if('IntersectionObserver' in window){
+          var obs=new IntersectionObserver(function(ents){
+            ents.forEach(function(ent){
+              if(!ent.isIntersecting) return;
+              var id=ent.target.id;
+              links.forEach(function(a){a.classList.toggle('active', a.getAttribute('href')==='#'+id)});
+            });
+          }, {rootMargin:'-15% 0px -70% 0px'});
+          sections.forEach(function(s){obs.observe(s)});
+        }
+      })();
+    </script>
+  </body></html>

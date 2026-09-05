@@ -1,0 +1,348 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | FlowStudio</title>
+    <meta name="description" content="How Crestward Labs collects, uses, and processes personal data and Customer Content through FlowStudio.">
+    <link rel="canonical" href="https://flowstudio-ai.com/privacy.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://flowstudio-ai.com/privacy.html">
+    <meta property="og:title" content="Privacy Policy | FlowStudio">
+    <meta property="og:description" content="How Crestward Labs collects, uses, and processes personal data and Customer Content through FlowStudio.">
+    <meta property="og:site_name" content="FlowStudio">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
+  </head>
+  <body class="bg-stone-50 text-stone-950 antialiased" style="font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+    <style>
+      .nav-drop { position:relative; }
+      .nav-drop-panel {
+        position:absolute; left:50%; top:100%; width:17rem;
+        transform:translate(-50%, 2px);
+        opacity:0; visibility:hidden; pointer-events:none;
+        transition:opacity .15s ease, transform .15s ease;
+        padding-top:0.625rem;
+      }
+      .nav-drop:hover > .nav-drop-panel,
+      .nav-drop:focus-within > .nav-drop-panel,
+      .nav-drop.open > .nav-drop-panel {
+        opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 0);
+      }
+      .nav-caret { transition:transform .15s ease; }
+      .nav-drop:hover .nav-caret, .nav-drop:focus-within .nav-caret, .nav-drop.open .nav-caret { transform:rotate(180deg); }
+      details > summary { list-style:none; cursor:pointer; }
+      details > summary::-webkit-details-marker { display:none; }
+      details > summary::marker { content:''; }
+      .toc-link.active { background:#f5f5f4; color:#1c1917; font-weight:500; }
+      .toc-link.active .toc-num { color:#4d7c0f; }
+      section[id] { scroll-margin-top:5.5rem; }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation:none !important; scroll-behavior:auto !important; }
+      }
+    </style>
+
+    <header class="sticky top-0 z-50 border-b border-stone-200/80 bg-stone-50/85 backdrop-blur-xl">
+      <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8">
+        <a href="index.html" class="flex items-center gap-2.5">
+          <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/ba89b8b7-69a2-402f-87bc-145d1eab5988_320w.png" alt="FlowStudio AI logo" class="h-9 w-auto shrink-0 object-contain">
+        </a>
+
+        <nav class="hidden items-center gap-7 text-sm font-medium text-stone-500 md:flex">
+          <a href="index.html#workflow" class="transition hover:text-stone-950">Workflow</a>
+          <a href="index.html#agents" class="transition hover:text-stone-950">Agents</a>
+          <a href="index.html#tools" class="transition hover:text-stone-950">Tools</a>
+          <a href="index.html#marketplace" class="transition hover:text-stone-950">Marketplace</a>
+          <a href="index.html#pricing" class="transition hover:text-stone-950">Pricing</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <a href="https://app.flowstudio-ai.com/login" target="_blank" rel="noopener noreferrer" class="hidden text-sm font-medium text-stone-600 transition hover:text-stone-950 sm:block">
+            Sign in
+          </a>
+          <a href="https://app.flowstudio-ai.com/signup" target="_blank" rel="noopener noreferrer" class="inline-flex h-9 items-center gap-2 rounded-md bg-stone-950 px-3.5 text-sm font-medium text-white transition hover:bg-stone-800">
+            Get early access
+            <iconify-icon icon="solar:arrow-right-linear" width="16" stroke-width="1.5"></iconify-icon>
+          </a>
+          <button id="mobileMenuButton" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Toggle menu" class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 text-stone-600 transition hover:bg-stone-100 md:hidden">
+            <iconify-icon id="mobileMenuIcon" icon="solar:hamburger-menu-linear" width="20" stroke-width="1.5"></iconify-icon>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="hidden border-t border-stone-200 bg-stone-50 px-5 py-3 md:hidden">
+        <nav class="flex flex-col text-sm font-medium text-stone-600">
+          <a href="index.html#workflow" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Workflow</a>
+          <a href="index.html#agents" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Agents</a>
+          <a href="index.html#tools" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Tools</a>
+          <a href="index.html#marketplace" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Marketplace</a>
+          <a href="index.html#pricing" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Pricing</a>
+          <a href="https://app.flowstudio-ai.com/login" target="_blank" rel="noopener noreferrer" class="mt-1 rounded-md border-t border-stone-200 px-3 py-2.5 pt-3.5 transition hover:bg-stone-100 hover:text-stone-950">Sign in</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="px-5 pb-8 pt-14 lg:px-8 lg:pt-16">
+        <div class="mx-auto max-w-6xl">
+          <p class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">Legal · Crestward Labs Inc.</p>
+          <h1 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Privacy Policy</h1>
+          <div class="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-stone-500">
+            <span>Last updated: <span class="font-medium text-stone-700">September 5, 2026</span></span>
+            <span>Applies to: <span class="font-medium text-stone-700">flowstudio-ai.com and app.flowstudio-ai.com</span></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-5 pb-24 lg:px-8">
+        <div class="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_240px] lg:gap-16">
+
+          <details class="h-fit rounded-lg border border-stone-200 bg-white lg:order-2 lg:sticky lg:top-24 lg:open lg:border-none lg:bg-transparent">
+            <summary class="flex items-center justify-between px-4 py-3 text-sm font-medium text-stone-700 lg:hidden">
+              Contents
+              <iconify-icon icon="solar:alt-arrow-down-linear" width="14" stroke-width="2"></iconify-icon>
+            </summary>
+            <nav id="toc" class="flex flex-col gap-0.5 px-2 pb-3 lg:px-0 lg:pb-0"></nav>
+          </details>
+
+          <div id="content" class="min-w-0 max-w-2xl lg:order-1">
+            <p class="mb-10 text-base leading-7 text-stone-600">
+              This Privacy Policy explains how <strong class="font-medium text-stone-800">Crestward Labs Inc.</strong>, of Vancouver, British Columbia, Canada ("Crestward Labs", "we", "us"), collects, uses, and shares information through <strong class="font-medium text-stone-800">flowstudio-ai.com</strong> and the FlowStudio application at <strong class="font-medium text-stone-800">app.flowstudio-ai.com</strong> (together, the "Service"). It also sets out the terms under which we process personal data on behalf of Customers who use FlowStudio to build workflows, terms that would traditionally sit in a separate data processing addendum and are instead folded directly into Section 7 below.
+            </p>
+
+            <section id="s1">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§1</span>Scope and our role</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">We act in two different capacities, and this Policy is written to make clear which one applies to a given category of data.</p>
+              <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                <div class="rounded-lg border border-stone-200 bg-white p-4">
+                  <p class="font-mono text-xs uppercase tracking-[0.1em] text-lime-700">As controller</p>
+                  <p class="mt-2 text-sm leading-6 text-stone-600">For account, tenant, billing, and website or contact-form data, the information about the people and organizations who sign up for FlowStudio, we decide why and how that data is processed, and this Policy is our direct privacy notice to you.</p>
+                </div>
+                <div class="rounded-lg border border-stone-200 bg-white p-4">
+                  <p class="font-mono text-xs uppercase tracking-[0.1em] text-lime-700">As processor</p>
+                  <p class="mt-2 text-sm leading-6 text-stone-600">For Customer Content, meaning workflow data, connected databases, crawled sites, uploaded documents, and messages from a Customer's own end users on Slack, Discord, Telegram, or WhatsApp, we process that data on the Customer's documented instructions. The Customer is the controller responsible for having a lawful basis to process it; Section 7 sets out our commitments in that relationship.</p>
+                </div>
+              </div>
+            </section>
+
+            <section id="s2" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§2</span>Who we are</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">Crestward Labs Inc.<br>Vancouver, British Columbia, Canada<br>Contact: <a class="text-lime-700 underline underline-offset-2 hover:text-lime-800" href="mailto:admin@flowstudio-ai.com">admin@flowstudio-ai.com</a></p>
+            </section>
+
+            <section id="s3" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§3</span>Information we collect</h2>
+
+              <h3 class="mt-5 text-sm font-semibold text-stone-800">Account and tenant information</h3>
+              <p class="mt-2 text-sm leading-7 text-stone-600 sm:text-base">Email address, first and last name, tenant or organization name, a hashed password (we never store passwords in plain text), and, if you sign in with Google or GitHub, the provider name, provider account ID, and the email address it discloses.</p>
+
+              <h3 class="mt-5 text-sm font-semibold text-stone-800">Customer Content</h3>
+              <p class="mt-2 text-sm leading-7 text-stone-600 sm:text-base">Workflow and agent configurations, custom tool source code, uploaded documents, results returned from databases you connect (read-only), content crawled from websites you configure, full workflow run transcripts (inputs, outputs, and system prompts used), agent memory summaries, and any input you provide at a human-in-the-loop checkpoint.</p>
+
+              <h3 class="mt-5 text-sm font-semibold text-stone-800">End-user and channel data</h3>
+              <p class="mt-2 text-sm leading-7 text-stone-600 sm:text-base">If a Customer configures a messaging bot, we process messages and identifiers from the people who interact with it on Slack, Discord, Telegram, or WhatsApp, on behalf of and at the direction of that Customer.</p>
+
+              <h3 class="mt-5 text-sm font-semibold text-stone-800">Third-party API keys</h3>
+              <p class="mt-2 text-sm leading-7 text-stone-600 sm:text-base">Credentials you provide for AI model providers or other connected services, stored encrypted at rest and used only to run the workflows you configure.</p>
+
+              <h3 class="mt-5 text-sm font-semibold text-stone-800">Website and contact data</h3>
+              <p class="mt-2 text-sm leading-7 text-stone-600 sm:text-base">If you use the contact form on flowstudio-ai.com, we receive the work email address and message you submit. We do not currently use analytics cookies, advertising trackers, or tracking pixels on the marketing site; see Section 12.</p>
+
+              <h3 class="mt-5 text-sm font-semibold text-stone-800">Technical and usage data</h3>
+              <p class="mt-2 text-sm leading-7 text-stone-600 sm:text-base">IP address, request timestamps, and per-execution metering (CPU time, memory, and network egress) that we use to enforce usage quotas and, in the future, for billing, plus standard security and error logs.</p>
+            </section>
+
+            <section id="s4" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§4</span>How we use information</h2>
+              <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-stone-600 sm:text-base">
+                <li>To provide, operate, and maintain the Service, including executing workflows and routing Customer Content to the AI providers, MCP servers, and other integrations a Customer configures;</li>
+                <li>To enforce usage quotas and, in the future, to bill for paid plans;</li>
+                <li>To secure the Service, detect abuse, and enforce these Terms and this Policy;</li>
+                <li>To communicate with you about the Service, including account, security, and, where you have opted in, product notices;</li>
+                <li>To respond to inquiries submitted through the contact form; and</li>
+                <li>To comply with applicable law.</li>
+              </ul>
+            </section>
+
+            <section id="s5" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§5</span>Legal bases</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">Where the GDPR or UK GDPR applies, we rely on performance of a contract with you (operating your account and running your workflows), our legitimate interests in securing the Service, preventing abuse, and enforcing quotas, your consent where we ask for it, and compliance with legal obligations.</p>
+            </section>
+
+            <section id="s6" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§6</span>How we share information</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">We do not sell personal data. We share information as follows.</p>
+              <div class="mt-4 overflow-x-auto rounded-lg border border-stone-200 bg-white">
+                <table class="w-full text-left text-sm">
+                  <thead>
+                    <tr class="border-b border-stone-200">
+                      <th class="whitespace-nowrap px-4 py-2.5 font-mono text-xs uppercase tracking-[0.08em] text-stone-400">Recipient</th>
+                      <th class="px-4 py-2.5 font-mono text-xs uppercase tracking-[0.08em] text-stone-400">What and why</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-stone-200">
+                    <tr><td class="whitespace-nowrap px-4 py-3 align-top text-stone-500">AI model providers</td><td class="px-4 py-3 align-top text-stone-600">Whichever provider you configure (for example, OpenAI or Anthropic) receives the prompts and context needed to run your workflow, sent using your own API credentials.</td></tr>
+                    <tr><td class="whitespace-nowrap px-4 py-3 align-top text-stone-500">Hosting and infrastructure</td><td class="px-4 py-3 align-top text-stone-600">Cloud infrastructure providers that host the Service and store data on our behalf, located in Canada, the United States, or other jurisdictions where our providers operate.</td></tr>
+                    <tr><td class="whitespace-nowrap px-4 py-3 align-top text-stone-500">Email delivery</td><td class="px-4 py-3 align-top text-stone-600">Used to send verification, password-reset, and passwordless sign-in emails.</td></tr>
+                    <tr><td class="whitespace-nowrap px-4 py-3 align-top text-stone-500">Messaging platforms</td><td class="px-4 py-3 align-top text-stone-600">Slack, Discord, Telegram, or WhatsApp, only to the extent you configure a bot integration.</td></tr>
+                    <tr><td class="whitespace-nowrap px-4 py-3 align-top text-stone-500">Service providers</td><td class="px-4 py-3 align-top text-stone-600">Vendors who support our operations under confidentiality obligations.</td></tr>
+                    <tr><td class="whitespace-nowrap px-4 py-3 align-top text-stone-500">Legal and safety</td><td class="px-4 py-3 align-top text-stone-600">Where required by law or legal process, or to protect rights, safety, or property.</td></tr>
+                    <tr><td class="whitespace-nowrap px-4 py-3 align-top text-stone-500">Corporate transactions</td><td class="px-4 py-3 align-top text-stone-600">In connection with a merger, financing, acquisition, or sale of assets, subject to this Policy or a materially similar one.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="mt-4 text-sm leading-7 text-stone-500 sm:text-base">Third-party MCP servers, databases, and websites that you independently configure FlowStudio to connect with are not our sub-processors. You select them directly, and once data reaches them, its handling is governed by that third party, not by us. Please review any third-party service before connecting it.</p>
+            </section>
+
+            <section id="s7" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§7</span>Data processing terms for Customers</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">This section sets out our commitments where we process personal data as a processor on a Customer's behalf, the terms a separate data processing addendum would otherwise cover.</p>
+              <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-stone-600 sm:text-base">
+                <li><strong class="font-medium text-stone-800">Instructions.</strong> We process Customer Content only as instructed through the Service's own configuration, and as required by applicable law.</li>
+                <li><strong class="font-medium text-stone-800">Confidentiality.</strong> Personnel with access to Customer Content are bound by confidentiality obligations.</li>
+                <li><strong class="font-medium text-stone-800">Security.</strong> See Section 10.</li>
+                <li><strong class="font-medium text-stone-800">Sub-processors.</strong> Engaged per Section 6; we will provide notice of material changes to that list on request.</li>
+                <li><strong class="font-medium text-stone-800">Data subject requests.</strong> We will provide reasonably necessary assistance with a Customer's obligation to respond to its end users' requests, using the account and workflow deletion tools built into the Service.</li>
+                <li><strong class="font-medium text-stone-800">Breach notification.</strong> We will notify the affected Customer of a confirmed personal data breach affecting Customer Content without undue delay, and in any event within 72 hours of confirming the breach.</li>
+                <li><strong class="font-medium text-stone-800">Deletion on termination.</strong> Customer Content is deleted or returned on termination of a Customer's account, subject to the retention terms in Section 9 and any copies we are required to retain by law.</li>
+                <li><strong class="font-medium text-stone-800">Audit.</strong> Enterprise Customers may request information reasonably necessary to demonstrate our compliance with this section, subject to confidentiality.</li>
+                <li><strong class="font-medium text-stone-800">International transfers.</strong> Where personal data originating in the EEA or UK is transferred outside those regions, we rely on appropriate safeguards recognized under applicable law, such as the European Commission's Standard Contractual Clauses, to protect that data.</li>
+              </ul>
+            </section>
+
+            <section id="s8" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§8</span>Data location and international transfers</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">Service infrastructure and backups are hosted with cloud providers located in Canada, the United States, or other jurisdictions where we or our infrastructure providers operate. Personal data may accordingly be processed in a country other than where you or your end users are located. Enterprise Customers with data-residency requirements can ask us about self-hosted or VPC deployment options.</p>
+            </section>
+
+            <section id="s9" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§9</span>Data retention</h2>
+              <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-stone-600 sm:text-base">
+                <li><strong class="font-medium text-stone-800">Account and tenant data:</strong> retained while your account is active and for a reasonable period afterward for legal, security, and backup purposes.</li>
+                <li><strong class="font-medium text-stone-800">Workflow run transcripts, agent memory, and channel session history:</strong> retained for as long as your account and the relevant workflow remain active. You can delete a specific run, workflow, or channel session at any time, which removes its stored content, and closing your account deletes this data as described above.</li>
+                <li><strong class="font-medium text-stone-800">Usage-metering data:</strong> retained for a configurable window used for quota enforcement and, in the future, billing.</li>
+                <li><strong class="font-medium text-stone-800">Third-party API keys:</strong> retained until you remove them or close your account.</li>
+              </ul>
+            </section>
+
+            <section id="s10" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§10</span>Data security</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">API keys and other secrets are encrypted at rest; passwords are hashed and never stored in plain text; custom code runs in an isolated, single-use sandboxed container with resource and network-egress limits; data in transit is encrypted (TLS); and internal access to Customer Content is restricted. No method of transmission or storage is completely secure, and we cannot guarantee absolute security.</p>
+            </section>
+
+            <section id="s11" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§11</span>Your rights and choices</h2>
+              <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-stone-600 sm:text-base">
+                <li><strong class="font-medium text-stone-800">Everyone:</strong> you can access, correct, or request deletion of the personal data associated with your account by emailing <a class="text-lime-700 underline underline-offset-2 hover:text-lime-800" href="mailto:admin@flowstudio-ai.com">admin@flowstudio-ai.com</a> or through in-product account settings.</li>
+                <li><strong class="font-medium text-stone-800">Canada (PIPEDA):</strong> you have the right to access and challenge the accuracy of personal information we hold about you, and to withdraw consent, subject to legal and contractual restrictions.</li>
+                <li><strong class="font-medium text-stone-800">EEA/UK (GDPR/UK GDPR), where applicable:</strong> rights of access, rectification, erasure, restriction, portability, and objection, and the right to lodge a complaint with a supervisory authority.</li>
+                <li><strong class="font-medium text-stone-800">California (CCPA/CPRA), where applicable:</strong> the right to know, delete, and correct personal information, and to opt out of any "sale" or "sharing"; we do not sell personal information.</li>
+              </ul>
+              <p class="mt-3 text-sm leading-7 text-stone-500 sm:text-base">We may need to verify your identity before acting on a request, and will respond within the timeline required by applicable law.</p>
+            </section>
+
+            <section id="s12" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§12</span>Cookies and similar technologies</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">flowstudio-ai.com does not currently use analytics cookies, advertising trackers, or tracking pixels; the contact form submits directly to our backend without setting any cookie. The FlowStudio application at app.flowstudio-ai.com uses session-related storage necessary to keep you signed in. If this changes, for example if we introduce product analytics, we will update this Policy and, where required, ask for your consent first.</p>
+            </section>
+
+            <section id="s13" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§13</span>Not directed to children</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">FlowStudio is a business and developer tool intended for use by organizations and their personnel. It is not directed to children, and we do not knowingly collect personal information from them.</p>
+            </section>
+
+            <section id="s14" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§14</span>Third-party links</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">The Service and this site may link to third-party websites, for example an AI provider's documentation or a marketplace template's source. We are not responsible for the privacy practices of sites we do not operate.</p>
+            </section>
+
+            <section id="s15" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§15</span>Changes to this Policy</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">We may update this Policy from time to time. We will notify you of material changes by email or an in-product or on-site notice, and update the "Last updated" date above.</p>
+            </section>
+
+            <section id="s16" class="mt-10">
+              <h2 class="flex items-baseline gap-3 text-xl font-semibold tracking-tight"><span class="rounded border border-stone-200 bg-lime-50 px-2 py-0.5 font-mono text-xs font-medium text-lime-700">§16</span>Contact us</h2>
+              <p class="mt-3 text-sm leading-7 text-stone-600 sm:text-base">Crestward Labs Inc.<br>Vancouver, British Columbia, Canada<br><a class="text-lime-700 underline underline-offset-2 hover:text-lime-800" href="mailto:admin@flowstudio-ai.com">admin@flowstudio-ai.com</a></p>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-stone-950 px-5 pb-8 pt-12 text-white lg:px-8">
+      <div class="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-10 border-b border-white/10 pb-10 lg:grid-cols-3">
+        <div>
+          <div class="flex items-center gap-2.5">
+            <a href="index.html">
+              <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/260ec907-d40b-412e-8453-16c8a770d2d0_320w.png" alt="FlowStudio AI Logo" class="h-18 w-auto shrink-0 object-contain">
+            </a>
+          </div>
+          <p class="mt-4 max-w-52 text-sm leading-6 text-white/50">
+            A workflow canvas for agent orchestration.
+          </p>
+        </div>
+        <div>
+          <p class="font-mono text-xs uppercase tracking-[0.12em] text-white/35">
+            Product
+          </p>
+          <div class="mt-4 space-y-3 text-sm text-white/60">
+            <a class="block hover:text-white" href="index.html#agents">How it works</a>
+            <a class="block hover:text-white" href="index.html#workflow">Workflow</a>
+            <a class="block hover:text-white" href="index.html#tools">Tools</a>
+            <a class="block hover:text-white" href="index.html#pricing">Pricing</a>
+          </div>
+        </div>
+        <div>
+          <p class="font-mono text-xs uppercase tracking-[0.12em] text-white/35">
+            Company
+          </p>
+          <div class="mt-4 space-y-3 text-sm text-white/60">
+            <a class="block hover:text-white" href="index.html#contact">Contact</a>
+            <a class="block hover:text-white" href="index.html#top">About</a>
+            <a class="block hover:text-white" href="terms.html">Terms</a>
+            <a class="block hover:text-white" href="privacy.html">Privacy</a>
+          </div>
+        </div>
+      </div>
+      <div class="mx-auto flex max-w-6xl flex-col justify-between gap-4 pt-7 text-xs text-white/40 sm:flex-row sm:items-center">
+        <span>© 2026 FlowStudio AI</span>
+      </div>
+    </footer>
+
+    <script>
+      var mobileMenu=document.getElementById("mobileMenu"),mobileMenuButton=document.getElementById("mobileMenuButton"),mobileMenuIcon=document.getElementById("mobileMenuIcon");
+      function setMobileMenu(open){mobileMenu.classList.toggle("hidden",!open);mobileMenuButton.setAttribute("aria-expanded",String(open));mobileMenuIcon.setAttribute("icon",open?"solar:close-square-linear":"solar:hamburger-menu-linear")}
+      mobileMenuButton.addEventListener("click",function(){setMobileMenu(mobileMenu.classList.contains("hidden"))});
+      mobileMenu.querySelectorAll("a").forEach(function(link){link.addEventListener("click",function(){setMobileMenu(false)})});
+
+      (function(){
+        var sections=Array.prototype.slice.call(document.querySelectorAll('#content section[id]'));
+        var entries=sections.map(function(s){
+          var h2=s.querySelector('h2');
+          var num=h2.querySelector('span').textContent;
+          var label=h2.textContent.replace(num,'').trim();
+          return {id:s.id, num:num, label:label};
+        });
+        var toc=document.getElementById('toc');
+        entries.forEach(function(e){
+          var a=document.createElement('a');
+          a.href='#'+e.id;
+          a.className='toc-link flex items-baseline gap-2.5 rounded-md px-3 py-1.5 text-sm text-stone-500 transition hover:bg-stone-100 hover:text-stone-900';
+          a.innerHTML='<span class="toc-num w-6 shrink-0 font-mono text-xs text-stone-400">'+e.num+'</span><span>'+e.label+'</span>';
+          toc.appendChild(a);
+        });
+        var links=document.querySelectorAll('.toc-link');
+        if('IntersectionObserver' in window){
+          var obs=new IntersectionObserver(function(ents){
+            ents.forEach(function(ent){
+              if(!ent.isIntersecting) return;
+              var id=ent.target.id;
+              links.forEach(function(a){a.classList.toggle('active', a.getAttribute('href')==='#'+id)});
+            });
+          }, {rootMargin:'-15% 0px -70% 0px'});
+          sections.forEach(function(s){obs.observe(s)});
+        }
+      })();
+    </script>
+  </body></html>
