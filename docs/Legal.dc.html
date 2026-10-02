@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#10140f;color:#eef2e8;font-family:'Bricolage Grotesque',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:hover{color:#9fdc6f}
+*{box-sizing:border-box}
+html{scrollbar-width:thin;scrollbar-color:rgba(120,130,110,.45) transparent}
+::-webkit-scrollbar{width:8px;height:8px;background:transparent}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(120,130,110,.45);border-radius:999px;border:2px solid transparent;background-clip:padding-box}
+::-webkit-scrollbar-thumb:hover{background-color:rgba(120,130,110,.7)}
+aside::-webkit-scrollbar{display:none}
+::selection{background:#9fdc6f;color:#0f1a0a}
+@keyframes fsBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5px)}}
+@keyframes fsJump{0%,100%{transform:translateY(0)}40%{transform:translateY(-13px)}60%{transform:translateY(-9px)}}
+@keyframes fsBlink{0%,91%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes fsWave{0%,100%{transform:rotate(-135deg)}50%{transform:rotate(-170deg)}}
+@keyframes fsSwing{0%,100%{transform:rotate(16deg)}50%{transform:rotate(-16deg)}}
+@keyframes fsSwing2{0%,100%{transform:rotate(-16deg)}50%{transform:rotate(16deg)}}
+@keyframes fsStep{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes fsGlow{0%,100%{opacity:.5}50%{opacity:1}}
+@keyframes fsPop{from{opacity:0;transform:translateX(-50%) translateY(8px) scale(.9)}to{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}}
+@keyframes fsPopSide{from{opacity:0;transform:translateY(8px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes fsCross{from{transform:translateX(-120px)}to{transform:translateX(calc(100vw + 120px))}}
+@keyframes fsDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes fsNudge{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+</style>
+<script src="./marketplace-data.js"></script>
+<script src="./legal-content.js"></script>
+</helmet>
+
+<div style="min-height:100vh;font-family:'Bricolage Grotesque',system-ui,sans-serif;background:#f4f3ec;color:#151a13">
+<nav style="position:fixed;top:16px;left:0;right:0;z-index:50;display:flex;flex-direction:column;align-items:center;gap:8px;padding:0 16px;pointer-events:none">
+  <div style="pointer-events:auto;width:100%;max-width:960px;display:flex;align-items:center;gap:24px;padding:8px 8px 8px 18px;border-radius:999px;background:rgba(16,20,15,.78);backdrop-filter:blur(16px) saturate(1.4);border:1px solid rgba(255,255,255,.08);box-shadow:0 20px 50px -20px rgba(0,0,0,.6)">
+    <a href="FlowStudio Landing v3.dc.html" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+      <img src="logo-mark-white.png" alt="" style="height:26px;width:auto;display:block">
+      <span style="font-weight:700;font-size:17px;letter-spacing:-.03em;color:#eef2e8">FlowStudio <span style="color:#9fdc6f">AI</span></span>
+    </a>
+    <div style="flex:1 1 0;min-width:0;height:20px;overflow:hidden;display:{{ navLinksDisplay }};justify-content:center;gap:4px 26px;font-size:14px;line-height:20px;color:#b6bfae;flex-wrap:wrap">
+      <a href="FlowStudio Landing v3.dc.html#tour">How it works</a>
+      <a href="Workflows.dc.html">Workflows</a>
+      <a href="FlowStudio Landing v3.dc.html#tools">Tools</a>
+      <a href="Marketplace.dc.html">Marketplace</a>
+      <a href="FlowStudio Landing v3.dc.html#pricing">Pricing</a>
+    </div>
+    <div style="margin-left:auto;display:flex;gap:6px;align-items:center;font-size:14px;flex-shrink:0;white-space:nowrap">
+      <a href="https://app.flowstudio-ai.com/login" style="color:#d4dbcc;padding:9px 14px;display:{{ signinDisplay }}">Sign in</a>
+      <a href="https://app.flowstudio-ai.com/signup" style="background:#9fdc6f;color:#0f1a0a;padding:10px 18px;border-radius:999px;font-weight:600;display:{{ ctaDisplay }}" style-hover="background:#b8ea8f;color:#0f1a0a">Get early access</a>
+      <button onClick="{{ toggleMenu }}" aria-label="Menu" style="all:unset;cursor:pointer;display:{{ burgerDisplay }};flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.08)">
+        <span style="width:18px;height:2px;border-radius:2px;background:#eef2e8;transform:{{ burger.t }};transition:transform .3s"></span>
+        <span style="width:18px;height:2px;border-radius:2px;background:#eef2e8;opacity:{{ burger.o }};transition:opacity .2s"></span>
+        <span style="width:18px;height:2px;border-radius:2px;background:#eef2e8;transform:{{ burger.b }};transition:transform .3s"></span>
+      </button>
+    </div>
+  </div>
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="pointer-events:auto;width:100%;max-width:960px;border-radius:26px;background:rgba(16,20,15,.96);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.08);box-shadow:0 30px 60px -20px rgba(0,0,0,.7);padding:10px 18px 18px;display:flex;flex-direction:column;animation:fsPopSide .25s ease-out both">
+      <a href="FlowStudio Landing v3.dc.html#tour" onClick="{{ closeMenu }}" style="padding:14px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px;font-weight:700;letter-spacing:-.03em;color:#eef2e8;display:flex;justify-content:space-between">How it works<span style="color:#9fdc6f">→</span></a>
+      <a href="Workflows.dc.html" onClick="{{ closeMenu }}" style="padding:14px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px;font-weight:700;letter-spacing:-.03em;color:#eef2e8;display:flex;justify-content:space-between">Workflows<span style="color:#9fdc6f">→</span></a>
+      <a href="FlowStudio Landing v3.dc.html#tools" onClick="{{ closeMenu }}" style="padding:14px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px;font-weight:700;letter-spacing:-.03em;color:#eef2e8;display:flex;justify-content:space-between">Tools<span style="color:#9fdc6f">→</span></a>
+      <a href="Marketplace.dc.html" onClick="{{ closeMenu }}" style="padding:14px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px;font-weight:700;letter-spacing:-.03em;color:#eef2e8;display:flex;justify-content:space-between">Marketplace<span style="color:#9fdc6f">→</span></a>
+      <a href="FlowStudio Landing v3.dc.html#pricing" onClick="{{ closeMenu }}" style="padding:14px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px;font-weight:700;letter-spacing:-.03em;color:#eef2e8;display:flex;justify-content:space-between">Pricing<span style="color:#9fdc6f">→</span></a>
+      <div style="display:flex;gap:10px;margin-top:16px">
+        <a href="https://app.flowstudio-ai.com/login" style="flex:1;text-align:center;padding:14px;border-radius:999px;border:1px solid rgba(255,255,255,.18);color:#eef2e8;font-weight:600;font-size:15px">Sign in</a>
+        <a href="https://app.flowstudio-ai.com/signup" style="flex:1;text-align:center;padding:14px;border-radius:999px;background:#9fdc6f;color:#0f1a0a;font-weight:700;font-size:15px">Get early access</a>
+      </div>
+    </div>
+  </sc-if>
+</nav>
+
+<header style="position:relative;background-color:#10140f;background-image:radial-gradient(rgba(170,200,150,.16) 1px,transparent 1.3px);background-size:28px 28px;color:#eef2e8;overflow:hidden">
+  <div style="position:absolute;left:50%;top:-50%;width:1200px;height:700px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(110,190,70,.12),rgba(110,190,70,0));pointer-events:none"></div>
+  <div style="position:relative;max-width:1240px;margin:0 auto;padding:140px 28px 56px;display:flex;flex-wrap:wrap;align-items:flex-end;gap:24px 48px">
+   <div style="flex:1 1 420px;min-width:0;display:flex;flex-direction:column;gap:22px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#8d9886;display:flex;align-items:center;gap:12px"><span style="width:24px;height:1px;background:#3a4436"></span>Legal · Crestward Labs</div>
+    <h1 style="margin:0;font-weight:800;font-size:clamp(36px,4.6vw,60px);line-height:1.02;letter-spacing:-.055em">{{ doc.title }}</h1>
+    <div style="display:flex;gap:10px 24px;flex-wrap:wrap;font-size:13px;color:#8d9886"><span>Last updated: {{ doc.updated }}</span><span>Applies to flowstudio-ai.com and app.flowstudio-ai.com</span></div>
+    <div style="display:flex;gap:4px;padding:4px;border-radius:999px;background:#171d15;border:1px solid rgba(255,255,255,.08);width:fit-content;margin-top:8px">
+      <sc-for list="{{ docTabs }}" as="t" hint-placeholder-count="2">
+        <button onClick="{{ t.onClick }}" style="all:unset;cursor:pointer;padding:9px 18px;border-radius:999px;font-size:14px;font-weight:500;background:{{ t.bg }};color:{{ t.color }};transition:all .2s">{{ t.label }}</button>
+      </sc-for>
+    </div>
+  </div>
+    <div style="flex:0 0 auto;width:120px;margin:120px auto 0">{{ legalBot }}</div>
+  </div>
+</header>
+
+<main style="max-width:1240px;margin:0 auto;padding:48px 20px 120px;display:flex;gap:28px 64px;align-items:flex-start;flex-wrap:wrap">
+  <aside style="flex:{{ lg.asideFlex }};position:{{ lg.asidePos }};top:96px;max-height:{{ lg.asideH }};background:{{ lg.asideBg }};padding:{{ lg.asidePad }};border-radius:18px;overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none;display:flex;flex-direction:column;gap:2px">
+    <button onClick="{{ toggleToc }}" style="all:unset;cursor:{{ lg.cur }};display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7b8274;padding:0 12px 10px"><span>Contents</span><span>{{ lg.caret }}</span></button>
+    <sc-if value="{{ lg.showToc }}" hint-placeholder-val="{{ true }}"><sc-for list="{{ toc }}" as="tc" hint-placeholder-count="12">
+      <button onClick="{{ tc.onClick }}" style="all:unset;cursor:pointer;display:flex;gap:10px;padding:7px 12px;border-radius:10px;font-size:13px;line-height:1.4;color:#3b4237" style-hover="background:#ecebe3;color:#151a13">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7b8274;min-width:22px;padding-top:1px">§{{ tc.n }}</span><span>{{ tc.title }}</span>
+      </button>
+    </sc-for></sc-if>
+  </aside>
+  <article style="flex:1 1 520px;min-width:0;max-width:760px;display:flex;flex-direction:column;gap:48px">
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#151a13;text-wrap:pretty"><sc-for list="{{ doc.intro }}" as="sg" hint-placeholder-count="1"><span style="font-weight:{{ sg.w }};color:{{ sg.c }}">{{ sg.t }}</span></sc-for></p>
+    <sc-for list="{{ doc.sections }}" as="sec" hint-placeholder-count="4">
+      <section id="{{ sec.anchor }}" style="display:flex;flex-direction:column;gap:16px;scroll-margin-top:100px;border-top:1px solid #dddcd2;padding-top:32px">
+        <div style="display:flex;align-items:baseline;gap:14px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#2f6a1f">§{{ sec.n }}</span>
+          <h2 style="margin:0;font-size:24px;font-weight:800;letter-spacing:-.055em;line-height:1.2">{{ sec.title }}</h2>
+        </div>
+        <sc-for list="{{ sec.blocks }}" as="bk" hint-placeholder-count="1">
+          <sc-if value="{{ bk.isP }}" hint-placeholder-val="{{ true }}">
+            <p style="margin:0;font-size:15px;line-height:1.75;color:#3b4237;text-wrap:pretty"><sc-for list="{{ bk.segs }}" as="sg" hint-placeholder-count="1"><span style="font-weight:{{ sg.w }};color:{{ sg.c }}">{{ sg.t }}</span></sc-for></p>
+          </sc-if>
+          <sc-if value="{{ bk.isH }}" hint-placeholder-val="{{ false }}">
+            <h3 style="margin:8px 0 -6px;font-size:16px;font-weight:500;letter-spacing:-.02em;color:#151a13">{{ bk.text }}</h3>
+          </sc-if>
+          <sc-if value="{{ bk.isList }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <sc-for list="{{ bk.items }}" as="it" hint-placeholder-count="3">
+                <div style="display:flex;gap:14px;font-size:15px;line-height:1.7;color:#3b4237"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#2f6a1f;min-width:18px;padding-top:4px">{{ it.mark }}</span><span style="text-wrap:pretty"><sc-for list="{{ it.segs }}" as="sg" hint-placeholder-count="1"><span style="font-weight:{{ sg.w }};color:{{ sg.c }}">{{ sg.t }}</span></sc-for></span></div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ bk.isTable }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#fff;border-radius:22px;box-shadow:0 1px 0 rgba(22,23,26,.04),0 12px 40px -18px rgba(22,23,26,.18);border:1px solid #e6e5dc;border-radius:18px;overflow:hidden">
+              <sc-for list="{{ bk.rows }}" as="r" hint-placeholder-count="3">
+                <div style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:20px;padding:16px 20px;border-top:{{ r.border }};font-size:14px;line-height:1.6">
+                  <span style="font-weight:500;color:#151a13">{{ r.a }}</span><span style="color:#5f665a">{{ r.b }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ bk.isRole }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#fff;border-radius:22px;box-shadow:0 1px 0 rgba(22,23,26,.04),0 12px 40px -18px rgba(22,23,26,.18);border:1px solid #e6e5dc;border-radius:18px;padding:20px 22px;display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:12px;font-weight:500;color:#2f6a1f;background:#e5f4dc;border-radius:999px;padding:4px 10px;width:fit-content">{{ bk.label }}</span>
+              <span style="font-size:15px;line-height:1.7;color:#3b4237">{{ bk.text }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ bk.isAddr }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#151a13;color:#eef2e8;border-radius:18px;padding:22px 24px;display:flex;flex-direction:column;gap:4px;font-size:15px;line-height:1.6">
+              <span style="font-weight:500">Crestward Labs</span>
+              <span style="color:#b6bfae">Vancouver, British Columbia, Canada</span>
+              <a href="mailto:admin@flowstudio-ai.com" style="color:#9fdc6f">admin@flowstudio-ai.com</a>
+            </div>
+          </sc-if>
+        </sc-for>
+      </section>
+    </sc-for>
+  </article>
+</main>
+
+<footer style="background-color:#10140f;background-image:radial-gradient(rgba(170,200,150,.12) 1px,transparent 1.3px);background-size:28px 28px;color:#8d9886;padding:0 28px">
+  <div style="max-width:1240px;margin:0 auto;padding:32px 0 36px;border-top:1px solid rgba(255,255,255,.08);display:flex;gap:20px 28px;flex-wrap:wrap;align-items:center;font-size:14px">
+    <span style="display:flex;align-items:center;gap:10px"><img src="logo-mark-white.png" alt="" style="height:24px;width:auto;display:block"><span style="font-weight:700;font-size:16px;letter-spacing:-.03em;color:#eef2e8">FlowStudio <span style="color:#9fdc6f">AI</span></span></span>
+    <span>Built by Crestward Labs</span>
+    <div style="margin-left:auto;display:flex;gap:24px;flex-wrap:wrap">
+      <a href="Marketplace.dc.html">Marketplace</a>
+      <a href="Legal.dc.html#terms">Terms</a>
+      <a href="Legal.dc.html#privacy">Privacy</a>
+      <span>© 2026 FlowStudio AI</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  static PAL = {
+    green: ['#6cbf45', '#58a834', '#3e7f24', '#d6f7bf'],
+    blue: ['#4a86ec', '#3a6fd6', '#2753a8', '#d4e4ff'],
+    orange: ['#f07a3e', '#dc6127', '#a8461a', '#ffe0cc'],
+    pink: ['#ec5e95', '#d6437c', '#a52d5d', '#ffd6e6']
+  };
+
+  static Robot = function Robot(p) {
+    const h = React.createElement, C = Component.PAL[p.c || 'green'], pose = p.pose || 'idle', dl = p.delay || 0;
+    const A = (n, t) => `${n} ${t}s ease-in-out ${dl}s infinite`;
+    const body = pose === 'walk' ? A('fsBob', .42) : pose === 'jump' ? A('fsJump', .9) : pose === 'work' ? A('fsBob', .5) : A('fsBob', 2.6);
+    const happy = pose === 'happy' || pose === 'jump';
+    const eyeSt = { transformBox: 'fill-box', transformOrigin: 'center', animation: `fsBlink 4.2s linear ${dl * 1.7}s infinite` };
+    const eyes = happy
+      ? [h('path', { key: 'e1', d: 'M21.5 27.5q3.75-5.5 7.5 0', fill: 'none', stroke: '#eafbe0', strokeWidth: 2.6, strokeLinecap: 'round' }),
+         h('path', { key: 'e2', d: 'M35 27.5q3.75-5.5 7.5 0', fill: 'none', stroke: '#eafbe0', strokeWidth: 2.6, strokeLinecap: 'round' })]
+      : [h('rect', { key: 'e1', x: 22, y: 20.5, width: 6.5, height: 10, rx: 3.2, fill: '#eafbe0', style: eyeSt }),
+         h('rect', { key: 'e2', x: 35.5, y: 20.5, width: 6.5, height: 10, rx: 3.2, fill: '#eafbe0', style: eyeSt })];
+    const armR = pose === 'hold' ? { transform: 'rotate(-35deg)' } : pose === 'wave' ? { animation: A('fsWave', 1.1) } : pose === 'jump' ? { transform: 'rotate(-150deg)' } : pose === 'walk' ? { animation: A('fsSwing', .84) } : pose === 'point' ? { transform: 'rotate(-95deg)' } : pose === 'work' ? { animation: A('fsSwing', .5) } : {};
+    const armL = pose === 'jump' ? { transform: 'rotate(150deg)' } : pose === 'walk' ? { animation: A('fsSwing2', .84) } : pose === 'work' ? { animation: A('fsSwing2', .5) } : {};
+    const fA = pose === 'walk' ? { animation: `fsStep .42s ease-in-out ${dl}s infinite` } : {};
+    const fB = pose === 'walk' ? { animation: `fsStep .42s ease-in-out ${dl + .21}s infinite` } : {};
+    const HOLD = {
+      doc: [h('rect', { key: 'a', x: -1, y: -20, width: 16, height: 21, rx: 2.5, fill: '#fff', stroke: '#c9c8bd', strokeWidth: 1 }),
+        h('path', { key: 'b', d: 'M2.5 -15.5h9M2.5 -11.5h9M2.5 -7.5h5.5', stroke: '#9aa294', strokeWidth: 1.4, strokeLinecap: 'round' }),
+        h('circle', { key: 'c', cx: 11.5, cy: -2.5, r: 4.2, fill: C[0] }), h('path', { key: 'd', d: 'M9.6 -2.6l1.3 1.3 2.5-2.5', fill: 'none', stroke: '#fff', strokeWidth: 1.3, strokeLinecap: 'round', strokeLinejoin: 'round' })],
+      shield: [h('path', { key: 'a', d: 'M7 -22l8.5 3.2v6.6c0 5.2-3.8 8.5-8.5 9.8-4.7-1.3-8.5-4.6-8.5-9.8v-6.6z', fill: C[3], stroke: C[2], strokeWidth: 1.4 }),
+        h('path', { key: 'b', d: 'M3.2 -12.5l2.7 2.7 5.2-5.2', fill: 'none', stroke: C[2], strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' })],
+      wrench: [h('g', { key: 'a', transform: 'rotate(-28)' }, h('rect', { x: -1.8, y: -17, width: 3.6, height: 16, rx: 1.8, fill: '#a9b0a3' }), h('circle', { cx: 0, cy: -19, r: 5.2, fill: '#a9b0a3' }), h('rect', { x: -1.7, y: -25.5, width: 3.4, height: 6, rx: .8, fill: '#161a17' }))]
+    };
+    const held = p.hold ? h('g', { transform: 'rotate(35 51 59)' }, h('g', { transform: 'translate(51 59)' }, HOLD[p.hold], h('circle', { cx: 0, cy: 0, r: 3.3, fill: C[0] }))) : null;
+    return h('svg', { viewBox: '0 0 64 76', width: '100%', style: { display: 'block', overflow: 'visible', transform: p.flip ? 'scaleX(-1)' : 'none' } },
+      h('ellipse', { cx: 32, cy: 73.5, rx: 15, ry: 2.4, fill: '#000', opacity: .16 }),
+      h('g', { style: fA }, h('rect', { x: 21, y: 61, width: 9, height: 10, rx: 3.5, fill: '#1d211e' })),
+      h('g', { style: fB }, h('rect', { x: 34, y: 61, width: 9, height: 10, rx: 3.5, fill: '#1d211e' })),
+      h('g', { style: { animation: body } },
+        h('rect', { x: 31, y: 3, width: 2, height: 8, fill: C[2] }),
+        h('circle', { cx: 32, cy: 4, r: 3.4, fill: C[3], style: { animation: A('fsGlow', 1.6) } }),
+        h('rect', { x: 5, y: 20, width: 5, height: 11, rx: 2, fill: C[2] }),
+        h('rect', { x: 54, y: 20, width: 5, height: 11, rx: 2, fill: C[2] }),
+        h('g', { style: { transformOrigin: '13px 46px', transition: 'transform .4s', ...armL } }, h('rect', { x: 10, y: 45, width: 6, height: 14, rx: 3, fill: C[0] })),
+        h('g', { style: { transformOrigin: '51px 46px', transition: 'transform .4s', ...armR } }, h('rect', { x: 48, y: 45, width: 6, height: 14, rx: 3, fill: C[0] }), held),
+        h('rect', { x: 27, y: 39, width: 10, height: 5, fill: C[2] }),
+        h('rect', { x: 17, y: 43, width: 30, height: 20, rx: 8, fill: C[1] }),
+        h('circle', { cx: 32, cy: 53, r: 3, fill: C[3], opacity: (pose === 'work' || happy) ? 1 : .55 }),
+        h('rect', { x: 9, y: 10, width: 46, height: 31, rx: 12, fill: C[0] }),
+        h('rect', { x: 14, y: 16, width: 36, height: 19, rx: 8, fill: '#161a17' }),
+        eyes));
+  };
+
+  static bubble(text, key, o) {
+    const h = React.createElement, side = o.side === 'right';
+    return h('div', { key, style: {
+      position: 'absolute', zIndex: 2, width: 'max-content', maxWidth: o.max, background: '#fff', color: '#151a13', fontFamily: "'Bricolage Grotesque', sans-serif",
+      fontSize: o.fs, fontWeight: 600, lineHeight: 1.3, letterSpacing: '-.01em', padding: o.pad, borderRadius: o.r, boxShadow: '0 12px 30px -12px rgba(0,0,0,.45)',
+      ...(side ? { left: '100%', bottom: '55%', marginLeft: o.gap, animation: 'fsPopSide .35s ease-out both' } : { left: '50%', bottom: '100%', marginBottom: o.gap, transform: 'translateX(-50%)', animation: 'fsPop .35s ease-out both' }) } },
+      text,
+      h('span', { style: side
+        ? { position: 'absolute', left: -4, bottom: 12, width: 10, height: 10, background: '#fff', transform: 'rotate(45deg)' }
+        : { position: 'absolute', left: '50%', bottom: -4, width: 10, height: 10, background: '#fff', transform: 'translateX(-50%) rotate(45deg)' } }));
+  }
+
+
+  state = { doc: 'terms', tocOpen: false };
+  componentDidMount() {
+    this.onRs = () => { const n = window.innerWidth < 800, sm = window.innerWidth < 640, navC = window.innerWidth < 1060; if (n !== this.state.narrow || sm !== this.state.sm || navC !== this.state.navC) this.setState({ narrow: n, sm, navC }); }; this.onRs(); window.addEventListener('resize', this.onRs);
+    
+    this.readHash = () => { const k = (location.hash || '').slice(1); if ((k === 'terms' || k === 'privacy') && k !== this.state.doc) this.setState({ doc: k }); };
+    this.readHash(); window.addEventListener('hashchange', this.readHash);
+    if (!window.FS_LEGAL) { this.mp = setInterval(() => { if (window.FS_LEGAL) { clearInterval(this.mp); this.forceUpdate(); } }, 50); }
+  }
+  componentWillUnmount() { window.removeEventListener('hashchange', this.readHash); clearInterval(this.mp); }
+  renderVals() {
+    const L = window.FS_LEGAL, k = this.state.doc;
+    const raw = L ? L[k] : { title: k === 'terms' ? 'Terms of Service' : 'Privacy Policy', updated: '', intro: [], sections: [] };
+    const doc = { ...raw, intro: raw.intro.map(s => ({ ...s, c: s.w > 400 ? '#151a13' : 'inherit' })),
+      sections: raw.sections.map(sec => ({ ...sec, blocks: sec.blocks.map(b => ({ isP: false, isH: false, isList: false, isTable: false, isRole: false, isAddr: false, ...b,
+        segs: (b.segs || []).map(s => ({ ...s, c: s.w > 400 ? '#151a13' : 'inherit' })),
+        items: (b.items || []).map(it => ({ ...it, segs: it.segs.map(s => ({ ...s, c: s.w > 400 ? '#151a13' : 'inherit' })) })) })) })) };
+    return {
+      navLinksDisplay: this.state.navC ? 'none' : 'flex', burgerDisplay: this.state.navC ? 'flex' : 'none', ctaDisplay: this.state.sm ? 'none' : 'block',
+      menuOpen: !!(this.state.navC && this.state.menuOpen),
+      burger: (this.state.navC && this.state.menuOpen) ? { t: 'translateY(7px) rotate(45deg)', o: 0, b: 'translateY(-7px) rotate(-45deg)' } : { t: 'none', o: 1, b: 'none' },
+      toggleMenu: () => this.setState(x => ({ menuOpen: !x.menuOpen })), closeMenu: () => this.setState({ menuOpen: false }),
+      signinDisplay: this.state.sm ? 'none' : 'block',
+      legalBot: React.createElement('div', { style: { position: 'relative' } },
+        Component.bubble(k === 'terms' ? 'These are the rules of the road. Every section is numbered so you can jump straight to it.' : 'Your data stays yours. Here’s exactly what we collect, why, and who sees it.', 'lb' + k, { fs: '15px', pad: '12px 16px', r: '16px', max: 'min(250px, 70vw)', gap: '14px' }),
+        React.createElement(Component.Robot, { c: k === 'terms' ? 'green' : 'blue', pose: 'hold', hold: k === 'terms' ? 'doc' : 'shield' })),
+      lg: this.state.narrow ? { asideFlex: '1 1 100%', asidePos: 'relative', asideH: 'none', asideBg: '#fff', asidePad: '8px', showToc: this.state.tocOpen, caret: this.state.tocOpen ? '▴' : '▾', cur: 'pointer' } : { asideFlex: '0 0 260px', asidePos: 'sticky', asideH: 'calc(100vh - 120px)', asideBg: 'transparent', asidePad: '0', showToc: true, caret: '', cur: 'default' },
+      toggleToc: () => { if (this.state.narrow) this.setState(x => ({ tocOpen: !x.tocOpen })); },
+      doc,
+      docTabs: [['terms', 'Terms of Service'], ['privacy', 'Privacy Policy']].map(([id, label]) => ({ label, bg: id === k ? '#eef2e8' : 'transparent', color: id === k ? '#10140f' : '#d4dbcc',
+        onClick: () => { this.setState({ doc: id }); history.replaceState(null, '', '#' + id); window.scrollTo({ top: 0, behavior: 'smooth' }); } })),
+      toc: raw.sections.map(sec => ({ n: sec.n, title: sec.title, onClick: () => { this.setState({ tocOpen: false }); const el = document.getElementById(sec.anchor); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 96, behavior: 'smooth' }); } }))
+    };
+  }
+}
+</script>
+</body>
+</html>

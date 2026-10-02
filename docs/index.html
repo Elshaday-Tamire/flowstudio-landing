@@ -1,1378 +1,861 @@
-<html lang="en"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlowStudio | Agent Workflow Builder by Crestward Labs</title>
-    <meta name="description" content="FlowStudio is where agents, tools, and workflows come together. Build anything from a simple automation to a full agent team, all on one canvas.">
-    <meta name="keywords" content="agent workflow builder, AI workflow canvas, multi-agent orchestration, workflow automation, agentic AI, AI tools, sequential agents, parallel agents, Crestward Labs">
-    <meta name="author" content="Crestward Labs">
-    <link rel="canonical" href="https://flowstudio-ai.com/">
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#10140f;color:#eef2e8;font-family:'Bricolage Grotesque',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:hover{color:#9fdc6f}
+*{box-sizing:border-box}
+::selection{background:#9fdc6f;color:#0f1a0a}
+@keyframes fsBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5px)}}
+@keyframes fsJump{0%,100%{transform:translateY(0)}40%{transform:translateY(-13px)}60%{transform:translateY(-9px)}}
+@keyframes fsBlink{0%,91%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes fsWave{0%,100%{transform:rotate(-135deg)}50%{transform:rotate(-170deg)}}
+@keyframes fsSwing{0%,100%{transform:rotate(16deg)}50%{transform:rotate(-16deg)}}
+@keyframes fsSwing2{0%,100%{transform:rotate(-16deg)}50%{transform:rotate(16deg)}}
+@keyframes fsStep{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes fsGlow{0%,100%{opacity:.5}50%{opacity:1}}
+@keyframes fsPop{from{opacity:0;transform:translateX(-50%) translateY(8px) scale(.9)}to{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}}
+@keyframes fsPopSide{from{opacity:0;transform:translateY(8px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes fsCross{from{transform:translateX(-120px)}to{transform:translateX(calc(100vw + 120px))}}
+@keyframes fsDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes fsMarq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes fsNudge{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+</style>
+</helmet>
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://flowstudio-ai.com/">
-    <meta property="og:title" content="FlowStudio | Agent Workflow Builder by Crestward Labs">
-    <meta property="og:description" content="FlowStudio is where agents, tools, and workflows come together. Build anything from a simple automation to a full agent team, all on one canvas.">
-    <meta property="og:image" content="https://flowstudio-ai.com/og-image.png">
-    <meta property="og:site_name" content="FlowStudio">
-    <meta property="og:locale" content="en_US">
+<div style="min-height:100vh;font-family:'Bricolage Grotesque',system-ui,sans-serif">
 
-    <!-- Twitter / X card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="FlowStudio | Agent Workflow Builder by Crestward Labs">
-    <meta name="twitter:description" content="FlowStudio is where agents, tools, and workflows come together. Build anything from a simple automation to a full agent team, all on one canvas.">
-    <meta name="twitter:image" content="https://flowstudio-ai.com/og-image.png">
+<nav style="position:fixed;top:16px;left:0;right:0;z-index:50;display:flex;flex-direction:column;align-items:center;gap:8px;padding:0 16px;pointer-events:none">
+  <div style="pointer-events:auto;width:100%;max-width:960px;display:flex;align-items:center;gap:24px;padding:8px 8px 8px 18px;border-radius:999px;background:rgba(16,20,15,.78);backdrop-filter:blur(16px) saturate(1.4);border:1px solid rgba(255,255,255,.08);box-shadow:0 20px 50px -20px rgba(0,0,0,.6)">
+    <a href="#top" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+      <img src="logo-mark-white.png" alt="" style="height:26px;width:auto;display:block">
+      <span style="font-weight:700;font-size:17px;letter-spacing:-.03em;color:#eef2e8">FlowStudio <span style="color:#9fdc6f">AI</span></span>
+    </a>
+    <div style="flex:1 1 0;min-width:0;height:20px;overflow:hidden;display:{{ navLinksDisplay }};justify-content:center;gap:4px 26px;font-size:14px;line-height:20px;color:#b6bfae;flex-wrap:wrap">
+      <a href="#tour">How it works</a>
+      <a href="#patterns">Workflows</a>
+      <a href="#try">Make an agent</a>
+      <a href="#tools">Tools</a>
+      <a href="Marketplace.dc.html">Marketplace</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+    <div style="margin-left:auto;display:flex;gap:6px;align-items:center;font-size:14px;flex-shrink:0;white-space:nowrap">
+      <a href="https://app.flowstudio-ai.com/login" style="color:#d4dbcc;padding:9px 14px;display:{{ signinDisplay }}">Sign in</a>
+      <a href="https://app.flowstudio-ai.com/signup" style="background:#9fdc6f;color:#0f1a0a;padding:10px 18px;border-radius:999px;font-weight:600;display:{{ ctaDisplay }}" style-hover="background:#b8ea8f;color:#0f1a0a">Get early access</a>
+      <button onClick="{{ toggleMenu }}" aria-label="Menu" style="all:unset;cursor:pointer;display:{{ burgerDisplay }};flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.08)">
+        <span style="width:18px;height:2px;border-radius:2px;background:#eef2e8;transform:{{ burger.t }};transition:transform .3s"></span>
+        <span style="width:18px;height:2px;border-radius:2px;background:#eef2e8;opacity:{{ burger.o }};transition:opacity .2s"></span>
+        <span style="width:18px;height:2px;border-radius:2px;background:#eef2e8;transform:{{ burger.b }};transition:transform .3s"></span>
+      </button>
+    </div>
+  </div>
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="pointer-events:auto;width:100%;max-width:960px;border-radius:26px;background:rgba(16,20,15,.96);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.08);box-shadow:0 30px 60px -20px rgba(0,0,0,.7);padding:10px 18px 18px;display:flex;flex-direction:column;animation:fsPopSide .25s ease-out both">
+      <a href="#tour" onClick="{{ closeMenu }}" style="padding:14px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px;font-weight:700;letter-spacing:-.03em;color:#eef2e8;display:flex;justify-content:space-between">How it works<span style="color:#9fdc6f">→</span></a>
+      <a href="#patterns" onClick="{{ closeMenu }}" style="padding:14px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px;font-weight:700;letter-spacing:-.03em;color:#eef2e8;display:flex;justify-content:space-between">Workflows<span style="color:#9fdc6f">→</span></a>
+      <a href="#try" onClick="{{ closeMenu }}" style="padding:14px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px;font-weight:700;letter-spacing:-.03em;color:#eef2e8;display:flex;justify-content:space-between">Make an agent<span style="color:#9fdc6f">→</span></a>
+      <a href="#tools" onClick="{{ closeMenu }}" style="padding:14px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px;font-weight:700;letter-spacing:-.03em;color:#eef2e8;display:flex;justify-content:space-between">Tools<span style="color:#9fdc6f">→</span></a>
+      <a href="Marketplace.dc.html" onClick="{{ closeMenu }}" style="padding:14px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px;font-weight:700;letter-spacing:-.03em;color:#eef2e8;display:flex;justify-content:space-between">Marketplace<span style="color:#9fdc6f">→</span></a>
+      <a href="#pricing" onClick="{{ closeMenu }}" style="padding:14px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px;font-weight:700;letter-spacing:-.03em;color:#eef2e8;display:flex;justify-content:space-between">Pricing<span style="color:#9fdc6f">→</span></a>
+      <div style="display:flex;gap:10px;margin-top:16px">
+        <a href="https://app.flowstudio-ai.com/login" style="flex:1;text-align:center;padding:14px;border-radius:999px;border:1px solid rgba(255,255,255,.18);color:#eef2e8;font-weight:600;font-size:15px">Sign in</a>
+        <a href="https://app.flowstudio-ai.com/signup" style="flex:1;text-align:center;padding:14px;border-radius:999px;background:#9fdc6f;color:#0f1a0a;font-weight:700;font-size:15px">Get early access</a>
+      </div>
+    </div>
+  </sc-if>
+</nav>
 
-    <!-- LLMs.txt discovery hint -->
-    <link rel="alternate" type="text/plain" title="LLM context" href="/llms.txt">
+<header id="top" style="position:relative;overflow:hidden;background-color:#10140f;background-image:radial-gradient(rgba(170,200,150,.16) 1px,transparent 1.3px);background-size:28px 28px">
+  <div style="position:absolute;left:-10%;bottom:-40%;width:900px;height:700px;background:radial-gradient(closest-side,rgba(110,190,70,.16),rgba(110,190,70,0));pointer-events:none"></div>
+  <div style="position:relative;max-width:1240px;margin:0 auto;padding:150px 28px 72px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:40px;align-items:center">
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.2em;color:#9fdc6f">AI WORKFLOWS, BUILT VISUALLY</div>
+      <h1 style="margin:0;font-weight:800;font-size:clamp(46px,6.6vw,96px);line-height:.92;letter-spacing:-.06em;color:#eef2e8">Build it on a canvas.<br>Put it on a schedule.<br><span style="color:#9fdc6f">Let it run.</span></h1>
+      <p style="margin:0;font-size:19px;line-height:1.55;color:#b6bfae;max-width:44ch;text-wrap:pretty">FlowStudio is where AI agents team up to do real work for you. No code, just a canvas.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="https://app.flowstudio-ai.com/signup" style="background:#9fdc6f;color:#0f1a0a;padding:16px 26px;border-radius:999px;font-weight:700;font-size:16px" style-hover="background:#b8ea8f;color:#0f1a0a">Start building free</a>
+        <a href="#tour" style="border:1px solid rgba(255,255,255,.18);color:#eef2e8;padding:16px 26px;border-radius:999px;font-size:16px;font-weight:500" style-hover="border-color:#9fdc6f;color:#9fdc6f">Take the tour</a>
+      </div>
+    </div>
+    <div style="position:relative;height:440px;margin-top:70px">{{ heroCrew }}</div>
+  </div>
+  <a href="#tour" style="position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;padding:0 0 40px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;color:#8d9886">
+    <span>SCROLL · FLO WILL SHOW YOU AROUND</span>
+    <span style="font-size:18px;color:#9fdc6f;animation:fsNudge 1.6s ease-in-out infinite">↓</span>
+  </a>
+</header>
 
-    <!-- JSON-LD structured data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "FlowStudio",
-      "url": "https://flowstudio-ai.com/",
-      "description": "FlowStudio is where agents, tools, and workflows come together. Build anything from a simple automation to a full agent team, all on one canvas.",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Web",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "author": {
-        "@type": "Organization",
-        "name": "Crestward Labs",
-        "url": "https://crestwardlabs.com/"
-      },
-      "featureList": [
-        "Visual workflow canvas",
-        "Sequential agent pipelines",
-        "Parallel agent execution",
-        "Hierarchical agent orchestration",
-        "Collaborative agents",
-        "Event-driven workflows",
-        "MCP tool integration",
-        "Multi-agent team builder"
-      ]
-    }
-    </script>
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is FlowStudio?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "FlowStudio is a visual workflow canvas where agents, tools, and workflows come together. You can build anything from a simple automation to a full agent team, all on one canvas, without writing orchestration code from scratch."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What workflow patterns does FlowStudio support?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "FlowStudio supports sequential pipelines where each agent passes its output to the next, parallel execution where independent agents run at once, hierarchical patterns where a coordinator delegates to specialists, collaborative patterns where agents refine shared work together, event-driven patterns triggered by named events, and hybrid patterns that combine ordered stages with concurrent groups."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Who makes FlowStudio?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "FlowStudio is built by Crestward Labs, an agentic AI systems and software engineering practice based in Vancouver, BC, Canada."
-          }
-        }
-      ]
-    }
-    </script>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
-  </head>
-  <body class="bg-stone-50 text-stone-950 antialiased" style="font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
-    <style>
-      @keyframes flow {
-        to { stroke-dashoffset: -28; }
-      }
-      @keyframes node {
-        0%, 18%, 100% { background:#fff; color:#18181b; border-color:#e7e5e4; transform:translateY(0); }
-        30%, 52% { background:#18181b; color:#fff; border-color:#18181b; transform:translateY(-2px); }
-      }
-      @keyframes pulse {
-        0%, 100% { opacity:.3; transform:scale(.85); }
-        50% { opacity:1; transform:scale(1); }
-      }
-      .flow-line { stroke-dasharray: 5 10; animation:flow 1.2s linear infinite; }
-      .node-a { animation:node 5s cubic-bezier(.2,0,0,1) infinite; }
-      .node-b { animation:node 5s cubic-bezier(.2,0,0,1) -3.7s infinite; }
-      .node-c { animation:node 5s cubic-bezier(.2,0,0,1) -2.5s infinite; }
-      .node-d { animation:node 5s cubic-bezier(.2,0,0,1) -1.25s infinite; }
-      .signal { animation:pulse 1.4s ease-in-out infinite; }
-      @keyframes marquee-left {
-        to { transform:translateX(-50%); }
-      }
-      @keyframes marquee-right {
-        from { transform:translateX(-50%); }
-      }
-      .marquee-row {
-        overflow:hidden;
-        -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-        mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-      }
-      .marquee-track { display:flex; width:max-content; animation:marquee-left 34s linear infinite; }
-      .marquee-track.reverse { animation-name:marquee-right; animation-duration:38s; }
-      .marquee-row:hover .marquee-track { animation-play-state:paused; }
-      .tool-chip { transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
-      .tool-chip:hover { transform:translateY(-3px); box-shadow:0 8px 20px -8px rgba(0,0,0,0.15); border-color:#d6d3d1; }
-      .nav-drop { position:relative; }
-      .nav-drop-panel {
-        position:absolute; left:50%; top:100%; width:17rem;
-        transform:translate(-50%, 2px);
-        opacity:0; visibility:hidden; pointer-events:none;
-        transition:opacity .15s ease, transform .15s ease;
-        padding-top:0.625rem;
-      }
-      .nav-drop:hover > .nav-drop-panel,
-      .nav-drop:focus-within > .nav-drop-panel,
-      .nav-drop.open > .nav-drop-panel {
-        opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 0);
-      }
-      .nav-caret { transition:transform .15s ease; }
-      .nav-drop:hover .nav-caret, .nav-drop:focus-within .nav-caret, .nav-drop.open .nav-caret { transform:rotate(180deg); }
-      details > summary { list-style:none; cursor:pointer; }
-      details > summary::-webkit-details-marker { display:none; }
-      details > summary::marker { content:''; }
-      @media (prefers-reduced-motion: reduce) {
-        *, *::before, *::after { animation:none !important; scroll-behavior:auto !important; }
-      }
-    </style>
-
-    <header class="sticky top-0 z-50 border-b border-stone-200/80 bg-stone-50/85 backdrop-blur-xl">
-      <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8">
-        <a href="#top" class="flex items-center gap-2.5">
-          <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/ba89b8b7-69a2-402f-87bc-145d1eab5988_320w.png" alt="FlowStudio AI logo" class="h-9 w-auto shrink-0 object-contain">
-        </a>
-
-        <nav class="hidden items-center gap-7 text-sm font-medium text-stone-500 md:flex">
-          <div class="nav-drop">
-            <a href="#workflow" class="flex items-center gap-1 py-2 transition hover:text-stone-950">
-              Workflow
-              <iconify-icon class="nav-caret" icon="solar:alt-arrow-down-linear" width="13" stroke-width="2"></iconify-icon>
-            </a>
-            <div class="nav-drop-panel">
-              <div class="rounded-xl border border-stone-200 bg-white p-1.5 shadow-lg shadow-stone-950/5">
-                <a href="#workflow" data-pattern="sequential" class="nav-pattern-link flex items-start gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-stone-100">
-                  <iconify-icon icon="solar:arrow-right-linear" width="16" stroke-width="1.5" class="mt-0.5 shrink-0 text-stone-400"></iconify-icon>
-                  <span>
-                    <span class="block text-sm font-medium text-stone-800">Sequential</span>
-                    <span class="block text-xs text-stone-500">Each agent passes its output to the next</span>
-                  </span>
-                </a>
-                <a href="#workflow" data-pattern="parallel" class="nav-pattern-link flex items-start gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-stone-100">
-                  <iconify-icon icon="solar:sort-horizontal-linear" width="16" stroke-width="1.5" class="mt-0.5 shrink-0 text-stone-400"></iconify-icon>
-                  <span>
-                    <span class="block text-sm font-medium text-stone-800">Parallel</span>
-                    <span class="block text-xs text-stone-500">Independent agents run at once</span>
-                  </span>
-                </a>
-                <a href="#workflow" data-pattern="hierarchical" class="nav-pattern-link flex items-start gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-stone-100">
-                  <iconify-icon icon="solar:cpu-linear" width="16" stroke-width="1.5" class="mt-0.5 shrink-0 text-stone-400"></iconify-icon>
-                  <span>
-                    <span class="block text-sm font-medium text-stone-800">Hierarchical</span>
-                    <span class="block text-xs text-stone-500">A coordinator delegates to specialists</span>
-                  </span>
-                </a>
-                <a href="#workflow" data-pattern="hybrid" class="nav-pattern-link flex items-start gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-stone-100">
-                  <iconify-icon icon="solar:sort-horizontal-linear" width="16" stroke-width="1.5" class="mt-0.5 shrink-0 text-stone-400"></iconify-icon>
-                  <span>
-                    <span class="block text-sm font-medium text-stone-800">Hybrid</span>
-                    <span class="block text-xs text-stone-500">Ordered stages with concurrent groups</span>
-                  </span>
-                </a>
-                <a href="#workflow" data-pattern="collaborative" class="nav-pattern-link flex items-start gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-stone-100">
-                  <iconify-icon icon="solar:restart-linear" width="16" stroke-width="1.5" class="mt-0.5 shrink-0 text-stone-400"></iconify-icon>
-                  <span>
-                    <span class="block text-sm font-medium text-stone-800">Collaborative</span>
-                    <span class="block text-xs text-stone-500">Agents refine shared work together</span>
-                  </span>
-                </a>
-                <a href="#workflow" data-pattern="event-driven" class="nav-pattern-link flex items-start gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-stone-100">
-                  <iconify-icon icon="solar:bell-linear" width="16" stroke-width="1.5" class="mt-0.5 shrink-0 text-stone-400"></iconify-icon>
-                  <span>
-                    <span class="block text-sm font-medium text-stone-800">Event-driven</span>
-                    <span class="block text-xs text-stone-500">Named events trigger the next agents</span>
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <a href="#agents" class="transition hover:text-stone-950">Agents</a>
-
-          <div class="nav-drop">
-            <a href="#tools" class="flex items-center gap-1 py-2 transition hover:text-stone-950">
-              Tools
-              <iconify-icon class="nav-caret" icon="solar:alt-arrow-down-linear" width="13" stroke-width="2"></iconify-icon>
-            </a>
-            <div class="nav-drop-panel">
-              <div class="rounded-xl border border-stone-200 bg-white p-1.5 shadow-lg shadow-stone-950/5">
-                <a href="#tools-builtin" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-stone-100">
-                  <iconify-icon icon="solar:database-linear" width="16" stroke-width="1.5" class="shrink-0 text-stone-400"></iconify-icon>
-                  <span class="text-sm font-medium text-stone-800">Built-in tools</span>
-                </a>
-                <a href="#tools-custom" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-stone-100">
-                  <iconify-icon icon="solar:code-2-linear" width="16" stroke-width="1.5" class="shrink-0 text-stone-400"></iconify-icon>
-                  <span class="text-sm font-medium text-stone-800">Custom tools</span>
-                </a>
-                <a href="#tools-community" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-stone-100">
-                  <iconify-icon icon="solar:users-group-rounded-linear" width="16" stroke-width="1.5" class="shrink-0 text-stone-400"></iconify-icon>
-                  <span class="text-sm font-medium text-stone-800">Community tools</span>
-                </a>
-                <a href="#tools-mcp" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-stone-100">
-                  <iconify-icon icon="solar:global-linear" width="16" stroke-width="1.5" class="shrink-0 text-stone-400"></iconify-icon>
-                  <span class="text-sm font-medium text-stone-800">MCP tools</span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <a href="#marketplace" class="transition hover:text-stone-950">Marketplace</a>
-
-          <a href="#pricing" class="transition hover:text-stone-950">Pricing</a>
-        </nav>
-
-        <div class="flex items-center gap-3">
-          <a href="https://app.flowstudio-ai.com/login" target="_blank" rel="noopener noreferrer" class="hidden text-sm font-medium text-stone-600 transition hover:text-stone-950 sm:block">
-            Sign in
-          </a>
-          <a href="https://app.flowstudio-ai.com/signup" target="_blank" rel="noopener noreferrer" class="inline-flex h-9 items-center gap-2 rounded-md bg-stone-950 px-3.5 text-sm font-medium text-white transition hover:bg-stone-800">
-            Get early access
-            <iconify-icon icon="solar:arrow-right-linear" width="16" stroke-width="1.5"></iconify-icon>
-          </a>
-          <button id="mobileMenuButton" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Toggle menu" class="flex size-9 shrink-0 items-center justify-center rounded-md border border-stone-200 text-stone-600 transition hover:bg-stone-100 md:hidden">
-            <iconify-icon id="mobileMenuIcon" icon="solar:hamburger-menu-linear" width="20" stroke-width="1.5"></iconify-icon>
-          </button>
+<section id="tour" style="position:relative;height:{{ tourHeight }};background-color:#10140f;background-image:radial-gradient(rgba(170,200,150,.12) 1px,transparent 1.3px);background-size:28px 28px">
+  <div style="position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden">
+    <div style="max-width:1320px;margin:0 auto;padding:84px 24px 16px;width:100%;height:100%;display:flex;flex-wrap:wrap;gap:16px 40px;align-items:center;align-content:center">
+      <div style="flex:1 1 220px;min-width:0;max-width:400px;display:flex;flex-direction:column;gap:min(22px,2.4vh)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.16em;color:#9fdc6f">{{ tour.num }} / 07 · {{ tour.kicker }}</div>
+        <h2 style="margin:0;font-weight:800;font-size:clamp(24px,min(3.6vw,6vh),56px);line-height:.98;letter-spacing:-.05em;color:#eef2e8;text-wrap:balance">{{ tour.title }}</h2>
+        <p style="margin:0;font-size:clamp(14px,min(1.4vw,2.6vh),18px);line-height:1.5;color:#b6bfae;text-wrap:pretty">{{ tour.body }}</p>
+        <div style="display:flex;gap:6px;margin-top:10px">
+          <sc-for list="{{ tourDots }}" as="d" hint-placeholder-count="7">
+            <button onClick="{{ d.onClick }}" title="{{ d.label }}" style="all:unset;cursor:pointer;flex:1;display:flex;flex-direction:column;gap:8px">
+              <span style="height:4px;border-radius:2px;background:{{ d.bar }};transition:background .4s"></span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;color:{{ d.color }};transition:color .4s">{{ d.label }}</span>
+            </button>
+          </sc-for>
         </div>
       </div>
 
-      <div id="mobileMenu" class="hidden border-t border-stone-200 bg-stone-50 px-5 py-3 md:hidden">
-        <nav class="flex flex-col text-sm font-medium text-stone-600">
-          <details class="group">
-            <summary class="flex items-center justify-between rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">
-              <a href="#workflow">Workflow</a>
-              <iconify-icon class="transition-transform duration-150 group-open:rotate-180" icon="solar:alt-arrow-down-linear" width="14" stroke-width="2"></iconify-icon>
-            </summary>
-            <div class="ml-3 flex flex-col border-l border-stone-200 pl-3">
-              <a href="#workflow" data-pattern="sequential" class="nav-pattern-link rounded-md px-3 py-2 text-stone-500 transition hover:bg-stone-100 hover:text-stone-950">Sequential</a>
-              <a href="#workflow" data-pattern="parallel" class="nav-pattern-link rounded-md px-3 py-2 text-stone-500 transition hover:bg-stone-100 hover:text-stone-950">Parallel</a>
-              <a href="#workflow" data-pattern="hierarchical" class="nav-pattern-link rounded-md px-3 py-2 text-stone-500 transition hover:bg-stone-100 hover:text-stone-950">Hierarchical</a>
-              <a href="#workflow" data-pattern="hybrid" class="nav-pattern-link rounded-md px-3 py-2 text-stone-500 transition hover:bg-stone-100 hover:text-stone-950">Hybrid</a>
-              <a href="#workflow" data-pattern="collaborative" class="nav-pattern-link rounded-md px-3 py-2 text-stone-500 transition hover:bg-stone-100 hover:text-stone-950">Collaborative</a>
-              <a href="#workflow" data-pattern="event-driven" class="nav-pattern-link rounded-md px-3 py-2 text-stone-500 transition hover:bg-stone-100 hover:text-stone-950">Event-driven</a>
+      <div style="flex:2 1 460px;min-width:0;max-width:min(100%, calc((100vh - {{ stageReserve }}) * 1000 / 640));margin:0 auto">
+        <div style="position:relative;aspect-ratio:1000/640;container-type:inline-size;border-radius:2.6cqw;background-color:#f4f3ec;background-image:radial-gradient(#d3d2c8 .12cqw,transparent .16cqw);background-size:2.4cqw 2.4cqw;box-shadow:0 50px 120px -40px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.06);transform:rotate(-1deg);color:#151a13;overflow:{{ cam.ov }}">
+          <div style="position:absolute;inset:0;transform:{{ cam.t }};transform-origin:{{ cam.o }};transition:transform .9s cubic-bezier(.45,0,.3,1),transform-origin .9s cubic-bezier(.45,0,.3,1)">
+
+          <div style="position:absolute;left:0;right:0;top:0;height:9.5%;display:flex;align-items:center;gap:1cqw;padding:0 2.4cqw;border-bottom:.12cqw solid #e2e1d8;background:#fbfaf6;border-radius:2.6cqw 2.6cqw 0 0">
+            <span style="font-size:1.5cqw;font-weight:600;padding:.6cqw 1.3cqw;border:.12cqw solid #d8d7cd;border-radius:.9cqw;background:#fff">Agent</span>
+            <span style="font-size:1.5cqw;font-weight:600;padding:.6cqw 1.3cqw;border:.12cqw solid #d8d7cd;border-radius:.9cqw;background:#fff">Fan-out</span>
+            <span style="font-size:1.5cqw;font-weight:600;padding:.6cqw 1.3cqw;border:.12cqw solid #d8d7cd;border-radius:.9cqw;background:#fff">Loop</span>
+            <span style="font-size:1.5cqw;font-weight:600;padding:.6cqw 1.3cqw;border:.12cqw solid #d8d7cd;border-radius:.9cqw;background:#fff">Condition</span>
+            <span style="margin-left:auto;display:flex;align-items:center;gap:.7cqw;font-family:'JetBrains Mono',monospace;font-size:1.3cqw;font-weight:500;letter-spacing:.06em;padding:.6cqw 1.3cqw;border-radius:999px;background:{{ status.bg }};color:{{ status.color }};transition:all .4s"><span style="width:.9cqw;height:.9cqw;border-radius:50%;background:{{ status.dot }}"></span>{{ status.label }}</span>
+          </div>
+
+          <div style="position:absolute;left:30%;top:22%;width:40%;height:28%;border:.2cqw dashed #c9c8bd;border-radius:2cqw;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6cqw;opacity:{{ hint.o }};transition:opacity .5s">
+            <span style="font-size:2cqw;font-weight:700;letter-spacing:-.03em;color:#7b8274">Your canvas</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:1.2cqw;color:#8d9486">drop agents, tools &amp; logic here</span>
+          </div>
+
+          <div style="position:absolute;left:50%;top:15%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:1.4cqw;font-weight:600;letter-spacing:.14em;white-space:nowrap;opacity:{{ lv.o }};transition:opacity .5s">AGENT = <span style="color:#2f6fd6">BRAIN</span> + <span style="color:#d4622a">JOB</span> + <span style="color:#2f8a3a">TOOLS</span></div>
+          <div style="position:absolute;left:11%;top:50%;width:24%;background:#fff;border:.15cqw solid #c7d8f6;border-radius:1.4cqw;padding:1.3cqw 1.6cqw;display:flex;flex-direction:column;gap:.5cqw;box-shadow:0 1cqw 2.4cqw -1.4cqw rgba(21,26,19,.3);opacity:{{ lv.o }};transform:{{ lv.t }};transition:all .5s cubic-bezier(.3,1.3,.5,1) {{ lv.d1 }}">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:1.15cqw;font-weight:600;letter-spacing:.12em;color:#2f6fd6">BRAIN</span>
+            <span style="font-size:1.45cqw;line-height:1.35">The AI model that thinks: Claude, GPT or Llama.</span>
+          </div>
+          <div style="position:absolute;left:35%;top:56.5%;width:6%;height:.2cqw;background:#2f6fd6;opacity:{{ lv.o }};transition:opacity .5s {{ lv.d1 }}"></div>
+          <div style="position:absolute;left:65%;top:43%;width:25%;background:#fff;border:.15cqw solid #f3d0bd;border-radius:1.4cqw;padding:1.3cqw 1.6cqw;display:flex;flex-direction:column;gap:.5cqw;box-shadow:0 1cqw 2.4cqw -1.4cqw rgba(21,26,19,.3);opacity:{{ lv.o }};transform:{{ lv.t }};transition:all .5s cubic-bezier(.3,1.3,.5,1) {{ lv.d2 }}">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:1.15cqw;font-weight:600;letter-spacing:.12em;color:#d4622a">JOB</span>
+            <span style="font-size:1.45cqw;line-height:1.35">What to do, written in plain words. Like a note to a teammate.</span>
+          </div>
+          <div style="position:absolute;left:59%;top:51%;width:6%;height:.2cqw;background:#d4622a;opacity:{{ lv.o }};transition:opacity .5s {{ lv.d2 }}"></div>
+          <div style="position:absolute;left:65%;top:69%;width:25%;background:#fff;border:.15cqw solid #c9e4c2;border-radius:1.4cqw;padding:1.3cqw 1.6cqw;display:flex;flex-direction:column;gap:.5cqw;box-shadow:0 1cqw 2.4cqw -1.4cqw rgba(21,26,19,.3);opacity:{{ lv.o }};transform:{{ lv.t }};transition:all .5s cubic-bezier(.3,1.3,.5,1) {{ lv.d3 }}">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:1.15cqw;font-weight:600;letter-spacing:.12em;color:#2f8a3a">TOOLS</span>
+            <span style="font-size:1.45cqw;line-height:1.35">The apps it may use: Postgres, Sheets, Slack, Gmail.</span>
+          </div>
+          <div style="position:absolute;left:59.5%;top:75%;width:5.5%;height:.2cqw;background:#2f8a3a;opacity:{{ lv.o }};transition:opacity .5s {{ lv.d3 }}"></div>
+
+          <div style="position:absolute;left:37%;top:13%;width:58%;background:#fff;border:.15cqw solid #e2e1d8;border-radius:2cqw;padding:2.2cqw 2.4cqw;display:flex;flex-direction:column;gap:1.7cqw;box-shadow:0 2cqw 5cqw -2cqw rgba(21,26,19,.35);opacity:{{ bf.o }};transform:{{ bf.t }};transition:all .5s cubic-bezier(.3,1.2,.5,1);pointer-events:none">
+            <div style="display:flex;align-items:center;gap:1.4cqw">
+              <div style="width:5.4cqw;filter:{{ bf.avatar }};transition:filter .6s {{ bf.d4 }}">{{ builderBot }}</div>
+              <div style="display:flex;flex-direction:column;gap:.3cqw">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:1.1cqw;letter-spacing:.14em;color:#8d9486">NEW AGENT</span>
+                <span style="font-size:2.4cqw;font-weight:800;letter-spacing:-.04em">Pull orders</span>
+              </div>
             </div>
-          </details>
-
-          <a href="#agents" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Agents</a>
-
-          <details class="group">
-            <summary class="flex items-center justify-between rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">
-              <a href="#tools">Tools</a>
-              <iconify-icon class="transition-transform duration-150 group-open:rotate-180" icon="solar:alt-arrow-down-linear" width="14" stroke-width="2"></iconify-icon>
-            </summary>
-            <div class="ml-3 flex flex-col border-l border-stone-200 pl-3">
-              <a href="#tools-builtin" class="rounded-md px-3 py-2 text-stone-500 transition hover:bg-stone-100 hover:text-stone-950">Built-in tools</a>
-              <a href="#tools-custom" class="rounded-md px-3 py-2 text-stone-500 transition hover:bg-stone-100 hover:text-stone-950">Custom tools</a>
-              <a href="#tools-community" class="rounded-md px-3 py-2 text-stone-500 transition hover:bg-stone-100 hover:text-stone-950">Community tools</a>
-              <a href="#tools-mcp" class="rounded-md px-3 py-2 text-stone-500 transition hover:bg-stone-100 hover:text-stone-950">MCP tools</a>
+            <div style="display:flex;flex-direction:column;gap:.7cqw;opacity:{{ bf.o }};transform:{{ bf.ft }};transition:all .45s {{ bf.d1 }}">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:1.1cqw;letter-spacing:.12em;color:#2f6fd6">1 · BRAIN</span>
+              <div style="display:flex;gap:.7cqw;flex-wrap:wrap">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:1.25cqw;padding:.6cqw 1.1cqw;border-radius:999px;background:#151a13;color:#eef2e8">claude-sonnet-4-6</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:1.25cqw;padding:.6cqw 1.1cqw;border-radius:999px;border:.12cqw solid #dddcd2;color:#5f665a">gpt-4o</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:1.25cqw;padding:.6cqw 1.1cqw;border-radius:999px;border:.12cqw solid #dddcd2;color:#5f665a">llama-3.1</span>
+              </div>
             </div>
-          </details>
+            <div style="display:flex;flex-direction:column;gap:.7cqw;opacity:{{ bf.o }};transform:{{ bf.ft }};transition:all .45s {{ bf.d2 }}">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:1.1cqw;letter-spacing:.12em;color:#d4622a">2 · JOB</span>
+              <span style="font-size:1.5cqw;line-height:1.45;padding:1.1cqw 1.4cqw;border-radius:1.2cqw;background:#f6f5ef;border:.12cqw solid #e6e5dc">Every morning, pull yesterday’s orders from Postgres and update the stock sheet.</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:.7cqw;opacity:{{ bf.o }};transform:{{ bf.ft }};transition:all .45s {{ bf.d3 }}">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:1.1cqw;letter-spacing:.12em;color:#2f8a3a">3 · TOOLS</span>
+              <div style="display:flex;gap:.7cqw;flex-wrap:wrap">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:1.25cqw;padding:.6cqw 1.1cqw;border-radius:999px;background:#e5f4dc;color:#2f6a1f">✓ postgres</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:1.25cqw;padding:.6cqw 1.1cqw;border-radius:999px;background:#e5f4dc;color:#2f6a1f">✓ sheets</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:1.25cqw;padding:.6cqw 1.1cqw;border-radius:999px;border:.12cqw dashed #c9c8bd;color:#8d9486">+ add</span>
+              </div>
+            </div>
+            <div style="position:relative;height:4.6cqw;border-radius:999px;overflow:hidden">
+              <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#151a13;color:#eef2e8;font-size:1.6cqw;font-weight:600">Create agent</span>
+              <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#9fdc6f;color:#0f1a0a;font-size:1.6cqw;font-weight:700;opacity:{{ bf.done }};transition:opacity .4s {{ bf.d4 }}">✓ Agent created</span>
+            </div>
+          </div>
 
-          <a href="#marketplace" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Marketplace</a>
+          {{ edgesEl }}
+          <span style="position:absolute;left:83.5%;top:49%;font-family:'JetBrains Mono',monospace;font-size:1.3cqw;padding:.4cqw .9cqw;border-radius:.8cqw;background:#e5f4dc;color:#2f6a1f;opacity:{{ yes.o }};transition:opacity .4s 1s">yes</span>
 
-          <a href="#pricing" class="rounded-md px-3 py-2.5 transition hover:bg-stone-100 hover:text-stone-950">Pricing</a>
+          <div style="position:absolute;left:4%;top:26.5%;width:23%;height:14.5%;background:#fff;border:.22cqw solid #2f7f6a;border-radius:1.4cqw;padding:0 1.8cqw;display:flex;flex-direction:column;justify-content:center;gap:.35cqw;box-shadow:0 1cqw 2.4cqw -1.4cqw rgba(21,26,19,.3);opacity:{{ nv.sched.o }};transform:{{ nv.sched.t }};transition:opacity .45s {{ nv.sched.d }},transform .6s cubic-bezier(.3,1.4,.5,1) {{ nv.sched.d }}">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:1.15cqw;letter-spacing:.12em;color:#2f7f6a">1 · SCHEDULE</span>
+            <span style="font-size:1.95cqw;font-weight:700;letter-spacing:-.03em">Every day 7 AM</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:1.15cqw;color:#7b8274">trigger</span>
+          </div>
+          <div style="position:absolute;left:34%;top:26.5%;width:25%;height:14.5%;background:#fff;border:.22cqw solid #4f9a3a;border-radius:1.4cqw;padding:0 1.8cqw;display:flex;flex-direction:column;justify-content:center;gap:.35cqw;box-shadow:0 0 0 .7cqw rgba(159,220,111,.22),0 1cqw 2.4cqw -1.4cqw rgba(21,26,19,.3);opacity:{{ nv.pull.o }};transform:{{ nv.pull.t }};transition:opacity .45s {{ nv.pull.d }},transform .6s cubic-bezier(.3,1.4,.5,1) {{ nv.pull.d }}">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:1.15cqw;letter-spacing:.12em;color:#2f6a1f">2 · AGENT</span>
+            <span style="font-size:1.95cqw;font-weight:700;letter-spacing:-.03em">Pull orders</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:1.15cqw;color:#7b8274">postgres · sheets</span>
+          </div>
+          <div style="position:absolute;left:68%;top:25%;width:28%;height:14.5%;background:#fff;border:.15cqw solid #e2d6cc;border-radius:1.4cqw;padding:0 1.8cqw;display:flex;flex-direction:column;justify-content:center;gap:.35cqw;box-shadow:0 1cqw 2.4cqw -1.4cqw rgba(21,26,19,.3);opacity:{{ nv.cond.o }};transform:{{ nv.cond.t }};transition:opacity .45s {{ nv.cond.d }},transform .6s cubic-bezier(.3,1.4,.5,1) {{ nv.cond.d }}">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:1.15cqw;letter-spacing:.12em;color:#d4622a">3 · CONDITION</span>
+            <span style="font-size:1.95cqw;font-weight:700;letter-spacing:-.03em">Stock below 20?</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:1.15cqw;color:#7b8274">yes → reorder</span>
+          </div>
+          <div style="position:absolute;left:68%;top:64%;width:28%;height:14.5%;background:#fff;border:.15cqw solid #e2d6cc;border-radius:1.4cqw;padding:0 1.8cqw;display:flex;flex-direction:column;justify-content:center;gap:.35cqw;box-shadow:0 1cqw 2.4cqw -1.4cqw rgba(21,26,19,.3);opacity:{{ nv.draft.o }};transform:{{ nv.draft.t }};transition:opacity .45s {{ nv.draft.d }},transform .6s cubic-bezier(.3,1.4,.5,1) {{ nv.draft.d }}">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:1.15cqw;letter-spacing:.12em;color:#c93f73">4 · AGENT</span>
+            <span style="font-size:1.95cqw;font-weight:700;letter-spacing:-.03em">Draft reorder email</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:1.15cqw;color:#7b8274">gmail</span>
+          </div>
+          <div style="position:absolute;left:34%;top:65.6%;width:25%;height:14.5%;background:#fff;border:.15cqw solid #e2e1d8;border-radius:1.4cqw;padding:0 1.8cqw;display:flex;flex-direction:column;justify-content:center;gap:.35cqw;box-shadow:0 1cqw 2.4cqw -1.4cqw rgba(21,26,19,.3);opacity:{{ nv.out.o }};transform:{{ nv.out.t }};transition:opacity .45s {{ nv.out.d }},transform .6s cubic-bezier(.3,1.4,.5,1) {{ nv.out.d }}">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:1.15cqw;letter-spacing:.12em;color:#5f665a">5 · OUTPUT</span>
+            <span style="font-size:1.95cqw;font-weight:700;letter-spacing:-.03em">Post in #ops</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:1.15cqw;color:#7b8274">slack</span>
+          </div>
 
-          <a href="https://app.flowstudio-ai.com/login" target="_blank" rel="noopener noreferrer" class="mt-1 rounded-md border-t border-stone-200 px-3 py-2.5 pt-3.5 transition hover:bg-stone-100 hover:text-stone-950">Sign in</a>
-        </nav>
+          <div style="position:absolute;left:55.5%;top:27%;width:6cqw;opacity:{{ rb.blue.o }};transform:{{ rb.blue.t }};transition:opacity .4s {{ rb.blue.d }},transform .6s cubic-bezier(.3,1.6,.5,1) {{ rb.blue.d }}">{{ botBlue }}</div>
+          <div style="position:absolute;left:91.5%;top:25.3%;width:6cqw;opacity:{{ rb.orange.o }};transform:{{ rb.orange.t }};transition:opacity .4s {{ rb.orange.d }},transform .6s cubic-bezier(.3,1.6,.5,1) {{ rb.orange.d }}">{{ botOrange }}</div>
+          <div style="position:absolute;left:90.5%;top:64.4%;width:6cqw;opacity:{{ rb.pink.o }};transform:{{ rb.pink.t }};transition:opacity .4s {{ rb.pink.d }},transform .6s cubic-bezier(.3,1.6,.5,1) {{ rb.pink.d }}">{{ botPink }}</div>
+
+          <div style="position:absolute;left:{{ flo.left }};top:{{ flo.top }};width:{{ flo.w }};transform:translate(-50%,-100%);transition:left .9s cubic-bezier(.45,0,.3,1),top .9s cubic-bezier(.45,0,.3,1),width .7s cubic-bezier(.45,0,.3,1);z-index:5">{{ flo.el }}</div>
+
+          </div>
+          <div style="position:absolute;right:{{ cam.pr }};bottom:{{ cam.pb }};display:flex;align-items:center;gap:1.1cqw;padding:1.5cqw 2.6cqw;border-radius:999px;background:#9fdc6f;color:#0f1a0a;font-size:2.1cqw;font-weight:800;letter-spacing:-.03em;box-shadow:0 2cqw 4cqw -2cqw rgba(0,0,0,.6);opacity:{{ next.o }};transform:{{ next.t }};transition:all .6s cubic-bezier(.3,1.5,.5,1) .6s;white-space:nowrap">◷ Next run · tomorrow 7:00 AM</div>
+        </div>
       </div>
-    </header>
+    </div>
+  </div>
+</section>
 
-    <main id="top">
-      <section class="relative overflow-hidden px-5 pb-20 pt-20 sm:pt-28 lg:px-8 lg:pb-28">
-        <div class="absolute inset-x-0 top-0 -z-10 h-[32rem] bg-[radial-gradient(circle_at_50%_-8%,rgba(190,242,100,0.24),transparent_52%)]"></div>
-
-        <div class="mx-auto flex max-w-7xl flex-col items-center text-center">
-          <div class="inline-flex items-center gap-2 rounded-md border border-stone-200 bg-white px-2.5 py-1.5 shadow-sm">
-            <span class="signal size-1.5 rounded-full bg-lime-500"></span>
-            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-500">
-              Pre-launch · early access
-            </span>
+<section id="patterns" style="position:relative;background-color:#10140f;background-image:radial-gradient(rgba(170,200,150,.12) 1px,transparent 1.3px);background-size:28px 28px;padding:80px 28px 120px;border-top:1px solid rgba(255,255,255,.06)">
+  <div style="max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:22px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.18em;color:#9fdc6f">WORKFLOW PATTERNS</div>
+    <h2 style="margin:0;font-weight:800;font-size:clamp(36px,4.6vw,64px);line-height:.95;letter-spacing:-.055em;color:#eef2e8;text-wrap:balance">Six ways your agents <span style="color:#9fdc6f">team up.</span></h2>
+    <p style="margin:0;font-size:18px;line-height:1.55;color:#b6bfae;max-width:52ch">Same robots, different teamwork. Tap a pattern and watch the crew rearrange.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+      <sc-for list="{{ patTabs }}" as="t" hint-placeholder-count="6">
+        <button onClick="{{ t.onClick }}" style="all:unset;cursor:pointer;position:relative;overflow:hidden;display:flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;border:1px solid {{ t.border }};background:{{ t.bg }};color:{{ t.color }};font-size:15px;font-weight:600;transition:all .25s">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:{{ t.numColor }}">{{ t.num }}</span><span>{{ t.name }}</span>
+        </button>
+      </sc-for>
+    </div>
+    <div style="position:relative;margin-top:96px">
+      <div style="position:absolute;left:3%;bottom:100%;width:{{ patV.flo }};z-index:6">{{ patFlo }}</div>
+      <div style="position:relative;aspect-ratio:{{ patV.aspect }};container-type:inline-size;border-radius:2.6cqw;background-color:#f4f3ec;background-image:radial-gradient(#d3d2c8 .12cqw,transparent .16cqw);background-size:2.4cqw 2.4cqw;box-shadow:0 50px 120px -40px rgba(0,0,0,.7);color:#151a13">
+        {{ patWires }}
+        <sc-for list="{{ patSlots }}" as="sl" hint-placeholder-count="6">
+          <div style="position:absolute;left:{{ sl.left }};top:{{ sl.top }};width:{{ patV.w }};transform:translate(-50%,-50%) scale({{ sl.scale }});opacity:{{ sl.o }};transition:left .9s cubic-bezier(.45,0,.3,1),top .9s cubic-bezier(.45,0,.3,1),opacity .4s,transform .4s">
+            <div style="position:absolute;left:50%;bottom:100%;width:40%;transform:translateX(-50%);opacity:{{ sl.robotO }};transition:opacity .3s">{{ sl.bot }}</div>
+            <div style="background:{{ sl.bg }};border:.18cqw {{ sl.borderStyle }} {{ sl.border }};border-radius:1.3cqw;padding:{{ patV.pad }};display:flex;flex-direction:column;gap:.3cqw;box-shadow:0 1cqw 2.4cqw -1.4cqw rgba(21,26,19,.35)">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:{{ patV.fk }};letter-spacing:.12em;color:{{ sl.kindColor }}">{{ sl.kind }}</span>
+              <span style="font-size:{{ patV.fn }};font-weight:700;letter-spacing:-.03em;white-space:nowrap;color:{{ sl.color }}">{{ sl.name }}</span>
+            </div>
           </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:12px">
+      <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap"><span style="font-size:22px;font-weight:800;letter-spacing:-.04em;color:#eef2e8">{{ pat.name }}</span><span style="font-size:16px;color:#b6bfae">Best for: {{ pat.bestFor }}</span></div>
+      <a href="Workflows.dc.html#{{ pat.key }}" style="font-size:15px;font-weight:600;color:#9fdc6f;white-space:nowrap" style-hover="color:#eef2e8">See how {{ pat.name }} works →</a>
+    </div>
+  </div>
+</section>
 
-          <h1 class="mt-7 max-w-5xl text-5xl font-semibold leading-[0.98] tracking-tight text-stone-950 sm:text-6xl lg:text-8xl">
-            Agents think. Tools act.
-            <br class="hidden sm:block">
-            Workflows run. You win.
-          </h1>
-
-          <p class="mt-7 max-w-2xl text-base leading-7 text-stone-600 sm:text-lg">
-            FlowStudio is where agents, tools, and workflows come together.
-            Build anything from a simple automation to a full agent team,
-            all on one canvas.
-          </p>
-
-          <div class="mt-9 flex w-full max-w-none flex-col items-center gap-3 sm:w-auto sm:flex-row sm:justify-center">
-            <a href="https://app.flowstudio-ai.com/signup" target="_blank" rel="noopener noreferrer" class="inline-flex h-14 w-full items-center justify-center gap-2 rounded-md bg-stone-950 px-8 text-base font-medium text-white transition hover:bg-stone-800 sm:h-12 sm:w-auto sm:text-sm">
-              Get early access
-              <iconify-icon icon="solar:arrow-right-linear" width="16" stroke-width="1.5"></iconify-icon>
-            </a>
-            <a href="https://app.flowstudio-ai.com/login" target="_blank" rel="noopener noreferrer" class="inline-flex h-14 w-full items-center justify-center rounded-md border border-stone-300 bg-white px-8 text-base font-medium text-stone-700 transition hover:bg-stone-100 hover:text-stone-950 sm:h-12 sm:w-auto sm:text-sm">
-              Sign in
-            </a>
-          </div>
-          <p class="mt-3 min-h-4 text-xs text-stone-500">
-            Be one of the first in - no waitlist, just sign up and start building.
-          </p>
-
-          <div class="mt-12 flex flex-wrap justify-center gap-x-4 gap-y-2 font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-              Sequential
-            </span>
-            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-              /
-            </span>
-            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-              Parallel
-            </span>
-            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-              /
-            </span>
-            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-              Hierarchical
-            </span>
-            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-              /
-            </span>
-            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-              Hybrid
-            </span>
-            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-              /
-            </span>
-            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-              Collaborative
-            </span>
-            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-              /
-            </span>
-            <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-              Event-driven
-            </span>
-          </div>
-        </div>
-      </section>
-
-      <section class="border-y border-stone-200 bg-white px-5 py-10 lg:px-8">
-        <div class="mx-auto flex max-w-6xl flex-col items-center gap-6">
-          <p class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-            Building on FlowStudio AI in private beta
-          </p>
-          <div class="flex flex-wrap items-center justify-center gap-x-11 gap-y-5 text-lg font-semibold tracking-tight text-stone-400 sm:text-xl">
-            <a href="https://numlk.io" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2.5 grayscale transition hover:grayscale-0">
-              <img src="assets/numlk-icon.png" alt="" class="h-5 w-5 object-contain opacity-60 transition group-hover:opacity-100">
-              <span class="font-mono font-normal uppercase tracking-[0.18em] transition group-hover:text-stone-600">
-                NumLK
-              </span>
-            </a>
-            <a href="https://cedarstreet.io" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2.5 grayscale transition hover:grayscale-0">
-              <img src="assets/cedarstreet-icon.png" alt="" class="h-5 w-5 object-contain opacity-60 transition group-hover:opacity-100">
-              <span class="font-semibold tracking-tight transition group-hover:text-stone-600">CedarStreet</span>
-            </a>
-            <span class="font-mono lowercase tracking-tight">
-              smart
-              <span class="font-semibold">schema</span>
-            </span>
-          </div>
-        </div>
-      </section>
-
-      <section id="workflow" class="scroll-mt-16 px-5 py-20 lg:px-8 lg:py-28">
-        <div class="mx-auto max-w-6xl">
-          <div class="max-w-2xl">
-            <p class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-              Orchestration
-            </p>
-            <h2 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-              Six workflow modes. One canvas.
-            </h2>
-            <p class="mt-5 text-base leading-7 text-stone-600">
-              Choose the coordination pattern that fits the work: straight
-              pipelines, concurrent specialists, delegated teams, flexible
-              stages, iterative collaboration, or reactive event flows.
-            </p>
-          </div>
-
-          <div id="patternTabs" class="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            <button data-pattern="sequential" class="pattern-tab rounded-lg border border-stone-950 bg-stone-950 p-5 text-left text-white">
-              <iconify-icon icon="solar:arrow-right-linear" width="27" stroke-width="1.5"></iconify-icon>
-              <p class="mt-5 font-mono text-xs uppercase tracking-[0.12em] text-white/50">
-                Mode 01
-              </p>
-              <p class="mt-2 text-lg font-semibold tracking-tight">
-                Sequential
-              </p>
-              <p class="mt-2 text-sm leading-5 text-white/65">
-                Each agent passes its output to the next.
-              </p>
+<section id="try" style="background-color:#f4f3ec;background-image:radial-gradient(#d3d2c8 1px,transparent 1.3px);background-size:24px 24px;color:#151a13;padding:120px 28px">
+  <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:48px 64px;align-items:center">
+    <div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:28px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.18em;color:#2f6a1f">YOUR TURN</div>
+      <h2 style="margin:0;font-weight:800;font-size:clamp(38px,4.6vw,64px);line-height:.95;letter-spacing:-.055em">Now make yours.</h2>
+      <p style="margin:0;font-size:18px;line-height:1.55;color:#5f665a;max-width:42ch">Three choices. That’s all an agent needs.</p>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;color:#2f6fd6">1 · PICK A BRAIN</span>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <sc-for list="{{ brains }}" as="b" hint-placeholder-count="3">
+            <button onClick="{{ b.onClick }}" style="all:unset;cursor:pointer;display:flex;flex-direction:column;gap:2px;padding:12px 18px;border-radius:16px;border:1.5px solid {{ b.border }};background:{{ b.bg }};color:{{ b.color }};transition:all .2s">
+              <span style="font-size:16px;font-weight:700;letter-spacing:-.02em">{{ b.name }}</span>
+              <span style="font-size:12px;opacity:.75">{{ b.desc }}</span>
             </button>
-            <button data-pattern="parallel" class="pattern-tab rounded-lg border border-stone-200 bg-white p-5 text-left transition hover:bg-stone-100">
-              <iconify-icon icon="solar:sort-horizontal-linear" width="27" stroke-width="1.5"></iconify-icon>
-              <p class="mt-5 font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                Mode 02
-              </p>
-              <p class="mt-2 text-lg font-semibold tracking-tight">Parallel</p>
-              <p class="mt-2 text-sm leading-5 text-stone-500">
-                Independent agents run at once, then results collect.
-              </p>
-            </button>
-            <button data-pattern="hierarchical" class="pattern-tab rounded-lg border border-stone-200 bg-white p-5 text-left transition hover:bg-stone-100">
-              <iconify-icon icon="solar:cpu-linear" width="27" stroke-width="1.5"></iconify-icon>
-              <p class="mt-5 font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                Mode 03
-              </p>
-              <p class="mt-2 text-lg font-semibold tracking-tight">
-                Hierarchical
-              </p>
-              <p class="mt-2 text-sm leading-5 text-stone-500">
-                A coordinator delegates to specialists and assembles the answer.
-              </p>
-            </button>
-            <button data-pattern="hybrid" class="pattern-tab rounded-lg border border-stone-200 bg-white p-5 text-left transition hover:bg-stone-100">
-              <iconify-icon icon="solar:sort-horizontal-linear" width="27" stroke-width="1.5"></iconify-icon>
-              <p class="mt-5 font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                Mode 04
-              </p>
-              <p class="mt-2 text-lg font-semibold tracking-tight">Hybrid</p>
-              <p class="mt-2 text-sm leading-5 text-stone-500">
-                Combine ordered stages with concurrent groups.
-              </p>
-            </button>
-            <button data-pattern="collaborative" class="pattern-tab rounded-lg border border-stone-200 bg-white p-5 text-left transition hover:bg-stone-100">
-              <iconify-icon icon="solar:restart-linear" width="27" stroke-width="1.5"></iconify-icon>
-              <p class="mt-5 font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                Mode 05
-              </p>
-              <p class="mt-2 text-lg font-semibold tracking-tight">
-                Collaborative
-              </p>
-              <p class="mt-2 text-sm leading-5 text-stone-500">
-                Agents refine shared work together over multiple rounds.
-              </p>
-            </button>
-            <button data-pattern="event-driven" class="pattern-tab rounded-lg border border-stone-200 bg-white p-5 text-left transition hover:bg-stone-100">
-              <iconify-icon icon="solar:bell-linear" width="27" stroke-width="1.5"></iconify-icon>
-              <p class="mt-5 font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                Mode 06
-              </p>
-              <p class="mt-2 text-lg font-semibold tracking-tight">
-                Event-driven
-              </p>
-              <p class="mt-2 text-sm leading-5 text-stone-500">
-                Named events trigger the next agents when they are ready.
-              </p>
-            </button>
-          </div>
-
-          <div id="demoPanel" class="mt-5 overflow-hidden rounded-xl border border-stone-200 bg-white">
-            <div class="flex flex-col items-start gap-2 border-b border-stone-200 bg-stone-50 px-5 py-3 sm:flex-row sm:items-center sm:justify-between">
-              <div class="flex items-center gap-2">
-                <span class="size-1.5 rounded-full bg-lime-500"></span>
-                <span id="demoRun" class="font-mono text-xs uppercase tracking-[0.12em] text-stone-500">
-                  run/sequential-triage
-                </span>
-              </div>
-              <span id="demoStats" class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400 sm:text-right">
-                4 nodes · 3.6s · 1 pass
-              </span>
-            </div>
-            <div class="grid min-h-72 min-w-0 place-items-center bg-stone-50 p-6 text-center">
-              <div class="w-full min-w-0">
-                <div class="text-center">
-                  <div id="demoIcon" class="mx-auto flex size-12 items-center justify-center rounded-lg bg-stone-950 text-white">
-                    <iconify-icon icon="solar:arrow-right-linear" width="24" stroke-width="1.5"></iconify-icon>
-                  </div>
-                  <h3 id="demoTitle" class="mt-5 text-xl font-semibold tracking-tight">
-                    A typed hand-off at every step.
-                  </h3>
-                  <p id="demoText" class="mx-auto mt-3 max-w-lg text-sm leading-6 text-stone-600">
-                    Each agent receives the previous output as a typed payload,
-                    so a broken hand-off fails at design time rather than during
-                    a live run.
-                  </p>
-                </div>
-                <div id="demoCanvas" class="relative mt-8 w-full overflow-x-auto overflow-y-hidden rounded-lg bg-transparent p-5 sm:p-8 lg:min-h-[42rem]">
-                  <svg class="relative block w-full min-w-[640px] sm:min-w-0" viewBox="0 0 960 452" fill="none" role="img" aria-label="Sequential agent workflow">
-                    <defs>
-                      <pattern id="workflow-grid" width="16" height="16" patternUnits="userSpaceOnUse">
-                        <circle cx="1" cy="1" r="0.7" fill="#d6d3d1"></circle>
-                      </pattern>
-                    </defs>
-                    <rect width="960" height="452" fill="url(#workflow-grid)"></rect>
-                    <rect x="32" y="32" width="896" height="388" rx="12" fill="white" stroke="#e7e5e4"></rect>
-                    <text x="64" y="68" fill="#a8a29e" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11" letter-spacing="1.4">
-                      01 - SEQUENTIAL
-                    </text>
-                    <path class="flow-line" d="M240 224H288" stroke="#18181b" stroke-width="1.5"></path>
-                    <path class="flow-line" d="M456 224H504" stroke="#18181b" stroke-width="1.5"></path>
-                    <path class="flow-line" d="M672 224H720" stroke="#18181b" stroke-width="1.5"></path>
-                    <g transform="translate(72 170)">
-                      <rect width="168" height="108" rx="10" fill="#18181b" stroke="#18181b"></rect>
-                      <g transform="translate(14 14) scale(0.83)" fill="none" stroke="#bef264" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 8V4H8"></path>
-                        <rect x="4" y="8" width="16" height="12" rx="2"></rect>
-                        <path d="M2 14h2"></path>
-                        <path d="M20 14h2"></path>
-                        <path d="M15 13v2"></path>
-                        <path d="M9 13v2"></path>
-                      </g>
-                      <text x="44" y="27" fill="#ffffff" font-family="Inter, sans-serif" font-size="12.5">
-                        Intake
-                      </text>
-                      <text x="44" y="41" fill="#bef264" font-family="ui-monospace, monospace" font-size="8.5" letter-spacing="0.8">
-                        AGENT
-                      </text>
-                      <rect x="14" y="52" width="140" height="20" rx="6" fill="#27272a" stroke="#3f3f46"></rect>
-                      <text x="24" y="65.5" fill="rgba(255,255,255,0.7)" font-family="ui-monospace, monospace" font-size="9">
-                        fetch_ticket
-                      </text>
-                      <rect x="14" y="76" width="140" height="20" rx="6" fill="#27272a" stroke="#3f3f46"></rect>
-                      <text x="24" y="89.5" fill="rgba(255,255,255,0.7)" font-family="ui-monospace, monospace" font-size="9">
-                        parse_email
-                      </text>
-                    </g>
-                    <g transform="translate(288 170)">
-                      <rect width="168" height="108" rx="10" fill="#ffffff" stroke="#d6d3d1"></rect>
-                      <g transform="translate(14 14) scale(0.83)" fill="none" stroke="#57534e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 8V4H8"></path>
-                        <rect x="4" y="8" width="16" height="12" rx="2"></rect>
-                        <path d="M2 14h2"></path>
-                        <path d="M20 14h2"></path>
-                        <path d="M15 13v2"></path>
-                        <path d="M9 13v2"></path>
-                      </g>
-                      <text x="44" y="27" fill="#18181b" font-family="Inter, sans-serif" font-size="12.5">
-                        Classify
-                      </text>
-                      <text x="44" y="41" fill="#a8a29e" font-family="ui-monospace, monospace" font-size="8.5" letter-spacing="0.8">
-                        AGENT
-                      </text>
-                      <rect x="14" y="52" width="140" height="20" rx="6" fill="#fafaf9" stroke="#e7e5e4"></rect>
-                      <text x="24" y="65.5" fill="#57534e" font-family="ui-monospace, monospace" font-size="9">
-                        search_catalog
-                      </text>
-                      <rect x="14" y="76" width="140" height="20" rx="6" fill="#fafaf9" stroke="#e7e5e4"></rect>
-                      <text x="24" y="89.5" fill="#57534e" font-family="ui-monospace, monospace" font-size="9">
-                        score_intent
-                      </text>
-                    </g>
-                    <g transform="translate(504 170)">
-                      <rect width="168" height="108" rx="10" fill="#ffffff" stroke="#d6d3d1"></rect>
-                      <g transform="translate(14 14) scale(0.83)" fill="none" stroke="#57534e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 8V4H8"></path>
-                        <rect x="4" y="8" width="16" height="12" rx="2"></rect>
-                        <path d="M2 14h2"></path>
-                        <path d="M20 14h2"></path>
-                        <path d="M15 13v2"></path>
-                        <path d="M9 13v2"></path>
-                      </g>
-                      <text x="44" y="27" fill="#18181b" font-family="Inter, sans-serif" font-size="12.5">
-                        Enrich
-                      </text>
-                      <text x="44" y="41" fill="#a8a29e" font-family="ui-monospace, monospace" font-size="8.5" letter-spacing="0.8">
-                        TOOL
-                      </text>
-                      <rect x="14" y="52" width="140" height="20" rx="6" fill="#fafaf9" stroke="#e7e5e4"></rect>
-                      <text x="24" y="65.5" fill="#57534e" font-family="ui-monospace, monospace" font-size="9">
-                        execute_query
-                      </text>
-                      <rect x="14" y="76" width="140" height="20" rx="6" fill="#fafaf9" stroke="#e7e5e4"></rect>
-                      <text x="24" y="89.5" fill="#57534e" font-family="ui-monospace, monospace" font-size="9">
-                        crm_lookup
-                      </text>
-                    </g>
-                    <g transform="translate(720 170)">
-                      <rect width="168" height="108" rx="10" fill="#ffffff" stroke="#d6d3d1"></rect>
-                      <g transform="translate(14 14) scale(0.83)" fill="none" stroke="#57534e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 8V4H8"></path>
-                        <rect x="4" y="8" width="16" height="12" rx="2"></rect>
-                        <path d="M2 14h2"></path>
-                        <path d="M20 14h2"></path>
-                        <path d="M15 13v2"></path>
-                        <path d="M9 13v2"></path>
-                      </g>
-                      <text x="44" y="27" fill="#18181b" font-family="Inter, sans-serif" font-size="12.5">
-                        Route
-                      </text>
-                      <text x="44" y="41" fill="#a8a29e" font-family="ui-monospace, monospace" font-size="8.5" letter-spacing="0.8">
-                        OUTPUT
-                      </text>
-                      <rect x="14" y="52" width="140" height="20" rx="6" fill="#fafaf9" stroke="#e7e5e4"></rect>
-                      <text x="24" y="65.5" fill="#57534e" font-family="ui-monospace, monospace" font-size="9">
-                        assign_owner
-                      </text>
-                      <rect x="14" y="76" width="140" height="20" rx="6" fill="#fafaf9" stroke="#e7e5e4"></rect>
-                      <text x="24" y="89.5" fill="#57534e" font-family="ui-monospace, monospace" font-size="9">
-                        post_slack
-                      </text>
-                    </g>
-                    <text x="64" y="396" fill="#57534e" font-family="Inter, sans-serif" font-size="13">
-                      One typed output moves through each step in order.
-                    </text>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
+          </sc-for>
         </div>
-      </section>
-
-      <section id="agents" class="scroll-mt-16 border-y border-stone-200 bg-white px-5 py-20 lg:px-8 lg:py-28">
-        <div class="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
-          <div>
-            <p class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-              Agent configuration
-            </p>
-            <h2 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-              Every agent is configured, not conjured.
-            </h2>
-            <p class="mt-5 text-base leading-7 text-stone-600">
-              Open any node and get the whole surface: model, prompt, tool
-              grants, retry policy, timeouts, and memory. Set it per agent,
-              override it per run.
-            </p>
-
-            <div class="mt-8 rounded-xl border border-stone-200 p-6">
-              <div class="flex items-center justify-between">
-                <span class="flex size-11 items-center justify-center rounded-md border border-stone-300 font-mono text-sm text-stone-500">
-                  CI
-                </span>
-                <span class="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                  <span class="size-1.5 rounded-full bg-lime-500"></span>
-                  Deployed
-                </span>
-              </div>
-              <h3 class="mt-5 text-xl font-semibold tracking-tight">
-                Classify intent
-              </h3>
-              <p class="mt-1 font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                Router agent
-              </p>
-              <p class="mt-4 text-sm leading-6 text-stone-600">
-                Reads an inbound ticket, resolves it to one of six intents, and
-                hands the label downstream. Escalates when confidence drops.
-              </p>
-            </div>
-          </div>
-
-          <div class="overflow-hidden rounded-xl border border-stone-200 bg-white shadow-sm">
-            <div class="flex flex-col items-start gap-1 border-b border-stone-200 bg-stone-50 px-5 py-3 sm:flex-row sm:items-center sm:justify-between">
-              <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-500">
-                agents/classify-intent · config
-              </span>
-              <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                v4 · draft
-              </span>
-            </div>
-
-            <div class="grid gap-3 border-b border-stone-200 p-5 sm:grid-cols-[7rem_1fr]">
-              <span class="pt-2 font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                Model
-              </span>
-              <div class="flex flex-wrap gap-2">
-                <button class="model-chip rounded-md bg-stone-950 px-3 py-2 font-mono text-xs text-white" data-model="claude-sonnet-4-6">
-                  claude-sonnet-4-6
-                </button>
-                <button class="model-chip rounded-md border border-stone-200 px-3 py-2 font-mono text-xs" data-model="gpt-4o">
-                  gpt-4o
-                </button>
-                <button class="model-chip rounded-md border border-stone-200 px-3 py-2 font-mono text-xs" data-model="llama-3.1-70b">
-                  llama-3.1-70b
-                </button>
-              </div>
-            </div>
-
-            <div class="grid gap-3 border-b border-stone-200 p-5 sm:grid-cols-[7rem_1fr]">
-              <span class="pt-1 font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                Prompt
-              </span>
-              <p class="rounded-md border border-stone-200 bg-stone-50 p-3 font-mono text-xs leading-6 text-stone-700">
-                Classify each inbound ticket into one of six intents. Return the
-                label and a confidence score, nothing else. Below 0.7
-                confidence, return
-                <span class="text-stone-400">unknown</span>
-                .
-              </p>
-            </div>
-
-            <div class="grid gap-3 border-b border-stone-200 p-5 sm:grid-cols-[7rem_1fr]">
-              <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                Tools
-              </span>
-              <div class="space-y-2">
-                <button class="tool-toggle flex w-full items-start gap-3 rounded-md p-2 text-left hover:bg-stone-50" data-enabled="true">
-                  <span class="tool-check flex size-4 items-center justify-center rounded border border-stone-950 bg-stone-950 text-xs text-white">
-                    ✓
-                  </span>
-                  <code class="w-24 shrink-0 pt-0.5 text-xs sm:w-36">
-                    search_catalog
-                  </code>
-                  <span class="min-w-0 flex-1 text-xs text-stone-500">
-                    Semantic search over indexed sources
-                  </span>
-                </button>
-                <button class="tool-toggle flex w-full items-start gap-3 rounded-md p-2 text-left hover:bg-stone-50" data-enabled="true">
-                  <span class="tool-check flex size-4 items-center justify-center rounded border border-stone-950 bg-stone-950 text-xs text-white">
-                    ✓
-                  </span>
-                  <code class="w-24 shrink-0 pt-0.5 text-xs sm:w-36">
-                    execute_query
-                  </code>
-                  <span class="min-w-0 flex-1 text-xs text-stone-500">
-                    Read-only warehouse access
-                  </span>
-                </button>
-                <button class="tool-toggle flex w-full items-start gap-3 rounded-md p-2 text-left hover:bg-stone-50" data-enabled="false">
-                  <span class="tool-check flex size-4 items-center justify-center rounded border border-stone-300 bg-white text-xs text-transparent">
-                    ✓
-                  </span>
-                  <code class="w-24 shrink-0 pt-0.5 text-xs sm:w-36">
-                    post_slack
-                  </code>
-                  <span class="min-w-0 flex-1 text-xs text-stone-500">
-                    Notify a channel on escalation
-                  </span>
-                </button>
-              </div>
-            </div>
-
-            <div class="flex items-center justify-between gap-4 bg-stone-50 px-5 py-4">
-              <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                Changes apply on next run
-              </span>
-              <button id="saveAgent" class="rounded-md bg-stone-950 px-3 py-2 text-xs font-medium text-white transition hover:bg-stone-800">
-                Save agent
-              </button>
-            </div>
-          </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;color:#d4622a">2 · GIVE IT A JOB</span>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <sc-for list="{{ jobs }}" as="j" hint-placeholder-count="4">
+            <button onClick="{{ j.onClick }}" style="all:unset;cursor:pointer;padding:11px 16px;border-radius:999px;border:1.5px solid {{ j.border }};background:{{ j.bg }};color:{{ j.color }};font-size:15px;font-weight:500;transition:all .2s">{{ j.label }}</button>
+          </sc-for>
         </div>
-      </section>
-
-      <section id="tools" class="scroll-mt-16 border-y border-stone-200 bg-white px-5 py-20 lg:px-8 lg:py-28">
-        <div class="mx-auto max-w-6xl">
-          <div class="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-            <div class="max-w-2xl">
-              <p class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-                Tools &amp; connectors
-              </p>
-              <h2 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-                Four ways to put a tool in an agent's hands.
-              </h2>
-              <p class="mt-5 text-base leading-7 text-stone-600">
-                Start from what's built in, prompt or code your own, tap into
-                what the community has already shipped, or plug in any MCP
-                server and let the agent discover what's there.
-              </p>
-            </div>
-            <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-              Built-in · Custom · Community · MCP
-            </span>
-          </div>
-
-          <div class="mt-14 space-y-14">
-            <div id="tools-builtin" class="scroll-mt-24">
-              <div class="flex items-center gap-2">
-                <iconify-icon icon="solar:database-linear" width="15" stroke-width="1.5" class="text-stone-400"></iconify-icon>
-                <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-                  Built-in tools
-                </span>
-              </div>
-              <p class="mt-2 max-w-xl text-sm leading-6 text-stone-500">
-                Ready on every agent from the first run - nothing to install or configure.
-              </p>
-              <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                <div class="tool-chip flex flex-col items-center gap-3 rounded-xl border border-stone-200 bg-white px-4 py-6 text-center">
-                  <span class="flex size-11 items-center justify-center rounded-md bg-stone-100">
-                    <iconify-icon icon="solar:database-linear" width="20" stroke-width="1.5" class="text-stone-600"></iconify-icon>
-                  </span>
-                  <h3 class="text-sm font-semibold tracking-tight">Get Database Schema</h3>
-                </div>
-                <div class="tool-chip flex flex-col items-center gap-3 rounded-xl border border-stone-200 bg-white px-4 py-6 text-center">
-                  <span class="flex size-11 items-center justify-center rounded-md bg-stone-100">
-                    <iconify-icon icon="solar:code-2-linear" width="20" stroke-width="1.5" class="text-stone-600"></iconify-icon>
-                  </span>
-                  <h3 class="text-sm font-semibold tracking-tight">Run SQL</h3>
-                </div>
-                <div class="tool-chip flex flex-col items-center gap-3 rounded-xl border border-stone-200 bg-white px-4 py-6 text-center">
-                  <span class="flex size-11 items-center justify-center rounded-md bg-stone-100">
-                    <iconify-icon icon="solar:document-text-linear" width="20" stroke-width="1.5" class="text-stone-600"></iconify-icon>
-                  </span>
-                  <h3 class="text-sm font-semibold tracking-tight">Search Document</h3>
-                </div>
-                <div class="tool-chip flex flex-col items-center gap-3 rounded-xl border border-stone-200 bg-white px-4 py-6 text-center">
-                  <span class="flex size-11 items-center justify-center rounded-md bg-stone-100">
-                    <iconify-icon icon="solar:folder-linear" width="20" stroke-width="1.5" class="text-stone-600"></iconify-icon>
-                  </span>
-                  <h3 class="text-sm font-semibold tracking-tight">Session &amp; Memory</h3>
-                </div>
-              </div>
-            </div>
-
-            <div id="tools-custom" class="scroll-mt-24">
-              <div class="flex items-center gap-2">
-                <iconify-icon icon="solar:code-2-linear" width="15" stroke-width="1.5" class="text-stone-400"></iconify-icon>
-                <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-                  Custom tools
-                </span>
-              </div>
-              <p class="mt-2 max-w-xl text-sm leading-6 text-stone-500">
-                Any Python tool, built on our tool-agnostic agent framework - by prompt or by hand.
-              </p>
-              <div class="mt-4 grid gap-3 sm:grid-cols-2">
-                <div class="rounded-xl border border-stone-200 bg-stone-950 p-6 text-white">
-                  <div class="flex items-center gap-2.5">
-                    <span class="flex size-9 items-center justify-center rounded-md bg-white/10">
-                      <iconify-icon icon="solar:magic-stick-3-linear" width="18" stroke-width="1.5" style="color:#bef264"></iconify-icon>
-                    </span>
-                    <span class="font-mono text-xs uppercase tracking-[0.12em] text-white/50">
-                      Coding agent
-                    </span>
-                  </div>
-                  <h3 class="mt-5 text-lg font-semibold tracking-tight">
-                    Prompt a tool into existence
-                  </h3>
-                  <p class="mt-2 text-sm leading-6 text-white/60">
-                    Describe the API call or workflow step you need in plain
-                    language. The coding agent writes the tool, the schema, and
-                    the auth handshake - ready to attach to any agent.
-                  </p>
-                </div>
-                <div class="rounded-xl border border-stone-200 p-6">
-                  <div class="flex items-center gap-2.5">
-                    <span class="flex size-9 items-center justify-center rounded-md bg-stone-100">
-                      <iconify-icon icon="solar:code-2-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon>
-                    </span>
-                    <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                      Built-in IDE
-                    </span>
-                  </div>
-                  <h3 class="mt-5 text-lg font-semibold tracking-tight">
-                    Or write it yourself
-                  </h3>
-                  <p class="mt-2 text-sm leading-6 text-stone-600">
-                    A full code editor lives inside the platform. Edit a
-                    generated tool line by line, or start from a blank file -
-                    nothing to install locally.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div id="tools-community" class="scroll-mt-24">
-              <div class="flex items-center gap-2">
-                <iconify-icon icon="solar:users-group-rounded-linear" width="15" stroke-width="1.5" class="text-stone-400"></iconify-icon>
-                <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-                  Community tools
-                </span>
-              </div>
-              <p class="mt-2 max-w-xl text-sm leading-6 text-stone-500">
-                Built by the community, reviewed, and approved for everyone - this isn't just a tool catalog, it's who's building alongside you.
-              </p>
-              <div class="mt-5 space-y-3">
-                <div class="marquee-row">
-                  <div class="marquee-track gap-3 pr-3">
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:slack-icon" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Slack</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:telegram" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Telegram</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:discord-icon" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Discord</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="solar:letter-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon><span class="text-sm font-medium text-stone-700">Email</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:google-calendar" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Google Calendar</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:notion-icon" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Notion</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:salesforce" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Salesforce</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:slack-icon" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Slack</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:telegram" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Telegram</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:discord-icon" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Discord</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="solar:letter-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon><span class="text-sm font-medium text-stone-700">Email</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:google-calendar" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Google Calendar</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:notion-icon" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Notion</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:salesforce" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Salesforce</span></span>
-                  </div>
-                </div>
-                <div class="marquee-row">
-                  <div class="marquee-track reverse gap-3 pr-3">
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="selfhst:google-sheets" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Google Sheets</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:hubspot" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">HubSpot</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="solar:document-text-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon><span class="text-sm font-medium text-stone-700">Markdown to PDF</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="solar:global-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon><span class="text-sm font-medium text-stone-700">Generic HTTP Request</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="solar:radar-2-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon><span class="text-sm font-medium text-stone-700">Fetch URL HTML</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="selfhst:google-sheets" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">Google Sheets</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="logos:hubspot" width="18"></iconify-icon><span class="text-sm font-medium text-stone-700">HubSpot</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="solar:document-text-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon><span class="text-sm font-medium text-stone-700">Markdown to PDF</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="solar:global-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon><span class="text-sm font-medium text-stone-700">Generic HTTP Request</span></span>
-                    <span class="tool-chip flex shrink-0 items-center gap-2.5 rounded-full border border-stone-200 bg-white px-4 py-2.5 shadow-sm"><iconify-icon icon="solar:radar-2-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon><span class="text-sm font-medium text-stone-700">Fetch URL HTML</span></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div id="tools-mcp" class="scroll-mt-24">
-              <div class="flex items-center gap-2">
-                <iconify-icon icon="solar:global-linear" width="15" stroke-width="1.5" class="text-stone-400"></iconify-icon>
-                <span class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-                  MCP tools
-                </span>
-              </div>
-              <p class="mt-2 max-w-xl text-sm leading-6 text-stone-500">
-                Connect any MCP server and let the agent discover what it can do.
-              </p>
-              <div class="mt-4 grid gap-3 sm:grid-cols-2">
-                <div class="tool-chip rounded-xl border border-stone-200 p-6">
-                  <div class="flex items-center gap-2.5">
-                    <span class="flex size-9 items-center justify-center rounded-md bg-stone-100">
-                      <iconify-icon icon="solar:global-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon>
-                    </span>
-                    <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                      Any server
-                    </span>
-                  </div>
-                  <h3 class="mt-5 text-lg font-semibold tracking-tight">
-                    Bring your own MCP server
-                  </h3>
-                  <p class="mt-2 text-sm leading-6 text-stone-600">
-                    Point an agent at any MCP endpoint - authenticated or open -
-                    and it's connected. No custom integration to write.
-                  </p>
-                </div>
-                <div class="tool-chip rounded-xl border border-stone-200 p-6">
-                  <div class="flex items-center gap-2.5">
-                    <span class="flex size-9 items-center justify-center rounded-md bg-stone-100">
-                      <iconify-icon icon="solar:radar-2-linear" width="18" stroke-width="1.5" class="text-stone-600"></iconify-icon>
-                    </span>
-                    <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                      Auto-discovery
-                    </span>
-                  </div>
-                  <h3 class="mt-5 text-lg font-semibold tracking-tight">
-                    Discover, then decide
-                  </h3>
-                  <p class="mt-2 text-sm leading-6 text-stone-600">
-                    Every tool the server exposes shows up automatically -
-                    pick exactly which ones an agent is allowed to use.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;color:#2f8a3a">3 · HAND IT TOOLS</span>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <sc-for list="{{ toolChips }}" as="t" hint-placeholder-count="3">
+            <button onClick="{{ t.onClick }}" style="all:unset;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:13px;padding:9px 14px;border-radius:999px;border:1.5px {{ t.borderStyle }} {{ t.border }};background:{{ t.bg }};color:{{ t.color }};transition:all .2s">{{ t.label }}</button>
+          </sc-for>
         </div>
-      </section>
-
-      <section id="marketplace" class="scroll-mt-16 px-5 py-20 lg:px-8 lg:py-28">
-        <div class="mx-auto max-w-6xl">
-          <div class="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-            <div class="max-w-2xl">
-              <div class="flex items-center gap-3">
-                <p class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-                  Marketplace
-                </p>
-              </div>
-              <h2 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-                Someone has probably built it already.
-              </h2>
-              <p class="mt-5 text-base leading-7 text-stone-600">
-                Install a finished workflow instead of drawing one. Every
-                listing will explain what it does, which tools it needs, and
-                what it costs. Fork it after install and it is yours to
-                change. In active development - previews below.
-              </p>
-            </div>
-            <a href="https://app.flowstudio-ai.com/signup" target="_blank" rel="noopener noreferrer" class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400 transition hover:text-stone-950">
-              In development · get early access
-            </a>
-          </div>
-
-          <div class="mt-10 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-            <article class="relative flex min-h-64 flex-col overflow-hidden rounded-xl border border-stone-200 bg-white p-6 opacity-90 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-stone-200/50">
-              <span class="absolute right-4 top-4 rounded-full bg-stone-100 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-stone-400">
-                Preview
-              </span>
-              <div class="flex justify-between font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                <span>Support</span>
-                <span class="text-stone-950">$29</span>
-              </div>
-              <h3 class="mt-5 text-lg font-semibold tracking-tight">
-                Support triage and refunds
-              </h3>
-              <p class="mt-3 text-sm leading-6 text-stone-600">
-                Classifies tickets, checks order state, issues threshold
-                refunds, and escalates everything else to a human.
-              </p>
-              <div class="mt-auto flex items-center justify-between border-t border-stone-200 pt-4 text-xs text-stone-500">
-                <span>Northbeam</span>
-                <span class="font-mono">11 nodes</span>
-              </div>
-            </article>
-            <article class="relative flex min-h-64 flex-col overflow-hidden rounded-xl border border-stone-200 bg-white p-6 opacity-90 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-stone-200/50">
-              <span class="absolute right-4 top-4 rounded-full bg-stone-100 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-stone-400">
-                Preview
-              </span>
-              <div class="flex justify-between font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                <span>Finance</span>
-                <span>Free</span>
-              </div>
-              <h3 class="mt-5 text-lg font-semibold tracking-tight">
-                Invoice ingestion to ledger
-              </h3>
-              <p class="mt-3 text-sm leading-6 text-stone-600">
-                Watches a mailbox, extracts line items from invoice PDFs, and
-                posts them to your ledger behind a review gate.
-              </p>
-              <div class="mt-auto flex items-center justify-between border-t border-stone-200 pt-4 text-xs text-stone-500">
-                <span>FlowStudio AI</span>
-                <span class="font-mono">8 nodes</span>
-              </div>
-            </article>
-            <article class="relative flex min-h-64 flex-col overflow-hidden rounded-xl border border-stone-200 bg-white p-6 opacity-90 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-stone-200/50">
-              <span class="absolute right-4 top-4 rounded-full bg-stone-100 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-stone-400">
-                Preview
-              </span>
-              <div class="flex justify-between font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                <span>Sales</span>
-                <span class="text-stone-950">$49</span>
-              </div>
-              <h3 class="mt-5 text-lg font-semibold tracking-tight">
-                Lead enrichment and routing
-              </h3>
-              <p class="mt-3 text-sm leading-6 text-stone-600">
-                Enriches inbound leads from six sources, scores against your
-                ICP, and assigns an owner in the CRM.
-              </p>
-              <div class="mt-auto flex items-center justify-between border-t border-stone-200 pt-4 text-xs text-stone-500">
-                <span>Arclight</span>
-                <span class="font-mono">14 nodes</span>
-              </div>
-            </article>
-          </div>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:6px">
+        <button onClick="{{ bringToLife }}" style="all:unset;cursor:pointer;background:#151a13;color:#eef2e8;padding:16px 26px;border-radius:999px;font-weight:700;font-size:16px" style-hover="background:#2f6a1f">{{ lifeLabel }}</button>
+        <sc-if value="{{ alive }}" hint-placeholder-val="{{ false }}">
+          <a href="https://app.flowstudio-ai.com/signup" style="background:#9fdc6f;color:#0f1a0a;padding:16px 26px;border-radius:999px;font-weight:700;font-size:16px" style-hover="background:#b8ea8f;color:#0f1a0a">Build it for real →</a>
+        </sc-if>
+      </div>
+    </div>
+    <div style="flex:1 1 380px;min-width:0;max-width:520px;margin:0 auto;width:100%">
+      <div style="position:relative;aspect-ratio:1/1.05;border-radius:32px;background-color:#10140f;background-image:radial-gradient(rgba(170,200,150,.16) 1px,transparent 1.3px);background-size:24px 24px;box-shadow:0 50px 100px -40px rgba(21,26,19,.6);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 32px 36px;gap:18px;overflow:hidden">
+        <div style="position:absolute;left:24px;top:22px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:#8d9886">PREVIEW</div>
+        <div style="position:absolute;right:24px;top:20px;display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;padding:6px 12px;border-radius:999px;background:{{ me.statusBg }};color:{{ me.statusColor }}"><span style="width:7px;height:7px;border-radius:50%;background:{{ me.statusDot }}"></span>{{ me.status }}</div>
+        <div style="position:relative;width:38%;margin-top:150px">{{ meBot }}</div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+          <span style="font-size:26px;font-weight:800;letter-spacing:-.04em;color:#eef2e8">{{ me.name }}</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8d9886">{{ me.meta }}</span>
         </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <section class="border-y border-stone-200 bg-white px-5 py-20 lg:px-8 lg:py-28">
-        <div class="mx-auto max-w-6xl">
-          <div class="max-w-2xl">
-            <p class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-              Ownership
-            </p>
-            <h2 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-              Bring your own everything.
-            </h2>
-            <p class="mt-5 text-base leading-7 text-stone-600">
-              Your tools. Your connectors. Your agents. Your provider keys.
-              FlowStudio AI is the surface they run on, not a catalogue you have
-              to live inside.
-            </p>
+<section id="tools" style="position:relative;background-color:#10140f;background-image:radial-gradient(rgba(170,200,150,.12) 1px,transparent 1.3px);background-size:28px 28px;padding:120px 20px">
+  <div style="max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:22px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.18em;color:#9fdc6f">TOOLS</div>
+    <h2 style="margin:0;font-weight:800;font-size:clamp(36px,4.6vw,64px);line-height:.95;letter-spacing:-.055em;color:#eef2e8;text-wrap:balance">No tool for it? <span style="color:#9fdc6f">Just ask.</span></h2>
+    <p style="margin:0;font-size:18px;line-height:1.55;color:#b6bfae;max-width:56ch;text-wrap:pretty">Describe the tool in chat. Tinker writes the code, works out the parameters it takes and the secrets it needs, then lets you test it before any agent can use it.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:26px;align-items:stretch">
+      <div style="flex:1 1 340px;min-width:0;display:flex;flex-direction:column;background:#171d15;border:1px solid rgba(255,255,255,.08);border-radius:28px;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:14px;padding:16px 18px;border-bottom:1px solid rgba(255,255,255,.07)">
+          <div style="width:46px;flex-shrink:0">{{ tinker }}</div>
+          <div style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0">
+            <span style="font-size:17px;font-weight:700;letter-spacing:-.03em;color:#eef2e8">Tinker</span>
+            <span style="font-size:13px;color:#8d9886">tool-building assistant</span>
           </div>
-
-          <div class="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <article id="marketplace-tools" class="scroll-mt-24 rounded-xl border border-stone-200 p-6">
-              <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                01 - Tools
-              </span>
-              <iconify-icon class="mt-7 block" icon="solar:code-square-linear" width="24" stroke-width="1.5"></iconify-icon>
-              <h3 class="mt-4 font-semibold tracking-tight">
-                Any function is a node
-              </h3>
-              <p class="mt-2 text-sm leading-6 text-stone-600">
-                Write it in TypeScript or Python, give it a schema, publish it.
-              </p>
-            </article>
-            <article id="marketplace-agents" class="scroll-mt-24 rounded-xl border border-stone-200 p-6">
-              <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                02 - Agents
-              </span>
-              <iconify-icon class="mt-7 block" icon="solar:cpu-linear" width="24" stroke-width="1.5"></iconify-icon>
-              <h3 class="mt-4 font-semibold tracking-tight">
-                Own the whole loop
-              </h3>
-              <p class="mt-2 text-sm leading-6 text-stone-600">
-                Prompt, memory policy, grants, retry budget, and stop condition.
-              </p>
-            </article>
-            <article id="marketplace-connectors" class="scroll-mt-24 rounded-xl border border-stone-200 p-6">
-              <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                03 - Connectors
-              </span>
-              <iconify-icon class="mt-7 block" icon="solar:link-linear" width="24" stroke-width="1.5"></iconify-icon>
-              <h3 class="mt-4 font-semibold tracking-tight">
-                Auth once, reuse everywhere
-              </h3>
-              <p class="mt-2 text-sm leading-6 text-stone-600">
-                Point at internal services and let every graph reach them.
-              </p>
-            </article>
-            <article id="marketplace-models" class="scroll-mt-24 rounded-xl border border-stone-200 p-6">
-              <span class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                04 - Models
-              </span>
-              <iconify-icon class="mt-7 block" icon="solar:key-linear" width="24" stroke-width="1.5"></iconify-icon>
-              <h3 class="mt-4 font-semibold tracking-tight">
-                Your keys, your endpoint
-              </h3>
-              <p class="mt-2 text-sm leading-6 text-stone-600">
-                Hosted providers or a self-hosted model behind your VPC.
-              </p>
-            </article>
-          </div>
+          <span style="display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;padding:6px 11px;border-radius:999px;background:{{ tStatus.bg }};color:{{ tStatus.color }};flex-shrink:0"><span style="width:7px;height:7px;border-radius:50%;background:{{ tStatus.dot }}"></span>{{ tStatus.label }}</span>
         </div>
-      </section>
-
-      <section id="pricing" class="scroll-mt-16 px-5 py-20 lg:px-8 lg:py-28">
-        <div class="mx-auto max-w-6xl">
-          <div class="mx-auto max-w-2xl text-center">
-            <p class="font-mono text-xs uppercase tracking-[0.14em] text-stone-400">
-              Pricing
-            </p>
-            <h2 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-              Start free. Talk to us for the rest.
-            </h2>
-            <p class="mt-5 text-base leading-7 text-stone-600">
-              The free plan has what you need to start building. Need more
-              volume, dedicated infrastructure, or custom terms? Just reach
-              out.
-            </p>
-          </div>
-
-          <div class="mx-auto mt-12 grid max-w-3xl overflow-hidden rounded-xl border border-stone-200 bg-stone-200 sm:grid-cols-2 sm:gap-px">
-            <article id="pricing-free" class="scroll-mt-24 flex min-h-96 flex-col bg-white p-7">
-              <p class="font-mono text-xs uppercase tracking-[0.12em] text-stone-400">
-                Free
-              </p>
-              <p class="mt-5 text-5xl font-medium tracking-tight">$0</p>
-              <p class="mt-2 text-sm text-stone-500">Everything you need to get started</p>
-              <ul class="mt-8 space-y-3 text-sm text-stone-600">
-                <li>Every workflow pattern &amp; built-in tool</li>
-                <li>Generous monthly usage to build and test</li>
-                <li>Community support</li>
-                <li>Bring your own keys</li>
-              </ul>
-              <a href="https://app.flowstudio-ai.com/signup" target="_blank" rel="noopener noreferrer" class="mt-auto inline-flex h-10 items-center justify-center rounded-md border border-stone-300 text-sm font-medium transition hover:bg-stone-100">
-                Get started free
-              </a>
-            </article>
-            <article id="pricing-enterprise" class="scroll-mt-24 flex min-h-96 flex-col bg-stone-950 p-7 text-white">
-              <div class="flex items-center gap-2">
-                <p class="font-mono text-xs uppercase tracking-[0.12em] text-white/50">
-                  Custom &amp; Enterprise
-                </p>
-                <span class="size-1.5 rounded-full bg-lime-400"></span>
-              </div>
-              <p class="mt-5 text-5xl font-medium tracking-tight">Contact us</p>
-              <p class="mt-2 text-sm text-white/55">
-                Pricing shaped around your usage and requirements
-              </p>
-              <ul class="mt-8 space-y-3 text-sm text-white/70">
-                <li>Unlimited graphs and higher run volume</li>
-                <li>Custom tools and connectors</li>
-                <li>VPC, on-prem, or dedicated runtime</li>
-                <li>SSO, SCIM, audit logs, and support SLA</li>
-              </ul>
-              <a href="#contact" class="mt-auto inline-flex h-10 items-center justify-center rounded-md bg-lime-300 text-sm font-medium text-stone-950 transition hover:bg-lime-200">
-                Talk to us
-              </a>
-            </article>
-          </div>
+        <div id="tchat" style="height:300px;overflow-y:auto;scrollbar-width:none;padding:18px;display:flex;flex-direction:column-reverse;gap:10px">
+          <sc-for list="{{ tMsgs }}" as="m" hint-placeholder-count="1">
+            <div style="align-self:{{ m.align }};max-width:88%;padding:11px 15px;border-radius:{{ m.radius }};background:{{ m.bg }};color:{{ m.color }};font-size:15px;line-height:1.45;opacity:{{ m.o }};text-wrap:pretty">{{ m.text }}</div>
+          </sc-for>
         </div>
-      </section>
-
-      <section id="contact" class="scroll-mt-16 border-t border-stone-200 bg-stone-950 px-5 py-20 text-white lg:px-8 lg:py-28">
-        <div class="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_26rem] lg:items-end">
-          <div>
-            <p class="font-mono text-xs uppercase tracking-[0.14em] text-white/40">
-              Talk to sales
-            </p>
-            <h2 class="mt-4 max-w-2xl text-4xl font-semibold tracking-tight sm:text-5xl">
-              Tell us what you're orchestrating.
-            </h2>
-            <p class="mt-5 max-w-xl text-base leading-7 text-white/60">
-              Need more than the free plan - higher volume, dedicated
-              infrastructure, or custom terms? Tell us what you're building
-              and we'll reply within two working days.
-            </p>
-            <div class="mt-9 flex flex-wrap gap-6 text-sm text-white/60">
-              <a href="mailto:hello@flowstudio-ai.com" class="transition hover:text-white">
-                hello@flowstudio-ai.com
-              </a>
-              <a href="mailto:sales@flowstudio-ai.com" class="transition hover:text-white">
-                sales@flowstudio-ai.com
-              </a>
-            </div>
+        <div style="padding:14px 14px 16px;border-top:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <sc-for list="{{ tChips }}" as="c" hint-placeholder-count="3">
+              <button onClick="{{ c.onClick }}" style="all:unset;cursor:pointer;font-size:13px;font-weight:500;padding:9px 13px;border-radius:999px;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }};transition:all .2s">{{ c.label }}</button>
+            </sc-for>
           </div>
-
-          <form id="contactForm" class="rounded-xl bg-white p-6 text-stone-950">
-            <label class="block text-sm font-medium" for="contactEmail">
-              Work email
-            </label>
-            <input id="contactEmail" required="" type="email" placeholder="you@company.com" class="mt-2 h-10 w-full rounded-md border border-stone-300 px-3 text-sm outline-none focus:border-stone-950 focus:ring-2 focus:ring-stone-950/10">
-
-            <label class="mt-4 block text-sm font-medium" for="useCase">
-              What are you building?
-            </label>
-            <textarea id="useCase" required="" rows="3" placeholder="Support triage across internal systems, with a human handoff branch." class="mt-2 w-full resize-none rounded-md border border-stone-300 px-3 py-2.5 text-sm leading-5 outline-none focus:border-stone-950 focus:ring-2 focus:ring-stone-950/10"></textarea>
-
-            <button type="submit" class="mt-5 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-stone-950 text-sm font-medium text-white transition hover:bg-stone-800 disabled:opacity-70">
-              <span id="contactSubmitLabel">Send message</span>
-              <iconify-icon id="contactSubmitIcon" icon="solar:arrow-right-linear" width="16" stroke-width="1.5"></iconify-icon>
-            </button>
-            <p id="contactMessage" class="mt-3 min-h-4 text-center text-xs text-stone-500"></p>
-          </form>
-        </div>
-      </section>
-    </main>
-
-    <footer class="bg-stone-950 px-5 pb-8 pt-12 text-white lg:px-8">
-      <div class="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-10 border-b border-white/10 pb-10 lg:grid-cols-3">
-        <div>
-          <div class="flex items-center gap-2.5">
-            <a href="#top">
-              <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/260ec907-d40b-412e-8453-16c8a770d2d0_320w.png" alt="FlowStudio AI Logo" class="h-18 w-auto shrink-0 object-contain">
-            </a>
-          </div>
-          <p class="mt-4 max-w-52 text-sm leading-6 text-white/50">
-            A workflow canvas for agent orchestration.
-          </p>
-        </div>
-        <div>
-          <p class="font-mono text-xs uppercase tracking-[0.12em] text-white/35">
-            Product
-          </p>
-          <div class="mt-4 space-y-3 text-sm text-white/60">
-            <a class="block hover:text-white" href="#agents">How it works</a>
-            <a class="block hover:text-white" href="#workflow">Workflow</a>
-            <a class="block hover:text-white" href="#tools">Tools</a>
-            <a class="block hover:text-white" href="#pricing">Pricing</a>
-          </div>
-        </div>
-        <div>
-          <p class="font-mono text-xs uppercase tracking-[0.12em] text-white/35">
-            Company
-          </p>
-          <div class="mt-4 space-y-3 text-sm text-white/60">
-            <a class="block hover:text-white" href="#contact">Contact</a>
-            <a class="block hover:text-white" href="#top">About</a>
-            <a class="block hover:text-white" href="terms.html">Terms</a>
-            <a class="block hover:text-white" href="privacy.html">Privacy</a>
+          <div style="display:flex;gap:8px;align-items:center;padding:6px 6px 6px 16px;border-radius:999px;background:#10140f;border:1px solid rgba(255,255,255,.1)">
+            <span style="flex:1;min-width:0;font-size:15px;color:#d4dbcc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ tPrompt }}</span>
+            <button onClick="{{ tGenerate }}" style="all:unset;cursor:pointer;flex-shrink:0;background:#9fdc6f;color:#0f1a0a;font-weight:700;font-size:14px;padding:11px 16px;border-radius:999px" style-hover="background:#b8ea8f">{{ tGenLabel }}</button>
           </div>
         </div>
       </div>
-      <div class="mx-auto flex max-w-6xl flex-col justify-between gap-4 pt-7 text-xs text-white/40 sm:flex-row sm:items-center">
-        <span>© 2026 FlowStudio AI</span>
+      <div style="flex:1.5 1 460px;min-width:0;display:flex;flex-direction:column;background:#f4f3ec;color:#151a13;border-radius:28px;overflow:hidden">
+        <div style="display:flex;gap:4px;padding:10px;border-bottom:1px solid #e2e1d8;overflow-x:auto;scrollbar-width:none">
+          <sc-for list="{{ tTabs }}" as="t" hint-placeholder-count="4">
+            <button onClick="{{ t.onClick }}" style="all:unset;cursor:pointer;flex-shrink:0;display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:{{ t.bg }};color:{{ t.color }};font-size:14px;font-weight:600;transition:all .2s">
+              <span>{{ t.label }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;padding:2px 7px;border-radius:999px;background:{{ t.badgeBg }};color:{{ t.badgeColor }}">{{ t.badge }}</span>
+            </button>
+          </sc-for>
+        </div>
+        <div style="flex:1;padding:16px;display:flex;flex-direction:column;gap:12px;min-height:420px">
+          <sc-if value="{{ tView.empty }}" hint-placeholder-val="{{ true }}">
+            <div style="flex:1;border:1.5px dashed #c9c8bd;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:28px;text-align:center">
+              <span style="font-size:20px;font-weight:700;letter-spacing:-.03em">Nothing here yet</span>
+              <span style="font-size:15px;line-height:1.5;color:#5f665a;max-width:34ch">Pick a prompt on the left and hit Generate. Tinker writes the code, parameters and secrets here.</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ tView.code }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;justify-content:space-between;gap:12px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#5f665a"><span>tools/{{ tName }}.py</span><span>{{ tCodeMeta }}</span></div>
+            <div style="flex:1;border-radius:18px;background:#10140f;padding:14px 0;overflow:auto;max-height:460px;scrollbar-width:thin;scrollbar-color:#3a4436 transparent">
+              <sc-for list="{{ tLines }}" as="ln" hint-placeholder-count="0">
+                <div style="display:flex;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.75"><span style="flex-shrink:0;width:40px;text-align:right;padding-right:14px;color:#4a5546">{{ ln.n }}</span><span style="white-space:pre;color:{{ ln.c }};padding-right:16px">{{ ln.t }}</span></div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ tView.params }}" hint-placeholder-val="{{ false }}">
+            <p style="margin:0;font-size:14px;line-height:1.55;color:#5f665a">Tinker read these from the function signature. Agents fill them in when they call the tool. Set test values here.</p>
+            <sc-for list="{{ tParams }}" as="pr" hint-placeholder-count="2">
+              <div style="background:#fff;border:1px solid #e6e5dc;border-radius:18px;padding:14px 16px;display:flex;flex-direction:column;gap:10px">
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600">{{ pr.name }}</span>
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:11px;padding:3px 8px;border-radius:999px;background:#efeee6;color:#5f665a">{{ pr.type }}</span>
+                  <span style="font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;background:{{ pr.reqBg }};color:{{ pr.reqColor }}">{{ pr.req }}</span>
+                </div>
+                <span style="font-size:13px;color:#5f665a">{{ pr.desc }}</span>
+                <input value="{{ pr.val }}" onChange="{{ pr.onChange }}" placeholder="test value" style="font-family:'JetBrains Mono',monospace;font-size:14px;padding:11px 12px;border-radius:12px;border:1px solid #dddcd2;background:#f6f5ef;color:#151a13;outline:none;width:100%" style-focus="border-color:#4f9a3a">
+              </div>
+            </sc-for>
+          </sc-if>
+          <sc-if value="{{ tView.secrets }}" hint-placeholder-val="{{ false }}">
+            <p style="margin:0;font-size:14px;line-height:1.55;color:#5f665a">Environment variables the code reads with <span style="font-family:'JetBrains Mono',monospace;font-size:13px">os.environ</span>. They’re encrypted at rest and injected only while the tool runs. Agents never see them.</p>
+            <sc-for list="{{ tEnvs }}" as="ev" hint-placeholder-count="1">
+              <div style="background:#fff;border:1px solid #e6e5dc;border-radius:18px;padding:14px 16px;display:flex;flex-direction:column;gap:10px">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;overflow-wrap:anywhere">{{ ev.key }}</span>
+                  <span style="font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;background:{{ ev.bg }};color:{{ ev.color }}">{{ ev.status }}</span>
+                </div>
+                <span style="font-size:13px;color:#5f665a">{{ ev.hint }}</span>
+                <input type="password" value="{{ ev.val }}" onChange="{{ ev.onChange }}" placeholder="paste your key" autocomplete="off" style="font-family:'JetBrains Mono',monospace;font-size:14px;padding:11px 12px;border-radius:12px;border:1px solid #dddcd2;background:#f6f5ef;color:#151a13;outline:none;width:100%" style-focus="border-color:#4f9a3a">
+              </div>
+            </sc-for>
+          </sc-if>
+          <sc-if value="{{ tView.test }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+              <button onClick="{{ tRun }}" style="all:unset;cursor:pointer;background:#151a13;color:#eef2e8;font-weight:700;font-size:15px;padding:13px 22px;border-radius:999px" style-hover="background:#2f6a1f">{{ tRunLabel }}</button>
+              <span style="font-size:14px;color:{{ tNote.color }}">{{ tNote.text }}</span>
+            </div>
+            <div style="border-radius:18px;background:#10140f;padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.8;min-height:120px;display:flex;flex-direction:column">
+              <sc-if value="{{ tLogEmpty }}" hint-placeholder-val="{{ true }}"><span style="color:#6f7a68">$ waiting for a test run…</span></sc-if>
+              <sc-for list="{{ tLog }}" as="lg" hint-placeholder-count="0"><span style="color:{{ lg.c }};overflow-wrap:anywhere">{{ lg.t }}</span></sc-for>
+            </div>
+            <sc-if value="{{ tHasOut }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;color:#2f6a1f">OUTPUT</span>
+                <div style="border-radius:18px;background:#fff;border:1px solid #c9e4c2;padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere">{{ tOut }}</div>
+              </div>
+            </sc-if>
+          </sc-if>
+        </div>
       </div>
-    </footer>
+    </div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:#8d9886;margin-top:22px">OTHER WAYS TO ADD TOOLS</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px">
+      <div style="background:#171d15;border:1px solid rgba(255,255,255,.07);border-radius:22px;padding:20px;display:flex;flex-direction:column;gap:8px"><span style="font-size:17px;font-weight:700;letter-spacing:-.03em;color:#eef2e8">Built-in</span><span style="font-size:14px;line-height:1.5;color:#b6bfae">Ready on every agent: run_sql, search_document, fetch_url and more.</span></div>
+      <div style="background:#171d15;border:1px solid rgba(255,255,255,.07);border-radius:22px;padding:20px;display:flex;flex-direction:column;gap:8px"><span style="font-size:17px;font-weight:700;letter-spacing:-.03em;color:#eef2e8">Community</span><span style="font-size:14px;line-height:1.5;color:#b6bfae">Reviewed connectors for Slack, Notion, HubSpot, Sheets and more.</span></div>
+      <div style="background:#171d15;border:1px solid rgba(255,255,255,.07);border-radius:22px;padding:20px;display:flex;flex-direction:column;gap:8px"><span style="font-size:17px;font-weight:700;letter-spacing:-.03em;color:#eef2e8">MCP servers</span><span style="font-size:14px;line-height:1.5;color:#b6bfae">Point at any MCP endpoint. Its tools appear automatically.</span></div>
+      <div style="background:#171d15;border:1px solid rgba(255,255,255,.07);border-radius:22px;padding:20px;display:flex;flex-direction:column;gap:8px"><span style="font-size:17px;font-weight:700;letter-spacing:-.03em;color:#eef2e8">Write it yourself</span><span style="font-size:14px;line-height:1.5;color:#b6bfae">Python in the built-in IDE, run in an isolated sandbox.</span></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;margin-top:30px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:#8d9886">COMMUNITY TOOLS</div>
+      <p style="margin:0;font-size:16px;line-height:1.55;color:#b6bfae;max-width:60ch">Built by the community, reviewed, and approved for everyone. Not just a catalog: it’s who’s building alongside you.</p>
+      <div style="margin:6px -20px 0">{{ commMarquee }}</div>
+    </div>
+  </div>
+</section>
 
-    <script>
-      const patterns={sequential:{run:"run/sequential-triage",stats:"4 nodes · 3.6s · 1 pass",icon:"solar:arrow-right-linear",title:"A typed hand-off at every step.",text:"Each agent receives the previous output as a typed payload, so a broken hand-off fails at design time rather than during a live run."},parallel:{run:"run/parallel-research",stats:"5 nodes · 4.7s · 3 concurrent",icon:"solar:sort-horizontal-linear",title:"Fan out without losing the thread.",text:"All agents start with the same input and run independently. When every branch finishes, their results are collected together."},hierarchical:{run:"run/coordinator-delegation",stats:"5 nodes · 4.1s · 1 coordinator",icon:"solar:cpu-linear",title:"One coordinator, many specialists.",text:"A coordinator agent plans the work, calls specialist agents as tools, and brings their outputs into one final answer."},hybrid:{run:"run/hybrid-enrichment",stats:"6 nodes · 5.2s · 2 concurrent stages",icon:"solar:sort-horizontal-linear",title:"Fan out, gather, then move forward.",text:"Group independent agents to run in parallel, collect their results, and feed them into the next ordered stage of the workflow."},collaborative:{run:"run/collaborative-review",stats:"4 agents · 3 rounds · 6.8s",icon:"solar:restart-linear",title:"Refine the work together.",text:"Each agent sees the previous round's output and improves it through repeated passes of review and refinement."},"event-driven":{run:"run/event-routing",stats:"6 nodes · 4 events · reactive",icon:"solar:bell-linear",title:"Let events decide what runs next.",text:"Agents wait for named events and emit new ones when they finish, activating only the paths required by each result."}};document.querySelectorAll(".pattern-tab").forEach(button=>{button.addEventListener("click",()=>{const data=patterns[button.dataset.pattern];document.querySelectorAll(".pattern-tab").forEach(tab=>{tab.className="pattern-tab rounded-lg border border-stone-200 bg-white p-5 text-left transition hover:bg-stone-100";const p=tab.querySelectorAll("p");p[0].className="mt-5 font-mono text-xs uppercase tracking-[0.12em] text-stone-400";p[1].className="mt-2 text-lg font-semibold tracking-tight";p[2].className="mt-2 text-sm leading-5 text-stone-500"});button.className="pattern-tab rounded-lg border border-stone-950 bg-stone-950 p-5 text-left text-white";const p=button.querySelectorAll("p");p[0].className="mt-5 font-mono text-xs uppercase tracking-[0.12em] text-white/50";p[1].className="mt-2 text-lg font-semibold tracking-tight";p[2].className="mt-2 text-sm leading-5 text-white/65";document.getElementById("demoRun").textContent=data.run;document.getElementById("demoStats").textContent=data.stats;document.getElementById("demoTitle").textContent=data.title;document.getElementById("demoText").textContent=data.text;document.getElementById("demoIcon").innerHTML=`<iconify-icon icon="${data.icon}" width="24" stroke-width="1.5"></iconify-icon>`})});document.querySelectorAll(".model-chip").forEach(button=>{button.addEventListener("click",()=>{document.querySelectorAll(".model-chip").forEach(chip=>{chip.className="model-chip rounded-md border border-stone-200 px-3 py-2 font-mono text-xs"});button.className="model-chip rounded-md bg-stone-950 px-3 py-2 font-mono text-xs text-white"})});document.querySelectorAll(".tool-toggle").forEach(button=>{button.addEventListener("click",()=>{const enabled=button.dataset.enabled==="true",check=button.querySelector(".tool-check");button.dataset.enabled=String(!enabled);check.className=!enabled?"tool-check flex size-4 items-center justify-center rounded border border-stone-950 bg-stone-950 text-xs text-white":"tool-check flex size-4 items-center justify-center rounded border border-stone-300 bg-white text-xs text-transparent"})});document.getElementById("saveAgent").addEventListener("click",event=>{event.currentTarget.textContent="Saved";setTimeout(()=>event.currentTarget.textContent="Save agent",1500)});const mobileMenu=document.getElementById("mobileMenu"),mobileMenuButton=document.getElementById("mobileMenuButton"),mobileMenuIcon=document.getElementById("mobileMenuIcon");function setMobileMenu(open){mobileMenu.classList.toggle("hidden",!open);mobileMenuButton.setAttribute("aria-expanded",String(open));mobileMenuIcon.setAttribute("icon",open?"solar:close-square-linear":"solar:hamburger-menu-linear")}mobileMenuButton.addEventListener("click",()=>setMobileMenu(mobileMenu.classList.contains("hidden")));mobileMenu.querySelectorAll("a").forEach(link=>link.addEventListener("click",()=>setMobileMenu(false)));
-    </script>
-    <script>
-      const wfd={sequential:{label:'Sequential agent workflow',title:'01 - SEQUENTIAL',note:'One typed output moves through each step in order.',viewH:452,boxH:388,noteY:396,nodes:[[72,170,168,108,'Intake','AGENT',1,['fetch_ticket','parse_email']],[288,170,168,108,'Classify','AGENT',0,['search_catalog','score_intent']],[504,170,168,108,'Enrich','TOOL',0,['execute_query','crm_lookup']],[720,170,168,108,'Route','OUTPUT',0,['assign_owner','post_slack']]],paths:['M240 224H288','M456 224H504','M672 224H720']},parallel:{label:'Parallel agent workflow',title:'02 - PARALLEL',note:'Independent tasks fan out, then join into one result.',viewH:530,boxH:466,noteY:474,nodes:[[72,170,156,108,'Intake','AGENT',1,['fetch_ticket','parse_email']],[340,92,200,80,'Research','AGENT',0,['web_search']],[340,184,200,80,'Retrieve','TOOL',0,['vector_search']],[340,276,200,80,'Lookup','TOOL',0,['execute_query']],[700,170,188,108,'Join results','OUTPUT',1,['merge_payload','rank_results']]],paths:['M228 224H340','M284 224V132H340','M284 224V316H340','M540 224H700','M540 132H644V224','M540 316H644V224']},hierarchical:{label:'Hierarchical agent workflow',title:'03 - HIERARCHICAL',note:'A coordinator delegates specialist work, then assembles one answer.',viewH:536,boxH:472,noteY:480,nodes:[[72,170,168,108,'Request','INPUT',1,['customer_brief','constraints']],[304,170,200,108,'Coordinator','AGENT',0,['plan_work','delegate']],[592,86,168,80,'Research','AGENT',0,['web_search']],[592,184,168,80,'Analyst','AGENT',0,['analyze_data']],[592,282,168,80,'Writer','AGENT',0,['draft_response']],[776,170,112,108,'Answer','OUTPUT',1,['assemble']]],paths:['M240 224H304','M504 224H592','M552 224V126H592','M552 224V322H592','M760 224H776','M760 126H768V224','M760 322H768V224']},hybrid:{label:'Hybrid agent workflow',title:'04 - HYBRID',note:'Ordered stages contain concurrent specialist groups before moving forward.',viewH:536,boxH:472,noteY:480,nodes:[[56,170,144,108,'Intake','AGENT',1,['parse_brief','set_context']],[264,86,176,80,'Enrich','TOOL',0,['crm_lookup']],[264,184,176,80,'Research','AGENT',0,['web_search']],[264,282,176,80,'Score','TOOL',0,['score_intent']],[520,170,176,108,'Synthesize','AGENT',1,['merge_context','plan_next']],[720,126,168,80,'Draft','AGENT',0,['compose_reply']],[720,242,168,80,'Review','AGENT',0,['policy_check']]],paths:['M200 224H264','M232 224V126H264','M232 224V322H264','M440 224H520','M440 126H480V224','M440 322H480V224','M696 224H708','M708 224V166H720','M708 224V282H720']},collaborative:{label:'Collaborative agent workflow',title:'05 - COLLABORATIVE',note:'Agents review shared work together through repeated refinement rounds.',viewH:532,boxH:468,noteY:476,nodes:[[72,170,168,108,'Brief','INPUT',1,['requirements','context']],[304,170,168,108,'Draft','AGENT',0,['compose_version','share_work']],[536,90,168,80,'Critic','AGENT',0,['review_draft']],[536,278,168,80,'Expert','AGENT',0,['add_evidence']],[720,170,168,108,'Refine','AGENT',1,['merge_feedback','publish']]],paths:['M240 224H304','M472 224H496','M496 224V130H536','M496 224V318H536','M704 130H712V224','M704 318H712V224','M712 224H720','M804 278V410H388V278']},'event-driven':{label:'Event-driven agent workflow',title:'06 - EVENT-DRIVEN',note:'Named events activate only the agents required by each result.',viewH:536,boxH:472,noteY:480,nodes:[[64,170,168,108,'Ticket received','EVENT',1,['ticket.created','payload']],[304,86,184,80,'Urgent route','AGENT',0,['priority.high']],[304,184,184,80,'Standard route','AGENT',0,['priority.normal']],[304,282,184,80,'Escalation','AGENT',0,['risk.detected']],[640,126,128,80,'Notify','OUTPUT',0,['send_alert']],[640,242,128,80,'Resolve','OUTPUT',1,['update_ticket']],[784,184,104,108,'Trace','LOG',0,['record_run']]],paths:['M232 224H304','M264 224V126H304','M264 224V322H304','M488 126H560V166H640','M488 224H560V282','M488 322H560V282','M560 282H640','M768 166H776V238','M768 282H776V238','M776 238H784']}};
-      function wfIcon(color,compact){return `<g transform='translate(14 ${compact?12:14}) scale(${compact?0.75:0.83})' fill='none' stroke='${color}' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M12 8V4H8'></path><rect x='4' y='8' width='16' height='12' rx='2'></rect><path d='M2 14h2'></path><path d='M20 14h2'></path><path d='M15 13v2'></path><path d='M9 13v2'></path></g>`}
-      function wfNode(n){const x=n[0],y=n[1],w=n[2],h=n[3],t=n[4],k=n[5],dark=n[6],chips=n[7];const c=h<100;const cf=dark?'#27272a':'#fafaf9',cs=dark?'#3f3f46':'#e7e5e4',ct=dark?'rgba(255,255,255,0.7)':'#57534e';let s=`<g transform='translate(${x} ${y})'><rect width='${w}' height='${h}' rx='10' fill='${dark?'#18181b':'#ffffff'}' stroke='${dark?'#18181b':'#d6d3d1'}'></rect>`;s+=wfIcon(dark?'#bef264':'#57534e',c);s+=`<text x='${c?42:44}' y='${c?24:27}' fill='${dark?'#ffffff':'#18181b'}' font-family='Inter, sans-serif' font-size='${c?12:12.5}'>${t}</text><text x='${c?42:44}' y='${c?38:41}' fill='${dark?'#bef264':'#a8a29e'}' font-family='ui-monospace, monospace' font-size='8.5' letter-spacing='0.8'>${k}</text>`;chips.forEach(function(ch,i){const cy=(c?48:52)+i*24;s+=`<rect x='14' y='${cy}' width='${w-28}' height='20' rx='6' fill='${cf}' stroke='${cs}'></rect><text x='24' y='${cy+13.5}' fill='${ct}' font-family='ui-monospace, monospace' font-size='9'>${ch}</text>`});return s+'</g>'}
-      function renderWorkflowDiagram(type){const d=wfd[type];if(!d)return;const paths=d.paths.map(function(p){return `<path class='flow-line' d='${p}' stroke='#18181b' stroke-width='1.5'></path>`}).join('');const nodes=d.nodes.map(function(n){return wfNode(n)}).join('');const viewH=d.viewH,boxH=d.boxH,noteY=d.noteY;document.getElementById('demoCanvas').innerHTML=`<svg class='relative block w-full min-w-[640px] sm:min-w-0' viewBox='0 0 960 ${viewH}' fill='none' role='img' aria-label='${d.label}'><defs><pattern id='workflow-grid' width='16' height='16' patternUnits='userSpaceOnUse'><circle cx='1' cy='1' r='0.7' fill='#d6d3d1'></circle></pattern></defs><rect width='960' height='${viewH}' fill='url(#workflow-grid)'></rect><rect x='32' y='32' width='896' height='${boxH}' rx='12' fill='white' stroke='#e7e5e4'></rect><text x='64' y='68' fill='#a8a29e' font-family='ui-monospace, SFMono-Regular, monospace' font-size='11' letter-spacing='1.4'>${d.title}</text>${paths}${nodes}<text x='64' y='${noteY}' fill='#57534e' font-family='Inter, sans-serif' font-size='13'>${d.note}</text></svg>`}
-      document.querySelectorAll('.pattern-tab').forEach(function(b){b.addEventListener('click',function(){renderWorkflowDiagram(b.dataset.pattern);if(window.innerWidth<1024){document.getElementById('demoPanel').scrollIntoView({behavior:'smooth',block:'start'})}})});
-      document.querySelectorAll('.nav-pattern-link').forEach(function(link){link.addEventListener('click',function(e){e.preventDefault();var tab=document.querySelector('.pattern-tab[data-pattern="'+link.dataset.pattern+'"]');if(tab)tab.click();var panel=document.getElementById('demoPanel');if(panel)panel.scrollIntoView({behavior:'smooth',block:'start'})})});
-      document.querySelectorAll('.nav-drop').forEach(function(drop){
-        var trigger=drop.querySelector('a');
-        if(!trigger)return;
-        trigger.addEventListener('click',function(){
-          var willOpen=!drop.classList.contains('open');
-          document.querySelectorAll('.nav-drop.open').forEach(function(d){if(d!==drop)d.classList.remove('open')});
-          drop.classList.toggle('open',willOpen);
-        });
-      });
-      document.querySelectorAll('.nav-drop-panel a').forEach(function(a){
-        a.addEventListener('click',function(){var drop=a.closest('.nav-drop');if(drop)drop.classList.remove('open')});
-      });
-      document.addEventListener('click',function(e){
-        document.querySelectorAll('.nav-drop.open').forEach(function(d){if(!d.contains(e.target))d.classList.remove('open')});
-      });
-      document.addEventListener('keydown',function(e){
-        if(e.key==='Escape')document.querySelectorAll('.nav-drop.open').forEach(function(d){d.classList.remove('open')});
-      });
-    </script>
-    <script>
-      (function(){
-        var CONTACT_ENDPOINT='https://crestward-contact.crestward-landing-contact.workers.dev';
-        var form=document.getElementById('contactForm');
-        if(!form)return;
-        var mountedAt=Date.now();
+<section id="pricing" style="background:#fbfaf6;color:#151a13;padding:110px 28px">
+  <div style="max-width:980px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.18em;color:#2f6a1f">PRICING</div>
+    <h2 style="margin:0;font-weight:800;font-size:clamp(34px,4vw,56px);line-height:.98;letter-spacing:-.055em">Free while you build.</h2>
+  </div>
+  <div style="max-width:980px;margin:56px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px">
+    <div style="background:#fff;border:1px solid #e6e5dc;border-radius:28px;padding:36px;display:flex;flex-direction:column;gap:22px;box-shadow:0 20px 50px -30px rgba(21,26,19,.25)">
+      <span style="font-size:16px;color:#5f665a">Free</span>
+      <span style="font-size:72px;font-weight:800;letter-spacing:-.06em;line-height:.9">$0</span>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:16px;color:#3b4237">
+        <span>✓ Every workflow pattern and built-in tool</span>
+        <span>✓ Generous monthly usage to build and test</span>
+        <span>✓ Bring your own AI keys</span>
+      </div>
+      <a href="https://app.flowstudio-ai.com/signup" style="margin-top:auto;text-align:center;background:#151a13;color:#eef2e8;padding:16px;border-radius:999px;font-weight:700;font-size:16px" style-hover="background:#2f6a1f;color:#fff">Get started free</a>
+    </div>
+    <div style="background:#10140f;color:#eef2e8;border-radius:28px;padding:36px;display:flex;flex-direction:column;gap:22px">
+      <span style="font-size:16px;color:#b6bfae">Custom &amp; Enterprise</span>
+      <span style="font-size:72px;font-weight:800;letter-spacing:-.06em;line-height:.9;color:#9fdc6f">Let’s talk</span>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:16px;color:#d4dbcc">
+        <span>✓ Higher run volume, custom tools</span>
+        <span>✓ VPC, on-prem or dedicated runtime</span>
+        <span>✓ SSO, audit logs, support SLA</span>
+      </div>
+      <a href="mailto:sales@flowstudio-ai.com" style="margin-top:auto;text-align:center;background:#9fdc6f;color:#0f1a0a;padding:16px;border-radius:999px;font-weight:700;font-size:16px" style-hover="background:#b8ea8f;color:#0f1a0a">Talk to us</a>
+    </div>
+  </div>
+</section>
 
-        var honeypot=document.createElement('input');
-        honeypot.type='text';
-        honeypot.name='company';
-        honeypot.tabIndex=-1;
-        honeypot.autocomplete='off';
-        honeypot.setAttribute('aria-hidden','true');
-        honeypot.style.cssText='position:absolute;left:-9999px;width:1px;height:1px;opacity:0;';
-        form.appendChild(honeypot);
+<section id="contact" style="position:relative;overflow:hidden;background-color:#10140f;background-image:radial-gradient(rgba(170,200,150,.14) 1px,transparent 1.3px);background-size:28px 28px;padding:130px 28px 0">
+  <div style="max-width:900px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:26px">
+    <h2 style="margin:0;font-weight:800;font-size:clamp(40px,5.6vw,84px);line-height:.92;letter-spacing:-.06em;text-wrap:balance">Your crew is ready <span style="color:#9fdc6f">when you are.</span></h2>
+    <p style="margin:0;font-size:18px;color:#b6bfae">No waitlist. Sign up and start building.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+      <a href="https://app.flowstudio-ai.com/signup" style="background:#9fdc6f;color:#0f1a0a;padding:16px 26px;border-radius:999px;font-weight:700;font-size:16px" style-hover="background:#b8ea8f;color:#0f1a0a">Start building free</a>
+      <a href="mailto:hello@flowstudio-ai.com" style="border:1px solid rgba(255,255,255,.18);color:#eef2e8;padding:16px 26px;border-radius:999px;font-size:16px;font-weight:500" style-hover="border-color:#9fdc6f;color:#9fdc6f">hello@flowstudio-ai.com</a>
+    </div>
+  </div>
+  <sc-if value="{{ showParade }}" hint-placeholder-val="{{ true }}">
+    <div style="position:relative;height:110px;margin-top:90px">{{ parade }}</div>
+  </sc-if>
+  <div style="height:1px;background:rgba(255,255,255,.1)"></div>
+  <footer style="max-width:1240px;margin:0 auto;padding:30px 0 36px;display:flex;gap:20px 28px;flex-wrap:wrap;align-items:center;font-size:14px;color:#8d9886">
+    <span style="display:flex;align-items:center;gap:10px"><img src="logo-mark-white.png" alt="" style="height:24px;width:auto;display:block"><span style="font-weight:700;font-size:16px;letter-spacing:-.03em;color:#eef2e8">FlowStudio <span style="color:#9fdc6f">AI</span></span></span>
+    <span>Built by Crestward Labs</span>
+    <div style="margin-left:auto;display:flex;gap:24px;flex-wrap:wrap">
+      <a href="Marketplace.dc.html">Marketplace</a>
+      <a href="Legal.dc.html#terms">Terms</a>
+      <a href="Legal.dc.html#privacy">Privacy</a>
+      <span>© 2026 FlowStudio AI</span>
+    </div>
+  </footer>
+</section>
 
-        var messageEl=document.getElementById('contactMessage');
-        var submitBtn=form.querySelector('button[type="submit"]');
-        var labelEl=document.getElementById('contactSubmitLabel');
-        var iconEl=document.getElementById('contactSubmitIcon');
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;tourStepVh&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:80,&quot;min&quot;:50,&quot;max&quot;:140,&quot;step&quot;:10,&quot;unit&quot;:&quot;vh&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Tour&quot;},&quot;showParade&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Footer&quot;}}">
+class Component extends DCLogic {
+  static PAL = {
+    green: ['#6cbf45', '#58a834', '#3e7f24', '#d6f7bf'],
+    blue: ['#4a86ec', '#3a6fd6', '#2753a8', '#d4e4ff'],
+    orange: ['#f07a3e', '#dc6127', '#a8461a', '#ffe0cc'],
+    pink: ['#ec5e95', '#d6437c', '#a52d5d', '#ffd6e6']
+  };
 
-        var setSending=function(sending){
-          submitBtn.disabled=sending;
-          labelEl.textContent=sending?'Sending...':'Send message';
-          iconEl.setAttribute('icon',sending?'svg-spinners:180-ring-with-bg':'solar:arrow-right-linear');
-        };
+  static Robot = function Robot(p) {
+    const h = React.createElement, C = Component.PAL[p.c || 'green'], pose = p.pose || 'idle', dl = p.delay || 0;
+    const A = (n, t) => `${n} ${t}s ease-in-out ${dl}s infinite`;
+    const body = pose === 'walk' ? A('fsBob', .42) : pose === 'jump' ? A('fsJump', .9) : pose === 'work' ? A('fsBob', .5) : A('fsBob', 2.6);
+    const happy = pose === 'happy' || pose === 'jump';
+    const eyeSt = { transformBox: 'fill-box', transformOrigin: 'center', animation: `fsBlink 4.2s linear ${dl * 1.7}s infinite` };
+    const eyes = happy
+      ? [h('path', { key: 'e1', d: 'M21.5 27.5q3.75-5.5 7.5 0', fill: 'none', stroke: '#eafbe0', strokeWidth: 2.6, strokeLinecap: 'round' }),
+         h('path', { key: 'e2', d: 'M35 27.5q3.75-5.5 7.5 0', fill: 'none', stroke: '#eafbe0', strokeWidth: 2.6, strokeLinecap: 'round' })]
+      : [h('rect', { key: 'e1', x: 22, y: 20.5, width: 6.5, height: 10, rx: 3.2, fill: '#eafbe0', style: eyeSt }),
+         h('rect', { key: 'e2', x: 35.5, y: 20.5, width: 6.5, height: 10, rx: 3.2, fill: '#eafbe0', style: eyeSt })];
+    const armR = pose === 'hold' ? { transform: 'rotate(-35deg)' } : pose === 'wave' ? { animation: A('fsWave', 1.1) } : pose === 'jump' ? { transform: 'rotate(-150deg)' } : pose === 'walk' ? { animation: A('fsSwing', .84) } : pose === 'point' ? { transform: 'rotate(-95deg)' } : pose === 'work' ? { animation: A('fsSwing', .5) } : {};
+    const armL = pose === 'jump' ? { transform: 'rotate(150deg)' } : pose === 'walk' ? { animation: A('fsSwing2', .84) } : pose === 'work' ? { animation: A('fsSwing2', .5) } : {};
+    const fA = pose === 'walk' ? { animation: `fsStep .42s ease-in-out ${dl}s infinite` } : {};
+    const fB = pose === 'walk' ? { animation: `fsStep .42s ease-in-out ${dl + .21}s infinite` } : {};
+    const HOLD = {
+      doc: [h('rect', { key: 'a', x: -1, y: -20, width: 16, height: 21, rx: 2.5, fill: '#fff', stroke: '#c9c8bd', strokeWidth: 1 }),
+        h('path', { key: 'b', d: 'M2.5 -15.5h9M2.5 -11.5h9M2.5 -7.5h5.5', stroke: '#9aa294', strokeWidth: 1.4, strokeLinecap: 'round' }),
+        h('circle', { key: 'c', cx: 11.5, cy: -2.5, r: 4.2, fill: C[0] }), h('path', { key: 'd', d: 'M9.6 -2.6l1.3 1.3 2.5-2.5', fill: 'none', stroke: '#fff', strokeWidth: 1.3, strokeLinecap: 'round', strokeLinejoin: 'round' })],
+      shield: [h('path', { key: 'a', d: 'M7 -22l8.5 3.2v6.6c0 5.2-3.8 8.5-8.5 9.8-4.7-1.3-8.5-4.6-8.5-9.8v-6.6z', fill: C[3], stroke: C[2], strokeWidth: 1.4 }),
+        h('path', { key: 'b', d: 'M3.2 -12.5l2.7 2.7 5.2-5.2', fill: 'none', stroke: C[2], strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' })],
+      wrench: [h('g', { key: 'a', transform: 'rotate(-28)' }, h('rect', { x: -1.8, y: -17, width: 3.6, height: 16, rx: 1.8, fill: '#a9b0a3' }), h('circle', { cx: 0, cy: -19, r: 5.2, fill: '#a9b0a3' }), h('rect', { x: -1.7, y: -25.5, width: 3.4, height: 6, rx: .8, fill: '#161a17' }))]
+    };
+    const held = p.hold ? h('g', { transform: 'rotate(35 51 59)' }, h('g', { transform: 'translate(51 59)' }, HOLD[p.hold], h('circle', { cx: 0, cy: 0, r: 3.3, fill: C[0] }))) : null;
+    return h('svg', { viewBox: '0 0 64 76', width: '100%', style: { display: 'block', overflow: 'visible', transform: p.flip ? 'scaleX(-1)' : 'none' } },
+      h('ellipse', { cx: 32, cy: 73.5, rx: 15, ry: 2.4, fill: '#000', opacity: .16 }),
+      h('g', { style: fA }, h('rect', { x: 21, y: 61, width: 9, height: 10, rx: 3.5, fill: '#1d211e' })),
+      h('g', { style: fB }, h('rect', { x: 34, y: 61, width: 9, height: 10, rx: 3.5, fill: '#1d211e' })),
+      h('g', { style: { animation: body } },
+        h('rect', { x: 31, y: 3, width: 2, height: 8, fill: C[2] }),
+        h('circle', { cx: 32, cy: 4, r: 3.4, fill: C[3], style: { animation: A('fsGlow', 1.6) } }),
+        h('rect', { x: 5, y: 20, width: 5, height: 11, rx: 2, fill: C[2] }),
+        h('rect', { x: 54, y: 20, width: 5, height: 11, rx: 2, fill: C[2] }),
+        h('g', { style: { transformOrigin: '13px 46px', transition: 'transform .4s', ...armL } }, h('rect', { x: 10, y: 45, width: 6, height: 14, rx: 3, fill: C[0] })),
+        h('g', { style: { transformOrigin: '51px 46px', transition: 'transform .4s', ...armR } }, h('rect', { x: 48, y: 45, width: 6, height: 14, rx: 3, fill: C[0] }), held),
+        h('rect', { x: 27, y: 39, width: 10, height: 5, fill: C[2] }),
+        h('rect', { x: 17, y: 43, width: 30, height: 20, rx: 8, fill: C[1] }),
+        h('circle', { cx: 32, cy: 53, r: 3, fill: C[3], opacity: (pose === 'work' || happy) ? 1 : .55 }),
+        h('rect', { x: 9, y: 10, width: 46, height: 31, rx: 12, fill: C[0] }),
+        h('rect', { x: 14, y: 16, width: 36, height: 19, rx: 8, fill: '#161a17' }),
+        eyes));
+  };
 
-        var sendViaMailto=function(email,useCase){
-          var body='Email: '+email+'\n\nWhat they are building:\n'+useCase;
-          window.location.href='mailto:hello@flowstudio-ai.com?subject='+
-            encodeURIComponent('FlowStudio inquiry')+'&body='+encodeURIComponent(body);
-          messageEl.textContent="Your email is ready to send. If nothing opened, write to hello@flowstudio-ai.com directly.";
-          form.reset();
-        };
+  static bubble(text, key, o) {
+    const h = React.createElement, side = o.side === 'right';
+    return h('div', { key, style: {
+      position: 'absolute', zIndex: 2, width: 'max-content', maxWidth: o.max, background: '#fff', color: '#151a13', fontFamily: "'Bricolage Grotesque', sans-serif",
+      fontSize: o.fs, fontWeight: 600, lineHeight: 1.3, letterSpacing: '-.01em', padding: o.pad, borderRadius: o.r, boxShadow: '0 12px 30px -12px rgba(0,0,0,.45)',
+      ...(side ? { left: '100%', bottom: '55%', marginLeft: o.gap, animation: 'fsPopSide .35s ease-out both' } : { left: '50%', bottom: '100%', marginBottom: o.gap, transform: 'translateX(-50%)', animation: 'fsPop .35s ease-out both' }) } },
+      text,
+      h('span', { style: side
+        ? { position: 'absolute', left: -4, bottom: 12, width: 10, height: 10, background: '#fff', transform: 'rotate(45deg)' }
+        : { position: 'absolute', left: '50%', bottom: -4, width: 10, height: 10, background: '#fff', transform: 'translateX(-50%) rotate(45deg)' } }));
+  }
 
-        form.addEventListener('submit',async function(event){
-          event.preventDefault();
-          var email=document.getElementById('contactEmail').value.trim();
-          var useCase=document.getElementById('useCase').value.trim();
-          setSending(true);
+  static TOUR = [
+    { kicker: 'THE CANVAS', label: 'Canvas', title: 'What is FlowStudio?', body: 'A visual canvas where AI agents team up to do real work: pulling data, making decisions, writing and posting, all on their own.', bubble: 'Hi, I’m Flo! This is the canvas.', flo: [500, 520, 10], pose: 'wave' },
+    { kicker: 'THE AGENT', label: 'Agent', title: 'Meet the agent.', body: 'An agent is a small AI worker. It has a brain to think, a job to do, and tools to get it done. I’m one too.', bubble: 'Every agent is built like me.', flo: [500, 590, 22], pose: 'happy' },
+    { kicker: 'CREATE', label: 'Create', title: 'Make one in a minute.', body: 'Pick a model, describe the job in plain words, and choose the tools it may use. No code needed.', bubble: 'Let’s make one together!', flo: [190, 600, 15], pose: 'point' },
+    { kicker: 'THE NODE', label: 'Node', title: 'Drop it on the canvas.', body: 'Your new agent becomes a node: a building block you can move, connect and reuse.', bubble: 'Ta-da! That’s a node now.', flo: [250, 480, 9], pose: 'wave' },
+    { kicker: 'THE TEAM', label: 'Team', title: 'Build a team.', body: 'Add more agents, each with its own job. One pulls data, one decides, one writes. Triggers and outputs sit at the ends.', bubble: 'More agents, more hands.', flo: [170, 590, 9], pose: 'happy' },
+    { kicker: 'CONNECT', label: 'Wire', title: 'Wire them together.', body: 'Draw lines between nodes. Each agent’s output becomes the next one’s input, with conditions where you need them.', bubble: 'Lines carry the work along.', flo: [150, 172, 7], pose: 'point', side: 'right' },
+    { kicker: 'RUN', label: 'Run', title: 'Put it on a schedule. Let it run.', body: 'Pick a trigger and walk away. FlowStudio runs the whole team on time, and every step is traced.', bubble: 'Every day at 7 AM. Off we go!', flo: [150, 172, 7], pose: 'jump', side: 'right' }
+  ];
 
-          try{
-            var res=await fetch(CONTACT_ENDPOINT,{
-              method:'POST',
-              headers:{'Content-Type':'application/json'},
-              body:JSON.stringify({
-                name:'',
-                email:email,
-                topic:'Website inquiry',
-                message:useCase,
-                company:honeypot.value,
-                elapsedMs:Date.now()-mountedAt,
-                source:'flowstudio'
-              })
-            });
-            if(!res.ok)throw new Error('bad response');
-            messageEl.textContent="Thanks - we'll get back to you within two working days.";
-            form.reset();
-          }catch(err){
-            sendViaMailto(email,useCase);
-          }finally{
-            setSending(false);
-          }
-        });
-      })();
-    </script>
+  static PATS = {
+    sequential: { name: 'Sequential', bestFor: 'steps that always happen in the same order.', bubble: 'One after another, like a relay race!',
+      slots: [[130, 300, 'Intake', 'agent'], [373, 300, 'Classify', 'agent'], [616, 300, 'Enrich', 'agent'], [860, 300, 'Route', 'out']], edges: [[0, 1, 0], [1, 2, 1], [2, 3, 2]] },
+    parallel: { name: 'Parallel', bestFor: 'research and enrichment from many sources at once.', bubble: 'Everyone at once, then we combine!',
+      slots: [[130, 300, 'New lead', 'trigger'], [500, 140, 'Research', 'agent'], [500, 300, 'Pricing', 'agent'], [500, 460, 'Reviews', 'agent'], [865, 300, 'Collect', 'out']], edges: [[0, 1, 0], [0, 2, 0], [0, 3, 0], [1, 4, 1], [2, 4, 1], [3, 4, 1]] },
+    hierarchical: { name: 'Hierarchical', bestFor: 'big requests that need to be split up first.', bubble: 'One boss robot hands out the work.',
+      slots: [[500, 140, 'Coordinator', 'agent'], [190, 300, 'Researcher', 'agent'], [500, 300, 'Writer', 'agent'], [810, 300, 'Analyst', 'agent'], [500, 460, 'Answer', 'out']], edges: [[0, 1, 0], [0, 2, 0], [0, 3, 0], [1, 4, 1], [2, 4, 1], [3, 4, 1]] },
+    hybrid: { name: 'Hybrid', bestFor: 'pipelines with a few slow steps that can run side by side.', bubble: 'Some in order, some side by side.',
+      slots: [[130, 300, 'Ingest', 'agent'], [375, 160, 'Extract', 'agent'], [375, 440, 'Validate', 'agent'], [620, 300, 'Merge', 'agent'], [865, 300, 'Ledger', 'out']], edges: [[0, 1, 0], [0, 2, 0], [1, 3, 1], [2, 3, 1], [3, 4, 2]] },
+    collaborative: { name: 'Collaborative', bestFor: 'writing and planning that gets better with feedback.', bubble: 'We pass the draft around until it’s great.',
+      slots: [[500, 300, 'Shared draft', 'out'], [180, 160, 'Drafter', 'agent'], [820, 160, 'Critic', 'agent'], [500, 470, 'Editor', 'agent']], edges: [[1, 0, 0], [0, 2, 1], [2, 0, 2], [0, 3, 3], [3, 1, 4]] },
+    event: { name: 'Event-driven', bestFor: 'reacting to webhooks, status changes and alerts.', bubble: 'We nap until something happens. Then, go!',
+      slots: [[120, 300, 'Webhook', 'trigger'], [365, 160, 'order.paid', 'event'], [365, 440, 'order.failed', 'event'], [615, 160, 'Fulfil', 'agent'], [615, 440, 'Recover', 'agent'], [870, 300, 'Notify', 'out']], edges: [[0, 1, 0], [1, 3, 1], [3, 5, 2], [0, 2, 0], [2, 4, 1], [4, 5, 2]] }
+  };
+  static PAT_ORDER = ['sequential', 'parallel', 'hierarchical', 'hybrid', 'collaborative', 'event'];
+  static PV(V) { return V ? { aspect: '540/1000', w: '26%', fk: '2.3cqw', fn: '3.1cqw', pad: '2cqw 2.4cqw', flo: '56px' } : { aspect: '1000/540', w: '15%', fk: '1.05cqw', fn: '1.7cqw', pad: '1cqw 1.3cqw', flo: 'min(78px,9%)' }; }
+  static SLOT_COLORS = ['green', 'blue', 'orange', 'pink', 'blue', 'orange'];
+  static Wires = function Wires(p) {
+    const h = React.createElement, M = Component.PATS[p.mode];
+    const [, tick] = React.useState(0), t0 = React.useRef(performance.now());
+    React.useEffect(() => { t0.current = performance.now(); }, [p.mode]);
+    React.useEffect(() => { let r; const f = () => { tick(n => (n + 1) % 1e6); r = requestAnimationFrame(f); }; r = requestAnimationFrame(f); return () => cancelAnimationFrame(r); }, []);
+    const t = (performance.now() - t0.current) / 1000 - 1.4;
+    const V = !!p.vertical, HW = V ? 70 : 75, HH = V ? 32 : 28, RB = V ? 64 : 74, S = V ? M.slots.map(q => [q[1] - 30, q[0], q[2], q[3]]) : M.slots;
+    const geo = (a, b) => {
+      const A = S[a], B = S[b], dx = B[0] - A[0], dy = B[1] - A[1];
+      let P;
+      if (Math.abs(dx) >= Math.abs(dy) * 1.2) { const s = Math.sign(dx), p0 = [A[0] + s * HW, A[1]], p3 = [B[0] - s * HW, B[1]], k = Math.abs(p3[0] - p0[0]) * .5; P = [p0, [p0[0] + s * k, p0[1]], [p3[0] - s * k, p3[1]], p3]; }
+      else { const s = Math.sign(dy) || 1, p0 = [A[0], A[1] + s * (HH + (s < 0 ? RB : 0))], p3 = [B[0], B[1] - s * (HH + (s > 0 ? RB : 0))], k = Math.abs(p3[1] - p0[1]) * .5; P = [p0, [p0[0], p0[1] + s * k], [p3[0], p3[1] - s * k], p3]; }
+      return { P, d: `M${P[0][0]},${P[0][1]} C${P[1][0]},${P[1][1]} ${P[2][0]},${P[2][1]} ${P[3][0]},${P[3][1]}` };
+    };
+    const bz = (P, u) => { const a = 1 - u; return [0, 1].map(j => a * a * a * P[0][j] + 3 * a * a * u * P[1][j] + 3 * a * u * u * P[2][j] + u * u * u * P[3][j]); };
+    const maxS = Math.max(...M.edges.map(e => e[2])), STEP = .8, T = (maxS + 1) * STEP + .8, ct = t < 0 ? -1 : t % T;
+    const els = [];
+    M.edges.forEach((e, i) => {
+      const g = geo(e[0], e[1]);
+      els.push(h('path', { key: p.mode + 'e' + i, d: g.d, fill: 'none', stroke: '#4f9a3a', strokeWidth: 3, strokeLinecap: 'round', pathLength: 1, strokeDasharray: 1, style: { animation: `fsDraw .6s ease ${.85 + i * .08}s both` } }));
+      const u = (ct - e[2] * STEP) / (STEP * .85);
+      if (ct >= 0 && u >= 0 && u <= 1) { const q = bz(g.P, u < .5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2);
+        els.push(h('circle', { key: 'g' + i, cx: q[0], cy: q[1], r: 13, fill: '#9fdc6f', opacity: .3 }), h('circle', { key: 'q' + i, cx: q[0], cy: q[1], r: 7, fill: '#9fdc6f', stroke: '#2f6a1f', strokeWidth: 2 })); }
+    });
+    return h('svg', { viewBox: V ? '0 0 540 1000' : '0 0 1000 540', style: { position: 'absolute', inset: 0, width: '100%', height: '100%', overflow: 'visible', pointerEvents: 'none' } }, els);
+  };
+  setPat(k, user) {
+    clearTimeout(this.pw);
+    this.setState({ pat: k, patWalk: true, ...(user ? { patUser: true } : {}) });
+    this.pw = setTimeout(() => this.setState({ patWalk: false }), 900);
+  }
+  static TB = {
+    weather: { chip: 'Weather for a city', prompt: 'Get the current weather for any city', name: 'get_weather',
+      code: ['import os, httpx', '', 'def get_weather(city: str, units: str = "metric") -> dict:', '    """Current weather for a city."""', '    key = os.environ["OPENWEATHER_API_KEY"]', '    r = httpx.get(', '        "https://api.openweathermap.org/data/2.5/weather",', '        params={"q": city, "units": units, "appid": key},', '        timeout=10,', '    )', '    r.raise_for_status()', '    d = r.json()', '    return {', '        "city": d["name"],', '        "temp": d["main"]["temp"],', '        "conditions": d["weather"][0]["description"],', '    }'],
+      params: [['city', 'string', true, 'City name, like Vancouver or Lisbon.', 'Vancouver'], ['units', 'string', false, 'metric or imperial. Defaults to metric.', 'metric']],
+      envs: [['OPENWEATHER_API_KEY', 'From openweathermap.org → API keys.']],
+      call: v => 'get_weather(city="' + v.city + '")', out: v => ({ city: v.city, temp: v.units === 'imperial' ? 57.6 : 14.2, conditions: 'light rain' }) },
+    refund: { chip: 'Refund a Stripe charge', prompt: 'Refund all or part of a Stripe charge', name: 'refund_charge',
+      code: ['import os, stripe', '', 'def refund_charge(charge_id: str, amount: int | None = None) -> dict:', '    """Refund all or part of a Stripe charge."""', '    stripe.api_key = os.environ["STRIPE_SECRET_KEY"]', '    refund = stripe.Refund.create(', '        charge=charge_id,', '        amount=amount,  # cents; None = full refund', '    )', '    return {', '        "refund_id": refund.id,', '        "status": refund.status,', '        "amount": refund.amount,', '    }'],
+      params: [['charge_id', 'string', true, 'The Stripe charge to refund.', 'ch_3PqL8xA2'], ['amount', 'integer', false, 'Amount in cents. Leave empty for a full refund.', '2500']],
+      envs: [['STRIPE_SECRET_KEY', 'From the Stripe dashboard → Developers → API keys.']],
+      call: v => 'refund_charge(charge_id="' + v.charge_id + '")', out: v => ({ refund_id: 're_3PqL9kB7', status: 'succeeded', amount: parseInt(v.amount, 10) || 4900 }) },
+    notion: { chip: 'Add a Notion row', prompt: 'Add a row to our team’s Notion database', name: 'add_notion_row',
+      code: ['import os, httpx', '', 'NOTION = "https://api.notion.com/v1/pages"', '', 'def add_notion_row(title: str, status: str = "Todo") -> dict:', '    """Create a page in the team’s Notion database."""', '    headers = {', '        "Authorization": f"Bearer {os.environ[\'NOTION_TOKEN\']}",', '        "Notion-Version": "2022-06-28",', '    }', '    body = {', '        "parent": {"database_id": os.environ["NOTION_DATABASE_ID"]},', '        "properties": {', '            "Name": {"title": [{"text": {"content": title}}]},', '            "Status": {"select": {"name": status}},', '        },', '    }', '    r = httpx.post(NOTION, json=body, headers=headers, timeout=10)', '    r.raise_for_status()', '    return {"page_id": r.json()["id"], "url": r.json()["url"]}'],
+      params: [['title', 'string', true, 'The row’s title.', 'Follow up with Acme'], ['status', 'string', false, 'A Status option in your database.', 'Todo']],
+      envs: [['NOTION_TOKEN', 'From notion.so/my-integrations → Internal integration secret.'], ['NOTION_DATABASE_ID', 'The 32-character ID in your database’s URL.']],
+      call: v => 'add_notion_row(title="' + v.title + '")', out: v => ({ page_id: '1a2b3c4d-5e6f', url: 'https://notion.so/' + String(v.title || 'row').replace(/\s+/g, '-') + '-1a2b3c' }) }
+  };
+  static T_WELCOME = 'Hi, I’m Tinker! Tell me what the tool should do and I’ll write the code, list its parameters, and tell you which secrets it needs.';
+  tClear() { (this.tt || []).forEach(clearTimeout); this.tt = []; clearInterval(this.ti); }
+  tGenerate() {
+    const s = this.state, T = Component.TB[s.tp];
+    if (s.tPhase === 'typing' || s.tPhase === 'coding') return;
+    this.tClear();
+    const vals = {}; T.params.forEach(p => { vals[p[0]] = p[4]; });
+    this.setState({ tPhase: 'typing', tN: 0, tTab: 'code', tTest: 'idle', tLog: [], tOut: '', tVals: vals, tMsgs: [...s.tMsgs, { who: 'user', text: T.prompt }, { who: 'bot', typing: true }] });
+    this.tt.push(setTimeout(() => {
+      this.setState(x => ({ tPhase: 'coding', tMsgs: [...x.tMsgs.slice(0, -1), { who: 'bot', text: 'On it. Writing ' + T.name + ' in Python…' }] }));
+      this.ti = setInterval(() => this.setState(x => {
+        const n = x.tN + 1;
+        if (n < T.code.length) return { tN: n };
+        clearInterval(this.ti);
+        const pn = T.params.length, en = T.envs.length;
+        return { tN: T.code.length, tPhase: 'ready', tMsgs: [...x.tMsgs, { who: 'bot', text: 'Done! ' + T.name + ' takes ' + pn + ' parameter' + (pn > 1 ? 's' : '') + ' and needs ' + en + ' secret' + (en > 1 ? 's' : '') + ': ' + T.envs.map(e => e[0]).join(' and ') + '. Add ' + (en > 1 ? 'them' : 'it') + ' under Secrets, then run a test.' }] };
+      }), 60);
+    }, 1000));
+  }
+  tTestRun() {
+    const s = this.state, T = Component.TB[s.tp];
+    if (s.tPhase !== 'ready' || s.tTest === 'running') return;
+    (this.tt || []).forEach(clearTimeout); this.tt = [];
+    const mP = T.params.filter(p => p[2] && !String(s.tVals[p[0]] || '').trim()).map(p => p[0]);
+    const mE = T.envs.filter(e => !String(s.tEnv[e[0]] || '').trim()).map(e => e[0]);
+    const G = '#b6bfae', L = [['▸ sandbox started · python 3.12 · 256 MB', G], ['▸ injecting ' + T.envs.length + ' secret' + (T.envs.length > 1 ? 's' : ''), G]];
+    let ok = true, bot;
+    if (mE.length) { ok = false; L.push(['✕ missing secret: ' + mE.join(', '), '#f0a07a']); bot = 'I need ' + mE.join(' and ') + ' first. Paste ' + (mE.length > 1 ? 'them' : 'it') + ' under Secrets. It’s encrypted and only used while the tool runs.'; }
+    else if (mP.length) { ok = false; L.push(['✕ missing parameter: ' + mP.join(', '), '#f0a07a']); bot = mP.join(', ') + ' is required. Add a test value under Parameters.'; }
+    else { L.push(['▸ calling ' + T.call(s.tVals), G], ['✓ 200 OK · ' + (280 + T.name.length * 17) + ' ms', '#9fdc6f']); bot = 'It works! ' + T.name + ' is ready. Grant it to any agent and it’s in their toolbox.'; }
+    this.setState({ tTab: 'test', tTest: 'running', tLog: [], tOut: '' });
+    L.forEach((l, i) => this.tt.push(setTimeout(() => this.setState(x => ({ tLog: [...x.tLog, { t: l[0], c: l[1] }] })), 300 + i * 380)));
+    this.tt.push(setTimeout(() => {
+      this.setState(x => ({ tTest: ok ? 'ok' : 'err', tOut: ok ? JSON.stringify(T.out(x.tVals), null, 2) : '', tMsgs: [...x.tMsgs, { who: 'bot', text: bot }], tJump: ok }));
+      if (ok) this.tt.push(setTimeout(() => this.setState({ tJump: false }), 1800));
+    }, 400 + L.length * 380));
+  }
+  toolVals() {
+    const C = Component, s = this.state, T = C.TB[s.tp], idle = s.tPhase === 'idle', busy = s.tPhase === 'typing' || s.tPhase === 'coding';
+    const envSet = T.envs.filter(e => String(s.tEnv[e[0]] || '').trim()).length;
+    const color = t => { const x = t.trim(); return (x.startsWith('#') || x.startsWith('"""')) ? '#7b8274' : /^(import|from|def|return|NOTION)/.test(x) ? '#9fdc6f' : '#d4dbcc'; };
+    const tab = (k, label, badge, bb, bc) => ({ label, badge, onClick: () => this.setState({ tTab: k }), bg: s.tTab === k ? '#151a13' : 'transparent', color: s.tTab === k ? '#eef2e8' : '#3b4237', badgeBg: bb || (s.tTab === k ? '#2b3328' : '#e6e5dc'), badgeColor: bc || (s.tTab === k ? '#b6bfae' : '#5f665a') });
+    const status = busy || s.tTest === 'running' ? { label: 'WORKING', bg: '#2b3a22', color: '#b8ea8f', dot: '#9fdc6f' } : s.tTest === 'ok' ? { label: 'TOOL READY', bg: '#e5f4dc', color: '#2f6a1f', dot: '#4f9a3a' } : { label: 'ONLINE', bg: '#1e241c', color: '#8d9886', dot: '#59634f' };
+    return {
+      tinker: React.createElement(C.Robot, { c: 'orange', pose: s.tJump ? 'jump' : (busy || s.tTest === 'running') ? 'work' : s.tTest === 'ok' ? 'happy' : 'hold', hold: 'wrench' }),
+      tStatus: status,
+      tMsgs: s.tMsgs.slice().reverse().map(m => m.who === 'user'
+        ? { text: m.text, align: 'flex-end', bg: '#9fdc6f', color: '#0f1a0a', radius: '18px 18px 4px 18px', o: 1 }
+        : { text: m.typing ? '● ● ●' : m.text, align: 'flex-start', bg: '#232b21', color: '#eef2e8', radius: '18px 18px 18px 4px', o: m.typing ? .6 : 1 }),
+      tChips: Object.keys(C.TB).map(k => { const a = s.tp === k; return { label: C.TB[k].chip, bg: a ? '#eef2e8' : 'transparent', color: a ? '#10140f' : '#d4dbcc', border: a ? '#eef2e8' : 'rgba(255,255,255,.16)',
+        onClick: () => { if (busy || s.tTest === 'running') return; this.tClear(); this.setState({ tp: k, tPhase: 'idle', tN: 0, tTest: 'idle', tLog: [], tOut: '', tTab: 'code' }); } }; }),
+      tPrompt: T.prompt, tGenerate: () => this.tGenerate(), tGenLabel: busy ? 'Writing…' : (s.tPhase === 'ready' ? 'Regenerate' : 'Generate'),
+      tTabs: [tab('code', 'Code', idle ? '—' : (s.tPhase === 'ready' ? '✓' : s.tN + '/' + T.code.length)),
+        tab('params', 'Parameters', idle ? '—' : String(T.params.length)),
+        tab('secrets', 'Secrets', idle ? '—' : envSet + '/' + T.envs.length, idle ? null : (envSet === T.envs.length ? '#e5f4dc' : '#fbe6da'), idle ? null : (envSet === T.envs.length ? '#2f6a1f' : '#a5532a')),
+        tab('test', 'Test', idle ? '—' : (s.tTest === 'ok' ? '✓' : s.tTest === 'err' ? '!' : '▶'), s.tTest === 'ok' ? '#e5f4dc' : s.tTest === 'err' ? '#fbe6da' : null, s.tTest === 'ok' ? '#2f6a1f' : s.tTest === 'err' ? '#a5532a' : null)],
+      tView: { empty: idle, code: !idle && s.tTab === 'code', params: !idle && s.tTab === 'params', secrets: !idle && s.tTab === 'secrets', test: !idle && s.tTab === 'test' },
+      tName: T.name, tCodeMeta: busy ? 'writing…' : T.code.length + ' lines · python',
+      tLines: T.code.slice(0, s.tN).map((t, i) => ({ n: i + 1, t: t || ' ', c: color(t) })),
+      tParams: T.params.map(p => ({ name: p[0], type: p[1], req: p[2] ? 'required' : 'optional', reqBg: p[2] ? '#151a13' : '#efeee6', reqColor: p[2] ? '#eef2e8' : '#5f665a', desc: p[3], val: s.tVals[p[0]] ?? '',
+        onChange: e => { const v = e.target.value; this.setState(x => ({ tVals: { ...x.tVals, [p[0]]: v } })); } })),
+      tEnvs: T.envs.map(e => { const set = !!String(s.tEnv[e[0]] || '').trim(); return { key: e[0], hint: e[1], val: s.tEnv[e[0]] || '', status: set ? 'encrypted ✓' : 'missing', bg: set ? '#e5f4dc' : '#fbe6da', color: set ? '#2f6a1f' : '#a5532a',
+        onChange: ev => { const v = ev.target.value; this.setState(x => ({ tEnv: { ...x.tEnv, [e[0]]: v } })); } }; }),
+      tRun: () => this.tTestRun(), tRunLabel: s.tTest === 'running' ? 'Running…' : 'Run test',
+      tNote: s.tTest === 'ok' ? { text: 'Passed. Ready to grant to an agent.', color: '#2f6a1f' } : s.tTest === 'err' ? { text: 'Failed. Tinker says why in the chat.', color: '#a5532a' } : { text: 'Runs in an isolated sandbox with your test values.', color: '#5f665a' },
+      tLog: s.tLog, tLogEmpty: s.tLog.length === 0, tHasOut: !!s.tOut, tOut: s.tOut
+    };
+  }
+  static COMM = [
+    [['Discord', '#5865f2', 'D'], ['Email', '#8d9886', '✉'], ['Google Calendar', '#4285f4', '31'], ['Notion', '#eef2e8', 'N'], ['Salesforce', '#00a1e0', 'S'], ['Slack', '#e01e5a', '#'], ['Telegram', '#2aabee', '➤'], ['Zendesk', '#03363d', 'Z'], ['Jira', '#2684ff', 'J']],
+    [['Generic HTTP Request', '#8d9886', '⌁'], ['Fetch URL HTML', '#8d9886', '◎'], ['Google Sheets', '#0f9d58', '▦'], ['HubSpot', '#ff7a59', 'H'], ['Markdown to PDF', '#8d9886', '¶'], ['GitHub', '#eef2e8', 'G'], ['Airtable', '#fcb400', 'A'], ['Stripe', '#635bff', 'S'], ['Linear', '#5e6ad2', 'L']]
+  ];
+  static marquee() {
+    const h = React.createElement;
+    const pill = ([n, c, g], k) => h('span', { key: k, style: { display: 'inline-flex', alignItems: 'center', gap: 10, flexShrink: 0, padding: '10px 18px 10px 10px', borderRadius: 999, background: '#171d15', border: '1px solid rgba(255,255,255,.09)', color: '#d4dbcc', fontSize: 15, fontWeight: 600, whiteSpace: 'nowrap' } },
+      h('span', { style: { width: 26, height: 26, borderRadius: 8, background: c === '#eef2e8' || c === '#8d9886' ? 'rgba(255,255,255,.08)' : c, color: c === '#eef2e8' || c === '#8d9886' ? c : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 800, fontFamily: "'JetBrains Mono', monospace" } }, g), n);
+    const row = (items, dur, rev) => h('div', { style: { display: 'flex', width: 'max-content', gap: 12, animation: 'fsMarq ' + dur + 's linear infinite' + (rev ? ' reverse' : '') } }, [...items, ...items].map((it, i) => pill(it, i)));
+    return h('div', { style: { display: 'flex', flexDirection: 'column', gap: 12, overflow: 'hidden', padding: '4px 0', WebkitMaskImage: 'linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)', maskImage: 'linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)' } },
+      row(Component.COMM[0], 38, false), row(Component.COMM[1], 44, true));
+  }
+  static JOBS = [
+    { k: 'support', label: 'Answer support tickets', short: 'answer your support tickets', name: 'Ticket Buddy', c: 'orange', tools: ['zendesk', 'slack', 'notion'] },
+    { k: 'research', label: 'Research competitors', short: 'research your competitors', name: 'Scout', c: 'blue', tools: ['web_search', 'notion', 'sheets'] },
+    { k: 'report', label: 'Write the weekly report', short: 'write the weekly report', name: 'Scribe', c: 'pink', tools: ['postgres', 'sheets', 'gmail'] },
+    { k: 'leads', label: 'Qualify new leads', short: 'qualify your new leads', name: 'Closer', c: 'green', tools: ['hubspot', 'web_search', 'slack'] }
+  ];
+  static BRAINS = [['Claude', 'careful thinker'], ['GPT', 'all-rounder'], ['Llama', 'open & fast']];
 
-</body></html>
+  state = { step: 0, walking: false, flip: false, brain: 'Claude', job: 'support', tools: ['zendesk', 'slack', 'notion'], alive: false, alivePose: 'jump', pat: 'sequential', patWalk: false, patUser: false, tp: 'weather', tPhase: 'idle', tN: 0, tTab: 'code', tMsgs: [{ who: 'bot', text: Component.T_WELCOME }], tVals: {}, tEnv: {}, tTest: 'idle', tLog: [], tOut: '', tJump: false };
+  tourRef = React.createRef();
+  
+
+  componentDidMount() {
+    this.onScroll = () => {
+      const el = document.getElementById('tour'); if (!el) return;
+      const r = el.getBoundingClientRect(), span = r.height - window.innerHeight;
+      const pr = Math.min(1, Math.max(0, -r.top / span));
+      const s = Math.min(6, Math.floor(pr * 7));
+      this.setStep(s);
+      const n = window.innerWidth < 800, sm = window.innerWidth < 640, navC = window.innerWidth < 1060; if (n !== this.state.narrow || sm !== this.state.sm || navC !== this.state.navC) this.setState({ narrow: n, sm, navC });
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    window.addEventListener('resize', this.onScroll);
+    this.onScroll(); requestAnimationFrame(this.onScroll);
+    this.pi = setInterval(() => { if (this.state.patUser) return; const O = Component.PAT_ORDER; this.setPat(O[(O.indexOf(this.state.pat) + 1) % O.length]); }, 6500);
+  }
+  componentWillUnmount() { window.removeEventListener('scroll', this.onScroll); window.removeEventListener('resize', this.onScroll); clearTimeout(this.wt); clearTimeout(this.at); clearTimeout(this.pw); clearInterval(this.pi); this.tClear(); }
+  setStep(s) {
+    const prev = this.state.step; if (s === prev) return;
+    const A = Component.TOUR[prev].flo, B = Component.TOUR[s].flo;
+    if (A[0] !== B[0] || A[1] !== B[1]) {
+      clearTimeout(this.wt);
+      this.setState({ step: s, walking: true, flip: B[0] < A[0] });
+      this.wt = setTimeout(() => this.setState({ walking: false }), 900);
+    } else this.setState({ step: s });
+  }
+  goStep(i) {
+    const el = document.getElementById('tour'); if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY, span = el.offsetHeight - window.innerHeight;
+    window.scrollTo({ top: top + span * (i + 0.5) / 7, behavior: 'smooth' });
+  }
+  patVals() {
+    const C = Component, s = this.state, h = React.createElement, M = C.PATS[s.pat], V = !!s.narrow;
+    const KS = { agent: ['AGENT', '#2f6a1f', '#fff', '#4f9a3a', 'solid', '#151a13'], trigger: ['TRIGGER', '#2f7f6a', '#fff', '#2f7f6a', 'solid', '#151a13'], event: ['EVENT', '#a5532a', '#fff7f1', '#e0a27c', 'dashed', '#151a13'], out: ['OUTPUT', '#9fdc6f', '#151a13', '#151a13', 'solid', '#eef2e8'] };
+    const patSlots = [0, 1, 2, 3, 4, 5].map(i => {
+      const sl = M.slots[i], on = !!sl, k = KS[on ? sl[3] : 'agent'];
+      return { left: V ? ((on ? sl[1] : 300) - 30) / 5.4 + '%' : (on ? sl[0] : 500) / 10 + '%', top: V ? (on ? sl[0] : 500) / 10 + '%' : (on ? sl[1] : 300) / 5.4 + '%', o: on ? 1 : 0, scale: on ? 1 : .6, name: on ? sl[2] : '', kind: k[0], kindColor: k[1], bg: k[2], border: k[3], borderStyle: k[4], color: k[5],
+        robotO: on && sl[3] === 'agent' ? 1 : 0, bot: h(C.Robot, { c: C.SLOT_COLORS[i], pose: s.patWalk ? 'walk' : 'idle', delay: i * .37 }) };
+    });
+    return {
+      patTabs: C.PAT_ORDER.map((k, i) => { const a = k === s.pat; return { num: '0' + (i + 1), name: C.PATS[k].name, onClick: () => this.setPat(k, true), bg: a ? '#9fdc6f' : 'rgba(255,255,255,.03)', color: a ? '#0f1a0a' : '#d4dbcc', border: a ? '#9fdc6f' : 'rgba(255,255,255,.12)', numColor: a ? '#2f6a1f' : '#8d9886' }; }),
+      patSlots,
+      patWires: h(C.Wires, { key: s.pat + V, mode: s.pat, vertical: V }),
+      patFlo: h('div', { style: { position: 'relative' } }, C.bubble(M.bubble, 'pb' + s.pat, { fs: '15px', pad: '11px 15px', r: '14px', max: V ? '200px' : '320px', gap: '10px', side: 'right' }), h(C.Robot, { c: 'green', pose: s.patWalk ? 'happy' : 'wave' })),
+      pat: { key: s.pat, name: M.name, bestFor: M.bestFor },
+      patV: C.PV(V)
+    };
+  }
+  list(a) { return a.length <= 1 ? (a[0] || '') : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1]; }
+
+  renderVals() {
+    const C = Component, h = React.createElement, s = this.state, st = s.step, T = C.TOUR[st];
+    const R = (props) => h(C.Robot, props);
+    const vis = (on, d, from) => ({ o: on ? 1 : 0, t: on ? 'translateY(0) scale(1)' : (from || 'translateY(2cqw) scale(.94)'), d: on ? d + 's' : '0s' });
+    const drop = (on, d) => ({ o: on ? 1 : 0, t: on ? 'translate(-50%,-100%)' : 'translate(-50%,-180%)', d: on ? d + 's' : '0s' });
+    const running = st >= 6;
+
+    const heroCrew = h('div', { style: { position: 'absolute', inset: 0 } },
+      h('div', { style: { position: 'absolute', left: '6%', bottom: '14%', width: '17%' } }, R({ c: 'blue', pose: 'idle', delay: .3 })),
+      h('div', { style: { position: 'absolute', left: '76%', bottom: '22%', width: '15%' } }, R({ c: 'orange', pose: 'idle', delay: .9 })),
+      h('div', { style: { position: 'absolute', left: '64%', bottom: '4%', width: '13%' } }, R({ c: 'pink', pose: 'happy', delay: 1.4 })),
+      h('div', { style: { position: 'absolute', left: '50%', bottom: '8%', width: '38%', transform: 'translateX(-50%)' } },
+        C.bubble('Hi, I’m Flo. Scroll down and I’ll show you how this works.', 'hb', { fs: '17px', pad: '14px 18px', r: '18px', max: '280px', gap: '14px' }),
+        R({ c: 'green', pose: 'wave' })));
+
+    const floPose = s.walking ? 'walk' : T.pose;
+    const floEl = h('div', { style: { position: 'relative', transform: s.walking ? `rotate(${s.flip ? -5 : 5}deg)` : 'none', transition: 'transform .3s' } },
+      s.walking ? null : C.bubble(T.bubble, 'b' + st, s.narrow ? { fs: '2.7cqw', pad: '1.4cqw 2cqw', r: '1.8cqw', max: '40cqw', gap: '1.4cqw', side: T.side } : { fs: '1.55cqw', pad: '.9cqw 1.3cqw', r: '1.2cqw', max: '30cqw', gap: '1cqw', side: T.side }),
+      R({ c: 'green', pose: floPose, flip: s.walking && s.flip }));
+
+    const E = [['M270 216 L340 216', 0], ['M590 216 C635 216 635 206 680 206', 1], ['M820 253 L820 410', 2], ['M680 457 C635 457 635 466 590 466', 3]];
+    const wired = st >= 5, dur = 3.4;
+    const edgesEl = h('svg', { viewBox: '0 0 1000 640', style: { position: 'absolute', inset: 0, width: '100%', height: '100%', overflow: 'visible', pointerEvents: 'none' } },
+      E.map(([d, i]) => h('path', { key: 'p' + i, d, fill: 'none', stroke: '#4f9a3a', strokeWidth: 3.2, strokeLinecap: 'round', pathLength: 1, strokeDasharray: 1, strokeDashoffset: wired ? 0 : 1, style: { transition: `stroke-dashoffset .6s ease ${wired ? i * .35 : 0}s` } })),
+      running ? E.map(([d, i]) => h('circle', { key: 'k' + i, r: 7, fill: '#9fdc6f', stroke: '#2f6a1f', strokeWidth: 2, opacity: 0 },
+        h('animateMotion', { path: d, dur: '.65s', begin: (i * .7) + 's;' + 'm' + i + '.end+' + (dur - .65).toFixed(2) + 's', id: 'm' + i, fill: 'freeze' }),
+        h('set', { attributeName: 'opacity', to: 1, begin: 'm' + i + '.begin', end: 'm' + i + '.end' }))) : null);
+
+    const job = C.JOBS.find(j => j.k === s.job);
+    const ready = s.tools.length > 0;
+    const myBubble = s.alive
+      ? (ready ? `Hi! I’m ${job.name}. With my ${s.brain} brain, I’ll ${job.short} using ${this.list(s.tools)}.` : 'I need at least one tool to do my job!')
+      : 'Pick my brain, my job and my tools. Then bring me to life.';
+    const meBot = h('div', { style: { position: 'relative' } },
+      C.bubble(myBubble, 'mb' + s.alive + s.job + s.brain + s.tools.join(), { fs: '16px', pad: '13px 17px', r: '16px', max: 'min(300px, 70vw)', gap: '16px' }),
+      h('div', { style: { filter: s.alive ? 'none' : 'grayscale(1) brightness(.75)', opacity: s.alive ? 1 : .8, transition: 'filter .6s, opacity .6s' } },
+        R({ c: job.c, pose: s.alive ? (ready ? s.alivePose : 'idle') : 'idle' })));
+    const reset = { alive: false };
+
+    const parade = h('div', { style: { position: 'absolute', inset: 0, overflow: 'hidden' } },
+      [['green', 26, 0], ['blue', 31, -9], ['orange', 23, -15], ['pink', 35, -4]].map(([c, d, dl], i) =>
+        h('div', { key: c, style: { position: 'absolute', bottom: 0, left: 0, width: 58 + (i % 2) * 10, animation: `fsCross ${d}s linear ${dl}s infinite` } }, R({ c, pose: 'walk', delay: i * .1 }))));
+
+    return {
+      navLinksDisplay: this.state.navC ? 'none' : 'flex', burgerDisplay: this.state.navC ? 'flex' : 'none', ctaDisplay: this.state.sm ? 'none' : 'block',
+      menuOpen: !!(this.state.navC && this.state.menuOpen),
+      burger: (this.state.navC && this.state.menuOpen) ? { t: 'translateY(7px) rotate(45deg)', o: 0, b: 'translateY(-7px) rotate(-45deg)' } : { t: 'none', o: 1, b: 'none' },
+      toggleMenu: () => this.setState(x => ({ menuOpen: !x.menuOpen })), closeMenu: () => this.setState({ menuOpen: false }),
+      heroCrew,
+      tourRef: this.tourRef,
+      cam: (() => { if (!s.narrow) return { t: 'none', o: '50% 50%', ov: 'visible', pr: '-3%', pb: '-6%' };
+        const c = [[50, 60, 1.3], [50, 60, 1.12], [75, 45, 1.1], [30, 40, 1.6], [50, 50, 1], [50, 50, 1], [50, 50, 1]][st];
+        return { t: 'scale(' + c[2] + ')', o: c[0] + '% ' + c[1] + '%', ov: 'hidden', pr: '2%', pb: '3%' }; })(),
+      stageReserve: s.narrow ? '330px' : '130px',
+      tourHeight: `calc(100vh + ${7 * (this.props.tourStepVh ?? 80)}vh)`,
+      tour: { num: '0' + (st + 1), kicker: T.kicker, title: T.title, body: T.body },
+      tourDots: C.TOUR.map((t, i) => ({ label: t.label, bar: i <= st ? '#9fdc6f' : '#2b3328', color: i === st ? '#eef2e8' : '#6f7a68', onClick: () => this.goStep(i) })),
+      status: running ? { label: 'RUNNING', bg: '#e5f4dc', color: '#2f6a1f', dot: '#4f9a3a' } : { label: 'DRAFT', bg: '#efeee6', color: '#7b8274', dot: '#b5b4a9' },
+      hint: { o: st === 0 ? 1 : 0 },
+      lv: { o: st === 1 ? 1 : 0, t: st === 1 ? 'translateY(0)' : 'translateY(1.5cqw)', d1: st === 1 ? '.5s' : '0s', d2: st === 1 ? '.8s' : '0s', d3: st === 1 ? '1.1s' : '0s' },
+      bf: { o: st === 2 ? 1 : 0, t: st === 2 ? 'translateY(0) scale(1)' : (st > 2 ? 'translate(-6cqw,8cqw) scale(.5)' : 'translateY(3cqw) scale(.96)'), ft: st === 2 ? 'translateY(0)' : 'translateY(1.2cqw)',
+        d1: st === 2 ? '.5s' : '0s', d2: st === 2 ? '1s' : '0s', d3: st === 2 ? '1.5s' : '0s', d4: st === 2 ? '2.1s' : '0s',
+        avatar: st === 2 ? 'none' : 'grayscale(1) opacity(.5)', done: st === 2 ? 1 : 0 },
+      builderBot: R({ c: 'blue', pose: 'happy', delay: .2 }),
+      nv: { sched: vis(st >= 4, .1), pull: vis(st >= 3, .15), cond: vis(st >= 4, .35), draft: vis(st >= 4, .6), out: vis(st >= 4, .85) },
+      rb: { blue: drop(st >= 3, .5), orange: drop(st >= 4, .75), pink: drop(st >= 4, 1) },
+      botBlue: R({ c: 'blue', pose: running ? 'work' : 'idle', delay: .2 }),
+      botOrange: R({ c: 'orange', pose: running ? 'work' : 'idle', delay: .7 }),
+      botPink: R({ c: 'pink', pose: running ? 'work' : 'idle', delay: 1.3 }),
+      edgesEl, yes: { o: wired ? 1 : 0 },
+      flo: { left: T.flo[0] / 10 + '%', top: T.flo[1] / 6.4 + '%', w: T.flo[2] + 'cqw', el: floEl },
+      next: { o: running ? 1 : 0, t: running ? 'translateY(0) rotate(1.5deg)' : 'translateY(3cqw) rotate(1.5deg) scale(.9)' },
+
+      brains: C.BRAINS.map(([n, d]) => { const a = s.brain === n; return { name: n, desc: d, onClick: () => this.setState({ brain: n, ...reset }), bg: a ? '#151a13' : '#fff', color: a ? '#eef2e8' : '#151a13', border: a ? '#151a13' : '#dddcd2' }; }),
+      jobs: C.JOBS.map(j => { const a = s.job === j.k; return { label: j.label, onClick: () => this.setState({ job: j.k, tools: j.tools.slice(), ...reset }), bg: a ? '#151a13' : '#fff', color: a ? '#eef2e8' : '#151a13', border: a ? '#151a13' : '#dddcd2' }; }),
+      toolChips: job.tools.map(t => { const on = s.tools.includes(t); return { label: (on ? '✓ ' : '+ ') + t, onClick: () => this.setState(x => ({ tools: on ? x.tools.filter(y => y !== t) : [...x.tools, t], alive: false })),
+        bg: on ? '#e5f4dc' : 'transparent', color: on ? '#2f6a1f' : '#7b8274', border: on ? '#9fd08a' : '#c9c8bd', borderStyle: on ? 'solid' : 'dashed' }; }),
+      bringToLife: () => { clearTimeout(this.at); this.setState({ alive: true, alivePose: 'jump' }); this.at = setTimeout(() => this.setState({ alivePose: 'wave' }), 1800); },
+      lifeLabel: s.alive ? 'Bring it to life again' : 'Bring it to life',
+      alive: s.alive,
+      meBot,
+      me: { name: job.name, meta: `${s.brain} · ${s.tools.length} tool${s.tools.length === 1 ? '' : 's'}`,
+        status: s.alive && ready ? 'ALIVE' : 'ASSEMBLING', statusBg: s.alive && ready ? '#e5f4dc' : '#1e241c', statusColor: s.alive && ready ? '#2f6a1f' : '#8d9886', statusDot: s.alive && ready ? '#4f9a3a' : '#59634f' },
+
+      ...this.patVals(),
+      ...this.toolVals(),
+      commMarquee: this._mq || (this._mq = Component.marquee()),
+      signinDisplay: s.sm ? 'none' : 'block',
+      showParade: this.props.showParade ?? true,
+      parade
+    };
+  }
+}
+</script>
+</body>
+</html>
