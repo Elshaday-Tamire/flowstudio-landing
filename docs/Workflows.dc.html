@@ -1,8 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workflow Patterns | FlowStudio</title>
+<meta name="description" content="Sequential, parallel, hierarchical, collaborative, event-driven and hybrid agent workflows: see how each pattern works in FlowStudio.">
+<meta name="author" content="Crestward Labs">
+<link rel="canonical" href="https://flowstudio-ai.com/Workflows.dc.html">
+<link rel="icon" type="image/png" href="logo-mark-white.png">
+<meta name="theme-color" content="#10140f">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://flowstudio-ai.com/Workflows.dc.html">
+<meta property="og:title" content="Workflow Patterns | FlowStudio">
+<meta property="og:description" content="Sequential, parallel, hierarchical, collaborative, event-driven and hybrid agent workflows: see how each pattern works in FlowStudio.">
+<meta property="og:site_name" content="FlowStudio">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Workflow Patterns | FlowStudio">
+<meta name="twitter:description" content="Sequential, parallel, hierarchical, collaborative, event-driven and hybrid agent workflows: see how each pattern works in FlowStudio.">
+<link rel="alternate" type="text/plain" title="LLM context" href="/llms.txt">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -39,16 +55,16 @@ a:hover{color:#9fdc6f}
 <div style="min-height:100vh;font-family:'Bricolage Grotesque',system-ui,sans-serif;background:#f4f3ec;color:#151a13">
 <nav style="position:fixed;top:16px;left:0;right:0;z-index:50;display:flex;flex-direction:column;align-items:center;gap:8px;padding:0 16px;pointer-events:none">
   <div style="pointer-events:auto;width:100%;max-width:960px;display:flex;align-items:center;gap:24px;padding:8px 8px 8px 18px;border-radius:999px;background:rgba(16,20,15,.78);backdrop-filter:blur(16px) saturate(1.4);border:1px solid rgba(255,255,255,.08);box-shadow:0 20px 50px -20px rgba(0,0,0,.6)">
-    <a href="FlowStudio Landing v3.dc.html" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+    <a href="./" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
       <img src="logo-mark-white.png" alt="" style="height:26px;width:auto;display:block">
       <span style="font-weight:700;font-size:17px;letter-spacing:-.03em;color:#eef2e8">FlowStudio <span style="color:#9fdc6f">AI</span></span>
     </a>
     <div style="flex:1 1 0;min-width:0;height:20px;overflow:hidden;display:{{ navLinksDisplay }};justify-content:center;gap:4px 26px;font-size:14px;line-height:20px;color:#b6bfae;flex-wrap:wrap">
-      <a href="FlowStudio Landing v3.dc.html#tour">How it works</a>
+      <a href="./#tour">How it works</a>
       <a href="Workflows.dc.html" style="color:#eef2e8">Workflows</a>
-      <a href="FlowStudio Landing v3.dc.html#tools">Tools</a>
+      <a href="./#tools">Tools</a>
       <a href="Marketplace.dc.html">Marketplace</a>
-      <a href="FlowStudio Landing v3.dc.html#pricing">Pricing</a>
+      <a href="./#pricing">Pricing</a>
     </div>
     <div style="margin-left:auto;display:flex;gap:6px;align-items:center;font-size:14px;flex-shrink:0;white-space:nowrap">
       <a href="https://app.flowstudio-ai.com/login" style="color:#d4dbcc;padding:9px 14px;display:{{ signinDisplay }}">Sign in</a>
@@ -62,11 +78,11 @@ a:hover{color:#9fdc6f}
   </div>
   <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
     <div style="pointer-events:auto;width:100%;max-width:960px;border-radius:26px;background:rgba(16,20,15,.96);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.08);box-shadow:0 30px 60px -20px rgba(0,0,0,.7);padding:10px 18px 18px;display:flex;flex-direction:column;animation:fsPopSide .25s ease-out both">
-      <a href="FlowStudio Landing v3.dc.html#tour" onClick="{{ closeMenu }}" style="padding:14px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px;font-weight:700;letter-spacing:-.03em;color:#eef2e8;display:flex;justify-content:space-between">How it works<span style="color:#9fdc6f">→</span></a>
+      <a href="./#tour" onClick="{{ closeMenu }}" style="padding:14px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px;font-weight:700;letter-spacing:-.03em;color:#eef2e8;display:flex;justify-content:space-between">How it works<span style="color:#9fdc6f">→</span></a>
       <a href="Workflows.dc.html" onClick="{{ closeMenu }}" style="padding:14px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px;font-weight:700;letter-spacing:-.03em;color:#eef2e8;display:flex;justify-content:space-between">Workflows<span style="color:#9fdc6f">→</span></a>
-      <a href="FlowStudio Landing v3.dc.html#tools" onClick="{{ closeMenu }}" style="padding:14px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px;font-weight:700;letter-spacing:-.03em;color:#eef2e8;display:flex;justify-content:space-between">Tools<span style="color:#9fdc6f">→</span></a>
+      <a href="./#tools" onClick="{{ closeMenu }}" style="padding:14px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px;font-weight:700;letter-spacing:-.03em;color:#eef2e8;display:flex;justify-content:space-between">Tools<span style="color:#9fdc6f">→</span></a>
       <a href="Marketplace.dc.html" onClick="{{ closeMenu }}" style="padding:14px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px;font-weight:700;letter-spacing:-.03em;color:#eef2e8;display:flex;justify-content:space-between">Marketplace<span style="color:#9fdc6f">→</span></a>
-      <a href="FlowStudio Landing v3.dc.html#pricing" onClick="{{ closeMenu }}" style="padding:14px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px;font-weight:700;letter-spacing:-.03em;color:#eef2e8;display:flex;justify-content:space-between">Pricing<span style="color:#9fdc6f">→</span></a>
+      <a href="./#pricing" onClick="{{ closeMenu }}" style="padding:14px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px;font-weight:700;letter-spacing:-.03em;color:#eef2e8;display:flex;justify-content:space-between">Pricing<span style="color:#9fdc6f">→</span></a>
       <div style="display:flex;gap:10px;margin-top:16px">
         <a href="https://app.flowstudio-ai.com/login" style="flex:1;text-align:center;padding:14px;border-radius:999px;border:1px solid rgba(255,255,255,.18);color:#eef2e8;font-weight:600;font-size:15px">Sign in</a>
         <a href="https://app.flowstudio-ai.com/signup" style="flex:1;text-align:center;padding:14px;border-radius:999px;background:#9fdc6f;color:#0f1a0a;font-weight:700;font-size:15px">Get early access</a>
