@@ -152,7 +152,7 @@ a:hover{color:#9fdc6f}
           </sc-for>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid #ecebe3;padding-top:14px;margin-top:auto;font-size:13px">
-          <span style="color:#5f665a"><span style="color:#151a13">★ {{ c.rating }}</span> · {{ c.installs }} installs</span>
+          <span style="color:#5f665a"><span style="color:#151a13">{{ c.ratingMain }}</span>{{ c.ratingSub }} · {{ c.installs }} installs</span>
           <span style="font-weight:500;color:#2f6a1f">{{ c.cta }} →</span>
         </div>
       </div>
@@ -193,7 +193,7 @@ a:hover{color:#9fdc6f}
           </sc-for>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid #ecebe3;padding-top:14px;margin-top:auto;font-size:13px">
-          <span style="color:#5f665a"><span style="color:#151a13">★ {{ c.rating }}</span> · {{ c.installs }} installs</span>
+          <span style="color:#5f665a"><span style="color:#151a13">{{ c.ratingMain }}</span>{{ c.ratingSub }} · {{ c.installs }} installs</span>
           <span style="font-weight:500;color:#2f6a1f">{{ c.cta }} →</span>
         </div>
       </div>
@@ -239,7 +239,7 @@ a:hover{color:#9fdc6f}
           </div>
         </div>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);border:1px solid #e6e5dc;border-radius:16px;background:#fff">
-          <div style="padding:14px 16px;display:flex;flex-direction:column;gap:4px"><span style="font-size:12px;color:#5f665a">Rating</span><span style="font-size:18px;font-weight:500">★ {{ d.rating }}</span></div>
+          <div style="padding:14px 16px;display:flex;flex-direction:column;gap:4px"><span style="font-size:12px;color:#5f665a">Rating</span><span style="font-size:18px;font-weight:500">{{ d.ratingMain }}<span style="font-size:13px;font-weight:400;color:#5f665a">{{ d.ratingSub }}</span></span></div>
           <div style="padding:14px 16px;display:flex;flex-direction:column;gap:4px;border-left:1px solid #e6e5dc"><span style="font-size:12px;color:#5f665a">Installs</span><span style="font-size:18px;font-weight:500">{{ d.installs }}</span></div>
           <div style="padding:14px 16px;display:flex;flex-direction:column;gap:4px;border-left:1px solid #e6e5dc"><span style="font-size:12px;color:#5f665a">Price</span><span style="font-size:18px;font-weight:500;color:{{ d.priceColor }}">{{ d.price }}</span></div>
         </div>
@@ -276,8 +276,8 @@ a:hover{color:#9fdc6f}
         </div>
       </div>
       <div style="margin-top:auto;position:sticky;bottom:0;padding:18px 28px;border-top:1px solid #e6e5dc;background:#fbfaf6;display:flex;gap:10px">
-        <a href="https://app.flowstudio-ai.com/signup" style="flex:1;text-align:center;background:#151a13;color:#eef2e8;padding:15px;border-radius:999px;font-weight:500;font-size:15px" style-hover="background:#2f6a1f;color:#fff">{{ d.ctaLong }}</a>
-        <a href="https://app.flowstudio-ai.com/signup" style="text-align:center;border:1px solid #d3d2c8;padding:15px 22px;border-radius:999px;font-weight:500;font-size:15px" style-hover="border-color:#2f6a1f;color:#2f6a1f">Fork</a>
+        <a href="https://app.flowstudio-ai.com/marketplace" style="flex:1;text-align:center;background:#151a13;color:#eef2e8;padding:15px;border-radius:999px;font-weight:500;font-size:15px" style-hover="background:#2f6a1f;color:#fff">{{ d.ctaLong }}</a>
+        <a href="https://app.flowstudio-ai.com/marketplace" style="text-align:center;border:1px solid #d3d2c8;padding:15px 22px;border-radius:999px;font-weight:500;font-size:15px" style-hover="border-color:#2f6a1f;color:#2f6a1f">Fork</a>
       </div>
     </div>
   </div>
@@ -368,8 +368,8 @@ class Component extends DCLogic {
   static mkIcon(M, key, color, size) {
     return React.createElement('svg', { viewBox: '0 0 24 24', width: size, height: size, fill: 'none', stroke: color, strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round' }, React.createElement('path', { d: M.ICONS[key] }));
   }
-  static mkGraph(M, pattern, big) {
-    const g = M.graph(pattern), h = React.createElement;
+  static mkGraph(M, w, big) {
+    const g = M.graph(w), h = React.createElement;
     return h('svg', { viewBox: '0 0 200 72', width: '100%', style: { display: 'block', height: big ? 140 : 'auto' } },
       h('path', { d: g.edges, fill: 'none', stroke: '#3a4436', strokeWidth: 1.5 }),
       h('path', { d: g.nodes, fill: '#171d15', stroke: '#9fdc6f', strokeWidth: 1.5 }));
@@ -377,9 +377,9 @@ class Component extends DCLogic {
   static mkCard(M, it, isAgent, open) {
     const t = M.TINTS[it.category] || ['#efeee6', '#3b4237'];
     return { id: it.id, isAgent, isWorkflow: !isAgent, name: it.name, by: it.by, category: it.category, desc: it.desc,
-      price: it.price, priceColor: it.price === 'Free' ? '#2f6a1f' : '#151a13', rating: it.rating, installs: it.installs,
-      model: it.model || '', tools: it.tools.map(x => ({ t: x })), pattern: it.pattern || '', agentsN: it.agents, nodesN: it.nodes,
-      tintBg: t[0], iconEl: isAgent ? React.createElement('div', { style: { width: '62%' } }, React.createElement(Component.Robot, { c: Component.CATBOT[it.category] || 'green', pose: 'idle', delay: (it.id.charCodeAt(1) % 5) * .4 })) : null, graph: isAgent ? null : Component.mkGraph(M, it.pattern),
+      price: it.price, priceColor: it.price === 'Free' ? '#2f6a1f' : '#151a13', rating: it.rating, ratingMain: M.ratingLabel(it).main, ratingSub: M.ratingLabel(it).sub, installs: it.installs,
+      model: it.model || '', tools: [...it.tools.slice(0, 3), ...(it.tools.length > 3 ? ['+' + (it.tools.length - 3)] : [])].map(x => ({ t: x })), pattern: it.pattern || '', agentsN: it.agents, nodesN: it.nodes,
+      tintBg: t[0], iconEl: isAgent ? React.createElement('div', { style: { width: '62%' } }, React.createElement(Component.Robot, { c: Component.CATBOT[it.category] || 'green', pose: 'idle', delay: (it.id.charCodeAt(1) % 5) * .4 })) : null, graph: isAgent ? null : Component.mkGraph(M, it),
       cta: isAgent ? 'Use agent' : 'Install workflow', open };
   }
 
@@ -388,11 +388,12 @@ class Component extends DCLogic {
     this.onRs = () => { const n = window.innerWidth < 800, sm = window.innerWidth < 640, navC = window.innerWidth < 1120; if (n !== this.state.narrow || sm !== this.state.sm || navC !== this.state.navC) this.setState({ narrow: n, sm, navC }); }; this.onRs(); window.addEventListener('resize', this.onRs);
     
     const h = (location.hash || '').slice(1); if (h) this.setState({ sel: h });
-    if (!window.FS_MARKET) { this.mp = setInterval(() => { if (window.FS_MARKET) { clearInterval(this.mp); this.forceUpdate(); } }, 50); }
+    this.onData = () => this.forceUpdate(); window.addEventListener('fs-market', this.onData);
+    if (!window.FS_MARKET) { this.mp = setInterval(() => { if (window.FS_MARKET) { clearInterval(this.mp); window.FS_MARKET.load(); this.forceUpdate(); } }, 50); } else window.FS_MARKET.load();
     this.onKey = e => { if (e.key === 'Escape') this.setState({ sel: null }); };
     window.addEventListener('keydown', this.onKey);
   }
-  componentWillUnmount() { clearInterval(this.mp); window.removeEventListener('keydown', this.onKey); }
+  componentWillUnmount() { clearInterval(this.mp); window.removeEventListener('keydown', this.onKey); window.removeEventListener('fs-market', this.onData); }
   renderVals() {
     const M = window.FS_MARKET, s = this.state, C = Component;
     const q = s.q.trim().toLowerCase();
@@ -404,11 +405,11 @@ class Component extends DCLogic {
     const it = all.find(x => x.id === s.sel);
     let d = { kind: '', name: '', tools: [], steps: [] };
     if (it) { const isA = !!it.model, c = C.mkCard(M, it, isA);
-      d = { ...c, kind: isA ? 'Agent' : 'Workflow', iconBig: isA ? React.createElement('div', { style: { width: '64%' } }, React.createElement(C.Robot, { c: C.CATBOT[it.category] || 'green', pose: 'wave' })) : null, graphBig: isA ? null : C.mkGraph(M, it.pattern, true),
+      d = { ...c, tools: it.tools.map(x => ({ t: x })), kind: isA ? 'Agent' : 'Workflow', iconBig: isA ? React.createElement('div', { style: { width: '64%' } }, React.createElement(C.Robot, { c: C.CATBOT[it.category] || 'green', pose: 'wave' })) : null, graphBig: isA ? null : C.mkGraph(M, it, true),
         prompt: it.prompt || '', inputs: it.inputs || '', outputs: it.outputs || '',
         steps: (it.steps || []).map((t, i) => ({ t, n: i + 1, border: i ? '1px solid #ecebe3' : '0' })),
         ctaLong: isA ? 'Use this agent' : 'Install workflow' }; }
-    const cats = ['All', 'Support', 'Research', 'Data', 'Marketing', 'Finance', 'Sales', 'Engineering'];
+    const cats = ['All', ...new Set(all.map(x => x.category))];
     const n = (showA ? A.length : 0) + (showW ? W.length : 0);
     return {
       navLinksDisplay: this.state.navC ? 'none' : 'flex', burgerDisplay: this.state.navC ? 'flex' : 'none', ctaDisplay: this.state.sm ? 'none' : 'block',
@@ -420,7 +421,7 @@ class Component extends DCLogic {
       typeTabs: [['all', 'All'], ['agents', 'Agents'], ['workflows', 'Workflows']].map(([k, l]) => ({ label: l, onClick: () => this.setState({ type: k }), bg: s.type === k ? '#eef2e8' : 'transparent', color: s.type === k ? '#10140f' : '#b6bfae' })),
       cats: cats.map(c => ({ label: c, onClick: () => this.setState({ cat: c }), bg: s.cat === c ? '#151a13' : '#fff', color: s.cat === c ? '#eef2e8' : '#151a13', border: s.cat === c ? '#151a13' : '#dddcd2' })),
       countLabel: M ? n + (n === 1 ? ' listing' : ' listings') : '',
-      showAgentsHead: showA, hasAgents: showA, showWorkflowsHead: showW, hasWorkflows: showW, empty: !!M && n === 0,
+      showAgentsHead: showA, hasAgents: showA, showWorkflowsHead: showW, hasWorkflows: showW, empty: !!M && M.status !== 'loading' && n === 0,
       agentCards: A.map(x => C.mkCard(M, x, true, open(x.id))), workflowCards: W.map(x => C.mkCard(M, x, false, open(x.id))),
       reset: () => this.setState({ q: '', cat: 'All', type: 'all' }),
       hasSel: !!it, d,

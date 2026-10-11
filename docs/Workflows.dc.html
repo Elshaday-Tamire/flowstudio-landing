@@ -200,7 +200,7 @@ a:hover{color:#9fdc6f}
           <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#5f665a">{{ tp.by }} · {{ tp.category }}</span><span style="font-family:'JetBrains Mono',monospace;color:{{ tp.priceColor }}">{{ tp.price }}</span></div>
           <span style="font-size:20px;font-weight:700;letter-spacing:-.035em">{{ tp.name }}</span>
           <span style="font-size:14px;line-height:1.6;color:#5f665a">{{ tp.desc }}</span>
-          <div style="display:flex;justify-content:space-between;font-size:13px;border-top:1px solid #ecebe3;padding-top:14px;margin-top:auto"><span style="color:#5f665a">★ {{ tp.rating }} · {{ tp.installs }} installs</span><span style="font-weight:500;color:#2f6a1f">Install →</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;border-top:1px solid #ecebe3;padding-top:14px;margin-top:auto"><span style="color:#5f665a">{{ tp.ratingMain }}{{ tp.ratingSub }} · {{ tp.installs }} installs</span><span style="font-weight:500;color:#2f6a1f">Install →</span></div>
         </a>
       </sc-for>
     </div>
@@ -488,9 +488,10 @@ class Component extends DCLogic {
     
     this.readHash = () => { const k = (location.hash || '').slice(1); if (Component.MODES[k] && k !== this.state.mode) this.setState({ mode: k }); };
     this.readHash(); window.addEventListener('hashchange', this.readHash);
-    if (!window.FS_MARKET || !window.FS_PATTERNS) { this.mp = setInterval(() => { if (window.FS_MARKET && window.FS_PATTERNS) { clearInterval(this.mp); this.forceUpdate(); } }, 50); }
+    this.onData = () => this.forceUpdate(); window.addEventListener('fs-market', this.onData);
+    if (!window.FS_MARKET || !window.FS_PATTERNS) { this.mp = setInterval(() => { if (window.FS_MARKET && window.FS_PATTERNS) { clearInterval(this.mp); window.FS_MARKET.load(); this.forceUpdate(); } }, 50); } else window.FS_MARKET.load();
   }
-  componentWillUnmount() { window.removeEventListener('hashchange', this.readHash); clearInterval(this.mp); }
+  componentWillUnmount() { window.removeEventListener('hashchange', this.readHash); window.removeEventListener('fs-market', this.onData); clearInterval(this.mp); }
   go(k, top) { clearTimeout(this.wt); this.setState({ mode: k, walk: true }); this.wt = setTimeout(() => this.setState({ walk: false }), 900); history.replaceState(null, '', '#' + k); if (top) window.scrollTo({ top: 0, behavior: 'smooth' }); }
   renderVals() {
     const C = Component, s = this.state, FP = window.FS_PATTERNS, M = window.FS_MARKET, k = s.mode, i = C.ORDER.indexOf(k);
@@ -509,7 +510,7 @@ class Component extends DCLogic {
       whenUse: raw.whenUse.map(t => ({ t })),
       whenNot: raw.whenNot.map(w => ({ t: w.t, altName: FP.P[w.alt].name, onClick: () => this.go(w.alt, true) }))
     } : { name: C.MODES[k].name, num: '0' + (i + 1), tagline: '', bestFor: '', steps: [], useCases: [], whenUse: [], whenNot: [] };
-    const tpl = M ? M.workflows.filter(w => w.pattern === C.MODES[k].name).map(w => ({ id: w.id, name: w.name, by: w.by, category: w.category, desc: w.desc, price: w.price, priceColor: w.price === 'Free' ? '#2f6a1f' : '#151a13', rating: w.rating, installs: w.installs })) : [];
+    const tpl = M ? M.workflows.filter(w => w.pattern === C.MODES[k].name).map(w => ({ id: w.id, name: w.name, by: w.by, category: w.category, desc: w.desc, price: w.price, priceColor: w.price === 'Free' ? '#2f6a1f' : '#151a13', rating: w.rating, ratingMain: M.ratingLabel(w).main, ratingSub: M.ratingLabel(w).sub, installs: w.installs })) : [];
     const pk = C.ORDER[(i + 5) % 6], nk = C.ORDER[(i + 1) % 6];
     return {
       tabs: C.ORDER.map((m, j) => { const a = m === k; return { num: '0' + (j + 1), name: C.MODES[m].name, onClick: () => this.go(m), bg: a ? '#9fdc6f' : 'rgba(255,255,255,.03)', color: a ? '#0f1a0a' : '#d4dbcc', border: a ? '#9fdc6f' : 'rgba(255,255,255,.12)', numColor: a ? '#2f6a1f' : '#8d9886' }; }),
@@ -519,7 +520,7 @@ class Component extends DCLogic {
               robotO: on && sl[3] === 'agent' ? 1 : 0, bot: React.createElement(C.Robot, { c: C.SLOT_COLORS[i], pose: s.walk ? 'walk' : 'idle', delay: i * .37 }) }; }),
           patWires: React.createElement(C.Wires, { key: k + V, mode: k, vertical: V }),
           patFlo: React.createElement('div', { style: { position: 'relative' } }, C.bubble(M.bubble, 'pb' + k, { fs: '15px', pad: '11px 15px', r: '14px', max: V ? '200px' : '320px', gap: '10px', side: 'right' }), React.createElement(C.Robot, { c: 'green', pose: s.walk ? 'happy' : 'wave' })), patV: C.PV(V) }; })(),
-      p, templates: tpl, hasTemplates: tpl.length > 0, noTemplates: !!M && tpl.length === 0,
+      p, templates: tpl, hasTemplates: tpl.length > 0, noTemplates: !!M && M.status !== 'loading' && tpl.length === 0,
       prev: { name: C.MODES[pk].name, onClick: () => this.go(pk, true) },
       next: { name: C.MODES[nk].name, onClick: () => this.go(nk, true) }
     };

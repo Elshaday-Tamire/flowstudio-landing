@@ -1,4 +1,6 @@
 (function(){
+// The page runtime can execute this file twice; keep the first copy, which may already be loading.
+if (window.FS_MARKET) return;
 const ICONS = {
   support: 'M4 13a8 8 0 0 1 16 0v5a2 2 0 0 1-2 2h-2v-6h4M4 13v5a2 2 0 0 0 2 2h2v-6H4',
   search: 'M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4',
@@ -29,20 +31,47 @@ const agents = [
   { id: 'a6', name: 'Code Reviewer', by: 'Patchwork', category: 'Engineering', icon: 'code', desc: 'Reviews pull requests for bugs, security issues and style, and leaves inline comments on GitHub.', model: 'claude-sonnet-4-6', tools: ['github_diff', 'post_comment'], installs: '4.2k', rating: '4.9', price: '$24',
     prompt: 'Review the diff for correctness, security and readability. Comment only where it matters. Approve when clean.', inputs: 'pull request', outputs: 'inline comments, verdict' }
 ];
-const workflows = [
-  { id: 'w1', name: 'Support triage & refunds', by: 'Northbeam', category: 'Support', pattern: 'Sequential', desc: 'Classifies every inbound ticket, checks order state, issues threshold refunds, and routes the rest to the right human.', nodes: 11, agents: 4, tools: ['execute_query', 'refund_order', 'post_slack'], installs: '1.6k', rating: '4.9', price: '$29',
-    steps: ['Intake parses the ticket', 'Classify scores intent', 'Refund Resolver acts under threshold', 'Route assigns the owner'] },
-  { id: 'w2', name: 'Invoice ingestion to ledger', by: 'FlowStudio AI', category: 'Finance', pattern: 'Hybrid', desc: 'Watches a mailbox, extracts line items from invoice PDFs, validates them, and posts to your ledger behind a review gate.', nodes: 8, agents: 3, tools: ['read_inbox', 'parse_pdf', 'post_entry'], installs: '2.2k', rating: '4.8', price: 'Free',
-    steps: ['Ingest new mail', 'Extract and validate side by side', 'Merge into one record', 'Post to ledger after review'] },
-  { id: 'w3', name: 'Lead enrichment & routing', by: 'Arclight', category: 'Sales', pattern: 'Parallel', desc: 'Enriches inbound leads from six sources at once, scores them against your ICP, and assigns an owner in the CRM.', nodes: 14, agents: 5, tools: ['fetch_url', 'crm_lookup', 'crm_update'], installs: '1.1k', rating: '4.7', price: '$49',
-    steps: ['Trigger on new lead', 'Research, firmographics and intent run in parallel', 'Score against ICP', 'Assign owner in CRM'] },
-  { id: 'w4', name: 'Weekly executive report', by: 'Quarry Labs', category: 'Data', pattern: 'Hierarchical', desc: 'A coordinator delegates metrics, commentary and charts to specialists, then assembles one report every Monday.', nodes: 9, agents: 4, tools: ['run_sql', 'search_document', 'send_email'], installs: '870', rating: '4.8', price: '$19',
-    steps: ['Coordinator plans the report', 'Analyst pulls metrics', 'Writer drafts commentary', 'Report assembled and emailed'] },
-  { id: 'w5', name: 'Launch post studio', by: 'Arclight', category: 'Marketing', pattern: 'Collaborative', desc: 'Drafter, critic and editor take turns on one shared post until it passes your brand review.', nodes: 6, agents: 3, tools: ['search_document', 'session_memory'], installs: '640', rating: '4.6', price: '$15',
-    steps: ['Drafter writes v1', 'Critic reviews against the brief', 'Editor polishes', 'Repeat until approved'] },
-  { id: 'w6', name: 'Failed payment recovery', by: 'Ledgerly', category: 'Finance', pattern: 'Event-driven', desc: 'Reacts to payment webhooks: fulfils paid orders, retries failed charges, and tells the customer what happened.', nodes: 10, agents: 3, tools: ['stripe_webhook', 'retry_charge', 'send_email'], installs: '1.3k', rating: '4.9', price: '$29',
-    steps: ['Webhook received', 'Paid orders are fulfilled', 'Failed charges are retried', 'Customer is notified'] }
-];
+// Workflows come from the public marketplace catalog; see load() below.
+const workflows = [];
+const API = 'https://api.flowstudio-ai.com/marketplace/workflows/public/catalog';
+const PATTERNS = { sequential: 'Sequential', parallel: 'Parallel', hierarchical: 'Hierarchical', hybrid: 'Hybrid', collaborative: 'Collaborative', event_driven: 'Event-driven' };
+const CATEGORIES = { messaging: 'Messaging', productivity: 'Productivity', data: 'Data', ai: 'AI', crm: 'CRM', utilities: 'Utilities', other: 'Other' };
+const count = n => n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k' : String(n);
+function toWorkflow(it) {
+  return { id: it.marketplace_template_id, name: it.title, by: it.submitter_name || '', category: CATEGORIES[it.category] || it.category,
+    pattern: PATTERNS[it.pattern] || 'Sequential', desc: it.description, nodes: it.node_count || 0, agents: it.agent_count || 0,
+    tools: (it.requirements || []).filter(r => r.kind === 'tool').map(r => r.name),
+    installs: count(it.acquired_count || 0), rating: it.rating_avg == null ? '' : it.rating_avg.toFixed(1), ratingCount: it.rating_count || 0,
+    price: 'Free', steps: it.steps || [], links: it.edges, positions: it.positions, featured: !!it.is_featured, rank: it.featured_rank };
+}
+// Placeholder agents have no rating count, so they keep the plain "★ 4.9".
+function ratingLabel(it) {
+  if (it.ratingCount === undefined) return { main: '★ ' + it.rating, sub: '' };
+  if (!it.ratingCount) return { main: 'Not rated yet', sub: '' };
+  return { main: '★ ' + it.rating, sub: ' · ' + it.ratingCount + (it.ratingCount === 1 ? ' rating' : ' ratings') };
+}
+async function fetchAll() {
+  const out = [];
+  for (let offset = 0; ; offset += 50) {
+    const r = await fetch(`${API}?limit=50&offset=${offset}`);
+    if (!r.ok) throw new Error('catalog ' + r.status);
+    const page = await r.json();
+    out.push(...page.items);
+    if (!page.items.length || out.length >= page.count) return out;
+  }
+}
+// Featured first (ranked, then unranked), then the API's newest-first order.
+function load() {
+  if (M.status !== 'idle') return;
+  M.status = 'loading';
+  fetchAll().then(items => {
+    const ws = items.map(toWorkflow).map((w, i) => ({ w, i }))
+      .sort((a, b) => (b.w.featured - a.w.featured) || ((a.w.rank ?? Infinity) - (b.w.rank ?? Infinity)) || (a.i - b.i)).map(x => x.w);
+    workflows.push(...ws);
+    M.status = 'ready';
+  }).catch(() => { M.status = 'error'; })
+    .finally(() => window.dispatchEvent(new Event('fs-market')));
+}
 const G = {
   'Sequential': [[[16,36],[72,36],[128,36],[184,36]], [[0,1],[1,2],[2,3]]],
   'Parallel': [[[16,36],[100,12],[100,36],[100,60],[184,36]], [[0,1],[0,2],[0,3],[1,4],[2,4],[3,4]]],
@@ -51,13 +80,38 @@ const G = {
   'Collaborative': [[[100,36],[36,12],[164,12],[100,62]], [[1,0],[0,2],[0,3]]],
   'Event-driven': [[[16,36],[72,14],[72,58],[128,14],[128,58],[184,36]], [[0,1],[0,2],[1,3],[2,4],[3,5],[4,5]]]
 };
-function graph(p) {
-  const [n, e] = G[p]; let ed = '', nd = '';
+// Places a workflow's nodes where they sit on the editor canvas (card centers;
+// cards are 200x80 there), scaled uniformly into the same 200x72 box as G.
+// Edges pick horizontal or vertical like the canvas's autoSides; ones that run
+// backwards (right to left) are loops and arc over the top.
+function canvasLayout(positions, links) {
+  const c = positions.map(([x, y]) => [x + 100, y + 40]);
+  const xs = c.map(p => p[0]), ys = c.map(p => p[1]);
+  const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+  const k = Math.min(168 / Math.max(x1 - x0, 1), 52 / Math.max(y1 - y0, 1));
+  const pos = c.map(([x, y]) => [100 + (x - (x0 + x1) / 2) * k, 36 + (y - (y0 + y1) / 2) * k]);
+  const fwd = [], back = [], vert = [];
+  links.forEach(([a, b]) => {
+    if (!c[a] || !c[b]) return;
+    const ang = Math.atan2(c[b][1] - c[a][1], c[b][0] - c[a][0]) * 180 / Math.PI;
+    if (Math.abs(ang) <= 45) fwd.push([a, b]); else if (Math.abs(ang) >= 135) back.push([a, b]); else vert.push([a, b]);
+  });
+  return [pos, fwd, back, vert];
+}
+// `w` is a pattern name (fixed illustration) or a workflow with its canvas `positions`.
+function graph(w) {
+  const real = typeof w === 'object' && w.positions && w.nodes > 0 && w.positions.length === w.nodes;
+  const [n, e, loops, vert] = real ? canvasLayout(w.positions, w.links || []) : [...G[typeof w === 'object' ? w.pattern : w], [], []];
+  let ed = '', nd = '';
+  loops.forEach(([a, b]) => { const A = n[a], B = n[b], c = Math.max(Math.min(A[1], B[1]) - 24, -6);
+    ed += `M${A[0]},${A[1]}C${A[0]},${c} ${B[0]},${c} ${B[0]},${B[1]}`; });
+  vert.forEach(([a, b]) => { const A = n[a], B = n[b], m = (A[1] + B[1]) / 2;
+    ed += `M${A[0]},${A[1]}C${A[0]},${m} ${B[0]},${m} ${B[0]},${B[1]}`; });
   e.forEach(([a, b]) => { const A = n[a], B = n[b];
     if (Math.abs(B[0] - A[0]) < 4) ed += `M${A[0]},${A[1]}L${B[0]},${B[1]}`;
     else { const m = (A[0] + B[0]) / 2; ed += `M${A[0]},${A[1]}C${m},${A[1]} ${m},${B[1]} ${B[0]},${B[1]}`; } });
   n.forEach(([x, y]) => { nd += `M${x - 5},${y}a5,5 0 1,0 10,0a5,5 0 1,0 -10,0`; });
   return { edges: ed, nodes: nd };
 }
-window.FS_MARKET = { ICONS, TINTS, agents, workflows, graph };
+const M = window.FS_MARKET = { ICONS, TINTS, agents, workflows, graph, ratingLabel, load, status: 'idle' };
 })();
