@@ -200,7 +200,7 @@ a:hover{color:#9fdc6f}
           <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#5f665a">{{ tp.by }} · {{ tp.category }}</span><span style="font-family:'JetBrains Mono',monospace;color:{{ tp.priceColor }}">{{ tp.price }}</span></div>
           <span style="font-size:20px;font-weight:700;letter-spacing:-.035em">{{ tp.name }}</span>
           <span style="font-size:14px;line-height:1.6;color:#5f665a">{{ tp.desc }}</span>
-          <div style="display:flex;justify-content:space-between;font-size:13px;border-top:1px solid #ecebe3;padding-top:14px;margin-top:auto"><span style="color:#5f665a">{{ tp.ratingMain }}{{ tp.ratingSub }} · {{ tp.installs }} installs</span><span style="font-weight:500;color:#2f6a1f">Install →</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;border-top:1px solid #ecebe3;padding-top:14px;margin-top:auto"><span style="color:#5f665a">{{ tp.ratingMain }}{{ tp.ratingSub }} · {{ tp.installsLabel }}</span><span style="font-weight:500;color:#2f6a1f">Install →</span></div>
         </a>
       </sc-for>
     </div>
@@ -510,7 +510,7 @@ class Component extends DCLogic {
       whenUse: raw.whenUse.map(t => ({ t })),
       whenNot: raw.whenNot.map(w => ({ t: w.t, altName: FP.P[w.alt].name, onClick: () => this.go(w.alt, true) }))
     } : { name: C.MODES[k].name, num: '0' + (i + 1), tagline: '', bestFor: '', steps: [], useCases: [], whenUse: [], whenNot: [] };
-    const tpl = M ? M.workflows.filter(w => w.pattern === C.MODES[k].name).map(w => ({ id: w.id, name: w.name, by: w.by, category: w.category, desc: w.desc, price: w.price, priceColor: w.price === 'Free' ? '#2f6a1f' : '#151a13', rating: w.rating, ratingMain: M.ratingLabel(w).main, ratingSub: M.ratingLabel(w).sub, installs: w.installs })) : [];
+    const tpl = M ? M.workflows.filter(w => w.pattern === C.MODES[k].name).map(w => ({ id: w.id, name: w.name, by: w.by, category: w.category, desc: w.desc, price: w.price, priceColor: w.price === 'Free' ? '#2f6a1f' : '#151a13', rating: w.rating, ratingMain: M.ratingLabel(w).main, ratingSub: M.ratingLabel(w).sub, installs: w.installs, installsLabel: w.installs + (w.installs === '1' ? ' install' : ' installs') })) : [];
     const pk = C.ORDER[(i + 5) % 6], nk = C.ORDER[(i + 1) % 6];
     return {
       tabs: C.ORDER.map((m, j) => { const a = m === k; return { num: '0' + (j + 1), name: C.MODES[m].name, onClick: () => this.go(m), bg: a ? '#9fdc6f' : 'rgba(255,255,255,.03)', color: a ? '#0f1a0a' : '#d4dbcc', border: a ? '#9fdc6f' : 'rgba(255,255,255,.12)', numColor: a ? '#2f6a1f' : '#8d9886' }; }),

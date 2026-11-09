@@ -152,7 +152,7 @@ a:hover{color:#9fdc6f}
           </sc-for>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid #ecebe3;padding-top:14px;margin-top:auto;font-size:13px">
-          <span style="color:#5f665a"><span style="color:#151a13">{{ c.ratingMain }}</span>{{ c.ratingSub }} · {{ c.installs }} installs</span>
+          <span style="color:#5f665a"><span style="color:#151a13">{{ c.ratingMain }}</span>{{ c.ratingSub }} · {{ c.installsLabel }}</span>
           <span style="font-weight:500;color:#2f6a1f">{{ c.cta }} →</span>
         </div>
       </div>
@@ -193,7 +193,7 @@ a:hover{color:#9fdc6f}
           </sc-for>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid #ecebe3;padding-top:14px;margin-top:auto;font-size:13px">
-          <span style="color:#5f665a"><span style="color:#151a13">{{ c.ratingMain }}</span>{{ c.ratingSub }} · {{ c.installs }} installs</span>
+          <span style="color:#5f665a"><span style="color:#151a13">{{ c.ratingMain }}</span>{{ c.ratingSub }} · {{ c.installsLabel }}</span>
           <span style="font-weight:500;color:#2f6a1f">{{ c.cta }} →</span>
         </div>
       </div>
@@ -266,6 +266,7 @@ a:hover{color:#9fdc6f}
           </div>
           <div style="font-size:14px;color:#5f665a">{{ d.agentsN }} agents · {{ d.nodesN }} nodes · {{ d.pattern }} pattern</div>
         </sc-if>
+        <sc-if value="{{ d.hasTools }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;flex-direction:column;gap:10px">
           <div style="font-size:12px;color:#5f665a;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase">Tools it uses</div>
           <div style="display:flex;flex-wrap:wrap;gap:6px">
@@ -274,6 +275,7 @@ a:hover{color:#9fdc6f}
             </sc-for>
           </div>
         </div>
+        </sc-if>
       </div>
       <div style="margin-top:auto;position:sticky;bottom:0;padding:18px 28px;border-top:1px solid #e6e5dc;background:#fbfaf6;display:flex;gap:10px">
         <a href="https://app.flowstudio-ai.com/marketplace" style="flex:1;text-align:center;background:#151a13;color:#eef2e8;padding:15px;border-radius:999px;font-weight:500;font-size:15px" style-hover="background:#2f6a1f;color:#fff">{{ d.ctaLong }}</a>
@@ -377,7 +379,7 @@ class Component extends DCLogic {
   static mkCard(M, it, isAgent, open) {
     const t = M.TINTS[it.category] || ['#efeee6', '#3b4237'];
     return { id: it.id, isAgent, isWorkflow: !isAgent, name: it.name, by: it.by, category: it.category, desc: it.desc,
-      price: it.price, priceColor: it.price === 'Free' ? '#2f6a1f' : '#151a13', rating: it.rating, ratingMain: M.ratingLabel(it).main, ratingSub: M.ratingLabel(it).sub, installs: it.installs,
+      price: it.price, priceColor: it.price === 'Free' ? '#2f6a1f' : '#151a13', rating: it.rating, ratingMain: M.ratingLabel(it).main, ratingSub: M.ratingLabel(it).sub, installs: it.installs, installsLabel: it.installs + (it.installs === '1' ? ' install' : ' installs'),
       model: it.model || '', tools: [...it.tools.slice(0, 3), ...(it.tools.length > 3 ? ['+' + (it.tools.length - 3)] : [])].map(x => ({ t: x })), pattern: it.pattern || '', agentsN: it.agents, nodesN: it.nodes,
       tintBg: t[0], iconEl: isAgent ? React.createElement('div', { style: { width: '62%' } }, React.createElement(Component.Robot, { c: Component.CATBOT[it.category] || 'green', pose: 'idle', delay: (it.id.charCodeAt(1) % 5) * .4 })) : null, graph: isAgent ? null : Component.mkGraph(M, it),
       cta: isAgent ? 'Use agent' : 'Install workflow', open };
@@ -405,7 +407,7 @@ class Component extends DCLogic {
     const it = all.find(x => x.id === s.sel);
     let d = { kind: '', name: '', tools: [], steps: [] };
     if (it) { const isA = !!it.model, c = C.mkCard(M, it, isA);
-      d = { ...c, tools: it.tools.map(x => ({ t: x })), kind: isA ? 'Agent' : 'Workflow', iconBig: isA ? React.createElement('div', { style: { width: '64%' } }, React.createElement(C.Robot, { c: C.CATBOT[it.category] || 'green', pose: 'wave' })) : null, graphBig: isA ? null : C.mkGraph(M, it, true),
+      d = { ...c, tools: it.tools.map(x => ({ t: x })), hasTools: it.tools.length > 0, kind: isA ? 'Agent' : 'Workflow', iconBig: isA ? React.createElement('div', { style: { width: '64%' } }, React.createElement(C.Robot, { c: C.CATBOT[it.category] || 'green', pose: 'wave' })) : null, graphBig: isA ? null : C.mkGraph(M, it, true),
         prompt: it.prompt || '', inputs: it.inputs || '', outputs: it.outputs || '',
         steps: (it.steps || []).map((t, i) => ({ t, n: i + 1, border: i ? '1px solid #ecebe3' : '0' })),
         ctaLong: isA ? 'Use this agent' : 'Install workflow' }; }

@@ -40,7 +40,7 @@ const count = n => n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k' :
 function toWorkflow(it) {
   return { id: it.marketplace_template_id, name: it.title, by: it.submitter_name || '', category: CATEGORIES[it.category] || it.category,
     pattern: PATTERNS[it.pattern] || 'Sequential', desc: it.description, nodes: it.node_count || 0, agents: it.agent_count || 0,
-    tools: (it.requirements || []).filter(r => r.kind === 'tool').map(r => r.name),
+    tools: it.needs ? (it.needs.tools || []).map(t => t.name) : (it.requirements || []).filter(r => r.kind === 'tool').map(r => r.name),
     installs: count(it.acquired_count || 0), rating: it.rating_avg == null ? '' : it.rating_avg.toFixed(1), ratingCount: it.rating_count || 0,
     price: 'Free', steps: it.steps || [], links: it.edges, positions: it.positions, featured: !!it.is_featured, rank: it.featured_rank };
 }
@@ -82,29 +82,27 @@ const G = {
 };
 // Places a workflow's nodes where they sit on the editor canvas (card centers;
 // cards are 200x80 there), scaled uniformly into the same 200x72 box as G.
-// Edges pick horizontal or vertical like the canvas's autoSides; ones that run
-// backwards (right to left) are loops and arc over the top.
+// Edges run horizontally or vertically by the angle between nodes, like the
+// canvas's autoSides.
 function canvasLayout(positions, links) {
   const c = positions.map(([x, y]) => [x + 100, y + 40]);
   const xs = c.map(p => p[0]), ys = c.map(p => p[1]);
   const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
   const k = Math.min(168 / Math.max(x1 - x0, 1), 52 / Math.max(y1 - y0, 1));
   const pos = c.map(([x, y]) => [100 + (x - (x0 + x1) / 2) * k, 36 + (y - (y0 + y1) / 2) * k]);
-  const fwd = [], back = [], vert = [];
+  const horiz = [], vert = [];
   links.forEach(([a, b]) => {
     if (!c[a] || !c[b]) return;
     const ang = Math.atan2(c[b][1] - c[a][1], c[b][0] - c[a][0]) * 180 / Math.PI;
-    if (Math.abs(ang) <= 45) fwd.push([a, b]); else if (Math.abs(ang) >= 135) back.push([a, b]); else vert.push([a, b]);
+    (Math.abs(ang) <= 45 || Math.abs(ang) >= 135 ? horiz : vert).push([a, b]);
   });
-  return [pos, fwd, back, vert];
+  return [pos, horiz, vert];
 }
 // `w` is a pattern name (fixed illustration) or a workflow with its canvas `positions`.
 function graph(w) {
   const real = typeof w === 'object' && w.positions && w.nodes > 0 && w.positions.length === w.nodes;
-  const [n, e, loops, vert] = real ? canvasLayout(w.positions, w.links || []) : [...G[typeof w === 'object' ? w.pattern : w], [], []];
+  const [n, e, vert] = real ? canvasLayout(w.positions, w.links || []) : [...G[typeof w === 'object' ? w.pattern : w], []];
   let ed = '', nd = '';
-  loops.forEach(([a, b]) => { const A = n[a], B = n[b], c = Math.max(Math.min(A[1], B[1]) - 24, -6);
-    ed += `M${A[0]},${A[1]}C${A[0]},${c} ${B[0]},${c} ${B[0]},${B[1]}`; });
   vert.forEach(([a, b]) => { const A = n[a], B = n[b], m = (A[1] + B[1]) / 2;
     ed += `M${A[0]},${A[1]}C${A[0]},${m} ${B[0]},${m} ${B[0]},${B[1]}`; });
   e.forEach(([a, b]) => { const A = n[a], B = n[b];
