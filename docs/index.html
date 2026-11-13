@@ -54,6 +54,20 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
+      "@type": "VideoObject",
+      "name": "How to make AI agents workflow: FlowStudio walkthrough",
+      "description": "A quick tour of FlowStudio: build AI agents, connect them to your tools and data, and run them as workflows without writing code.",
+      "thumbnailUrl": "https://i.ytimg.com/vi/NRExiACTdUU/maxresdefault.jpg",
+      "uploadDate": "2026-11-13T02:00:19-08:00",
+      "duration": "PT2M19S",
+      "embedUrl": "https://www.youtube-nocookie.com/embed/NRExiACTdUU",
+      "contentUrl": "https://www.youtube.com/watch?v=NRExiACTdUU"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
         {
@@ -165,8 +179,12 @@ a:hover{color:#9fdc6f}
       <p style="margin:0;font-size:19px;line-height:1.55;color:#b6bfae;max-width:44ch;text-wrap:pretty">FlowStudio is where AI agents team up to do real work for you. No code, just a canvas.</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap">
         <a href="https://app.flowstudio-ai.com/signup" style="background:#9fdc6f;color:#0f1a0a;padding:16px 26px;border-radius:999px;font-weight:700;font-size:16px" style-hover="background:#b8ea8f;color:#0f1a0a">Get early access for free</a>
-        <a href="#tour" style="border:1px solid rgba(255,255,255,.18);color:#eef2e8;padding:16px 26px;border-radius:999px;font-size:16px;font-weight:500" style-hover="border-color:#9fdc6f;color:#9fdc6f">Take the tour</a>
+        <button onClick="{{ openDemo }}" aria-label="Watch the FlowStudio demo video" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.18);color:#eef2e8;padding:10px 22px 10px 10px;border-radius:999px;font-size:16px;font-weight:600" style-hover="border-color:#9fdc6f;color:#9fdc6f">
+          <span style="width:36px;height:36px;border-radius:50%;background:#9fdc6f;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true"><path d="M1 1.2v11.6a.6.6 0 0 0 .9.5l9.4-5.8a.6.6 0 0 0 0-1L1.9.7a.6.6 0 0 0-.9.5z" fill="#0f1a0a"/></svg></span>
+          Watch demo <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;color:#8d9886">2:19</span>
+        </button>
       </div>
+      <a href="#tour" style="font-size:15px;color:#8d9886;text-decoration:underline;text-underline-offset:4px;align-self:flex-start;margin-top:-12px" style-hover="color:#9fdc6f">Or take the guided tour ↓</a>
     </div>
     <div style="position:relative;height:440px;margin-top:70px">{{ heroCrew }}</div>
   </div>
@@ -175,6 +193,23 @@ a:hover{color:#9fdc6f}
     <span style="font-size:18px;color:#9fdc6f;animation:fsNudge 1.6s ease-in-out infinite">↓</span>
   </a>
 </header>
+
+<sc-if value="{{ demoOpen }}" hint-placeholder-val="{{ false }}">
+  <div role="dialog" aria-modal="true" aria-label="FlowStudio demo video" onClick="{{ closeDemo }}" style="position:fixed;inset:0;z-index:100;display:flex;justify-content:center;padding:16px;overflow-y:auto;overscroll-behavior:contain;background:rgba(8,10,7,.88);backdrop-filter:blur(10px);animation:fsPopSide .25s ease-out both">
+    <div onClick="{{ stopProp }}" style="margin:auto 0;width:100%;max-width:max(520px,min(1100px,calc((100vh - 190px) * 16 / 9),calc((100dvh - 190px) * 16 / 9)));display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.16em;color:#9fdc6f">FLOWSTUDIO · FEATURE WALKTHROUGH</div>
+        <button onClick="{{ closeDemo }}" aria-label="Close video" style="all:unset;cursor:pointer;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.1);color:#eef2e8;font-size:22px;line-height:1" style-hover="background:#9fdc6f;color:#0f1a0a">×</button>
+      </div>
+      <div style="position:relative;width:100%;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#000;box-shadow:0 40px 90px -30px rgba(0,0,0,.8);border:1px solid rgba(255,255,255,.08)">{{ demoPlayer }}</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <sc-for list="{{ demoChapters }}" as="c" hint-placeholder-count="7">
+          <button onClick="{{ c.onClick }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }};font-size:14px;font-weight:500;transition:all .2s"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;opacity:.75">{{ c.time }}</span>{{ c.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</sc-if>
 
 <section id="tour" style="position:relative;height:{{ tourHeight }};background-color:#10140f;background-image:radial-gradient(rgba(170,200,150,.12) 1px,transparent 1.3px);background-size:28px 28px">
   <div style="position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden">
@@ -791,8 +826,31 @@ class Component extends DCLogic {
   ];
   static BRAINS = [['Claude', 'careful thinker'], ['GPT', 'all-rounder'], ['Llama', 'open & fast']];
 
-  state = { step: 0, walking: false, flip: false, brain: 'Claude', job: 'support', tools: ['zendesk', 'slack', 'notion'], alive: false, alivePose: 'jump', pat: 'sequential', patWalk: false, patUser: false, tp: 'weather', tPhase: 'idle', tN: 0, tTab: 'code', tMsgs: [{ who: 'bot', text: Component.T_WELCOME }], tVals: {}, tEnv: {}, tTest: 'idle', tLog: [], tOut: '', tJump: false, mkt: 'agents' };
+  state = { step: 0, walking: false, flip: false, brain: 'Claude', job: 'support', tools: ['zendesk', 'slack', 'notion'], alive: false, alivePose: 'jump', pat: 'sequential', patWalk: false, patUser: false, tp: 'weather', tPhase: 'idle', tN: 0, tTab: 'code', tMsgs: [{ who: 'bot', text: Component.T_WELCOME }], tVals: {}, tEnv: {}, tTest: 'idle', tLog: [], tOut: '', tJump: false, mkt: 'agents', demoOpen: false, demoAt: 0, demoKey: 0 };
   tourRef = React.createRef();
+
+  // Demo video: unlisted YouTube upload, played via youtube-nocookie.com.
+  static DEMO_YT_ID = 'NRExiACTdUU';
+  static DEMO_CHAPTERS = [[0, 'Intro'], [13, 'Sign up'], [27, 'Agents & Workflows'], [65, 'Tools & MCP'], [85, 'Data sources'], [102, 'Triggers & Dashboard'], [124, 'Get started']];
+
+  openDemo = () => { this.demoLastFocus = document.activeElement; document.body.style.overflow = 'hidden'; this.setState(x => ({ demoOpen: true, demoAt: 0, demoKey: x.demoKey + 1 })); };
+  closeDemo = () => { document.body.style.overflow = ''; this.setState({ demoOpen: false }); if (this.demoLastFocus && this.demoLastFocus.focus) this.demoLastFocus.focus(); };
+  seekDemo = (t) => this.setState(x => ({ demoAt: t, demoKey: x.demoKey + 1 }));
+  onDemoKey = (e) => { if (e.key === 'Escape' && this.state.demoOpen) this.closeDemo(); };
+
+  demoVals() {
+    const C = Component, h = React.createElement, s = this.state, fmt = t => Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0');
+    if (!s.demoOpen) return { demoOpen: false, demoPlayer: null, demoChapters: [] };
+    const fill = { position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0, display: 'block' };
+    const player = h('iframe', { key: 'yt' + s.demoKey, style: fill, title: 'FlowStudio feature walkthrough', allow: 'autoplay; encrypted-media; picture-in-picture; fullscreen', allowFullScreen: true, referrerPolicy: 'strict-origin-when-cross-origin',
+      src: `https://www.youtube-nocookie.com/embed/${C.DEMO_YT_ID}?autoplay=1&rel=0&modestbranding=1&playsinline=1&cc_load_policy=0&start=${s.demoAt}` });
+    const cur = C.DEMO_CHAPTERS.reduce((a, c, i) => s.demoAt >= c[0] ? i : a, 0);
+    return {
+      demoOpen: true, demoPlayer: player,
+      demoChapters: C.DEMO_CHAPTERS.map(([t, label], i) => { const on = i === cur; return { time: fmt(t), label, onClick: () => this.seekDemo(t),
+        bg: on ? '#9fdc6f' : 'rgba(255,255,255,.04)', color: on ? '#0f1a0a' : '#d4dbcc', border: on ? '#9fdc6f' : 'rgba(255,255,255,.14)' }; })
+    };
+  }
   
 
   componentDidMount() {
@@ -810,9 +868,11 @@ class Component extends DCLogic {
     this.goHash = () => { const id = (location.hash || '').slice(1); const el = id && document.getElementById(id); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 20, behavior: 'auto' }); };
     if (location.hash) { this.ht = [150, 600, 1200].map(ms => setTimeout(this.goHash, ms)); }
     window.addEventListener('hashchange', this.goHash);
+    window.addEventListener('keydown', this.onDemoKey);
+    if (location.hash === '#demo') this.openDemo();
     this.pi = setInterval(() => { if (this.state.patUser) return; const O = Component.PAT_ORDER; this.setPat(O[(O.indexOf(this.state.pat) + 1) % O.length]); }, 6500);
   }
-  componentWillUnmount() { window.removeEventListener('scroll', this.onScroll); window.removeEventListener('resize', this.onScroll); clearTimeout(this.wt); clearTimeout(this.at); clearTimeout(this.pw); clearInterval(this.pi); this.tClear(); (this.ht || []).forEach(clearTimeout); window.removeEventListener('hashchange', this.goHash); clearInterval(this.mp); }
+  componentWillUnmount() { window.removeEventListener('scroll', this.onScroll); window.removeEventListener('resize', this.onScroll); clearTimeout(this.wt); clearTimeout(this.at); clearTimeout(this.pw); clearInterval(this.pi); this.tClear(); (this.ht || []).forEach(clearTimeout); window.removeEventListener('hashchange', this.goHash); window.removeEventListener('keydown', this.onDemoKey); document.body.style.overflow = ''; clearInterval(this.mp); }
   setStep(s) {
     const prev = this.state.step; if (s === prev) return;
     const A = Component.TOUR[prev].flo, B = Component.TOUR[s].flo;
@@ -932,6 +992,8 @@ class Component extends DCLogic {
 
       ...this.patVals(),
       ...this.toolVals(),
+      ...this.demoVals(),
+      openDemo: this.openDemo, closeDemo: this.closeDemo, stopProp: e => e.stopPropagation(),
       commMarquee: this._mq || (this._mq = Component.marquee()),
       signinDisplay: s.sm ? 'none' : 'block',
       showParade: this.props.showParade ?? true,
