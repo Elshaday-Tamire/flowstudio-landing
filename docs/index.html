@@ -195,8 +195,8 @@ a:hover{color:#9fdc6f}
 </header>
 
 <sc-if value="{{ demoOpen }}" hint-placeholder-val="{{ false }}">
-  <div role="dialog" aria-modal="true" aria-label="FlowStudio demo video" onClick="{{ closeDemo }}" style="position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(8,10,7,.88);backdrop-filter:blur(10px);animation:fsPopSide .25s ease-out both">
-    <div onClick="{{ stopProp }}" style="width:100%;max-width:1100px;display:flex;flex-direction:column;gap:14px">
+  <div role="dialog" aria-modal="true" aria-label="FlowStudio demo video" onClick="{{ closeDemo }}" style="position:fixed;inset:0;z-index:100;display:flex;justify-content:center;padding:16px;overflow-y:auto;overscroll-behavior:contain;background:rgba(8,10,7,.88);backdrop-filter:blur(10px);animation:fsPopSide .25s ease-out both">
+    <div onClick="{{ stopProp }}" style="margin:auto 0;width:100%;max-width:max(520px,min(1100px,calc((100vh - 190px) * 16 / 9),calc((100dvh - 190px) * 16 / 9)));display:flex;flex-direction:column;gap:12px">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
         <div style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.16em;color:#9fdc6f">FLOWSTUDIO · FEATURE WALKTHROUGH</div>
         <button onClick="{{ closeDemo }}" aria-label="Close video" style="all:unset;cursor:pointer;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.1);color:#eef2e8;font-size:22px;line-height:1" style-hover="background:#9fdc6f;color:#0f1a0a">×</button>
@@ -206,10 +206,6 @@ a:hover{color:#9fdc6f}
         <sc-for list="{{ demoChapters }}" as="c" hint-placeholder-count="7">
           <button onClick="{{ c.onClick }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }};font-size:14px;font-weight:500;transition:all .2s"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;opacity:.75">{{ c.time }}</span>{{ c.label }}</button>
         </sc-for>
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-        <span style="font-size:13px;color:#6f7a68">FlowStudio interface shown with sample data. Names and data are fictional. Voice made with AI.</span>
-        <a href="https://app.flowstudio-ai.com/signup" style="background:#9fdc6f;color:#0f1a0a;padding:12px 20px;border-radius:999px;font-weight:700;font-size:15px" style-hover="background:#b8ea8f;color:#0f1a0a">Get early access for free</a>
       </div>
     </div>
   </div>
@@ -846,7 +842,7 @@ class Component extends DCLogic {
     const C = Component, h = React.createElement, s = this.state, fmt = t => Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0');
     if (!s.demoOpen) return { demoOpen: false, demoPlayer: null, demoChapters: [] };
     const fill = { position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0, display: 'block' };
-    const player = h('iframe', { key: 'yt' + s.demoKey, style: fill, title: 'FlowStudio feature walkthrough', allow: 'autoplay; encrypted-media; picture-in-picture; fullscreen', allowFullScreen: true,
+    const player = h('iframe', { key: 'yt' + s.demoKey, style: fill, title: 'FlowStudio feature walkthrough', allow: 'autoplay; encrypted-media; picture-in-picture; fullscreen', allowFullScreen: true, referrerPolicy: 'strict-origin-when-cross-origin',
       src: `https://www.youtube-nocookie.com/embed/${C.DEMO_YT_ID}?autoplay=1&rel=0&modestbranding=1&playsinline=1&cc_load_policy=0&start=${s.demoAt}` });
     const cur = C.DEMO_CHAPTERS.reduce((a, c, i) => s.demoAt >= c[0] ? i : a, 0);
     return {
