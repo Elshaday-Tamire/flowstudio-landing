@@ -407,12 +407,14 @@ a:hover{color:#9fdc6f}
           <div class="cs-view">
             <div class="cs-view-eyebrow">Step 3 · Call</div>
             <h3 class="cs-view-title">Book a call with our team.</h3>
+            <p class="cs-note">{{ csCallNote }}</p>
             <sc-if value="{{ csHasMeeting }}" hint-placeholder-val="{{ false }}">
               <div class="cs-cal"><iframe src="{{ csMeetingEmbed }}" title="Book a call with FlowStudio" loading="lazy"></iframe></div>
             </sc-if>
             <sc-if value="{{ csNoMeeting }}" hint-placeholder-val="{{ true }}">
-              <p class="cs-note">Online booking opens soon. Send your request and we'll suggest a time by email.</p>
-              <div class="cs-row"><button type="button" class="cs-ghost" onClick="{{ csToForm }}">Start your request</button></div>
+              <sc-if value="{{ csCanRequest }}" hint-placeholder-val="{{ true }}">
+                <div class="cs-row"><button type="button" class="cs-ghost" onClick="{{ csToForm }}">Start your request</button></div>
+              </sc-if>
             </sc-if>
           </div>
         </sc-if>
@@ -1155,6 +1157,11 @@ class Component extends DCLogic {
       csHasError: !!s.csError, csError: s.csError,
       csHasMeeting: !!C.SALES_MEETING_URL, csNoMeeting: !C.SALES_MEETING_URL,
       csMeetingEmbed: C.SALES_MEETING_URL ? C.SALES_MEETING_URL + (C.SALES_MEETING_URL.includes('?') ? '&' : '?') + 'embed=true' : '',
+      csCanRequest: !done,
+      csCallNote: C.SALES_MEETING_URL
+        ? "Pick a free time from our team's calendar below. You'll get a calendar invite by email."
+        : done ? "Online booking isn't open yet. We'll email you a few times that suit our team, and you pick one."
+               : "Online booking isn't open yet. Send your request and we'll email you a few times that suit our team.",
       csReplyCta: done ? 'Book a call' : 'Start your request', csReplyGo: () => this.goSalesStep(done ? 'call' : 'form'),
       csToForm: () => this.goSalesStep('form'), csToCall: () => this.goSalesStep('call'),
       csThanksName: s.csName ? ', ' + s.csName : '',
