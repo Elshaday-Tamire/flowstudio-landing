@@ -211,6 +211,68 @@ a:hover{color:#9fdc6f}
   </div>
 </sc-if>
 
+<sc-if value="{{ csOpen }}" hint-placeholder-val="{{ false }}">
+  <div role="dialog" aria-modal="true" aria-label="Contact sales" onClick="{{ closeSales }}" style="position:fixed;inset:0;z-index:100;display:flex;justify-content:center;padding:16px;overflow-y:auto;overscroll-behavior:contain;background:rgba(8,10,7,.88);backdrop-filter:blur(10px);animation:fsPopSide .25s ease-out both">
+    <div onClick="{{ stopProp }}" style="margin:auto 0;width:100%;max-width:600px;background:#10140f;color:#eef2e8;border:1px solid rgba(255,255,255,.1);border-radius:28px;padding:32px;box-shadow:0 40px 90px -30px rgba(0,0,0,.8);display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.16em;color:#9fdc6f">CUSTOM &amp; ENTERPRISE</div>
+          <h2 style="margin:0;font-weight:800;font-size:clamp(28px,4vw,40px);line-height:1;letter-spacing:-.04em">Talk to us</h2>
+        </div>
+        <button type="button" onClick="{{ closeSales }}" aria-label="Close" style="all:unset;cursor:pointer;flex:none;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.1);color:#eef2e8;font-size:22px;line-height:1" style-hover="background:#9fdc6f;color:#0f1a0a">×</button>
+      </div>
+
+      <sc-if value="{{ csShowForm }}" hint-placeholder-val="{{ true }}">
+        <form onSubmit="{{ submitSales }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px">
+          <p style="margin:0;grid-column:1/-1;font-size:16px;color:#b6bfae">Tell us about your team. We reply within 1 business day.</p>
+          <label for="cs-firstname" style="display:flex;flex-direction:column;gap:6px;font-size:14px;color:#b6bfae">First name *
+            <input id="cs-firstname" value="{{ csV.firstname }}" onChange="{{ csSet.firstname }}" autocomplete="given-name" style="font:inherit;font-size:16px;color:#eef2e8;background:#151a13;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 14px;outline:none;width:100%;box-sizing:border-box" style-focus="border-color:#9fdc6f">
+          </label>
+          <label for="cs-lastname" style="display:flex;flex-direction:column;gap:6px;font-size:14px;color:#b6bfae">Last name
+            <input id="cs-lastname" value="{{ csV.lastname }}" onChange="{{ csSet.lastname }}" autocomplete="family-name" style="font:inherit;font-size:16px;color:#eef2e8;background:#151a13;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 14px;outline:none;width:100%;box-sizing:border-box" style-focus="border-color:#9fdc6f">
+          </label>
+          <label for="cs-email" style="display:flex;flex-direction:column;gap:6px;font-size:14px;color:#b6bfae">Work email *
+            <input id="cs-email" type="email" value="{{ csV.email }}" onChange="{{ csSet.email }}" autocomplete="email" style="font:inherit;font-size:16px;color:#eef2e8;background:#151a13;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 14px;outline:none;width:100%;box-sizing:border-box" style-focus="border-color:#9fdc6f">
+          </label>
+          <label for="cs-company" style="display:flex;flex-direction:column;gap:6px;font-size:14px;color:#b6bfae">Company *
+            <input id="cs-company" value="{{ csV.company }}" onChange="{{ csSet.company }}" autocomplete="organization" style="font:inherit;font-size:16px;color:#eef2e8;background:#151a13;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 14px;outline:none;width:100%;box-sizing:border-box" style-focus="border-color:#9fdc6f">
+          </label>
+          <label for="cs-team" style="display:flex;flex-direction:column;gap:6px;font-size:14px;color:#b6bfae;grid-column:1/-1">Team size
+            <select id="cs-team" value="{{ csV.team_size }}" onChange="{{ csSet.team_size }}" style="font:inherit;font-size:16px;color:#eef2e8;background:#151a13;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 14px;outline:none;width:100%;box-sizing:border-box" style-focus="border-color:#9fdc6f">
+              <option value="">Choose…</option>
+              <option value="1–10">1–10</option>
+              <option value="11–50">11–50</option>
+              <option value="51–200">51–200</option>
+              <option value="200+">200+</option>
+            </select>
+          </label>
+          <label for="cs-automate" style="display:flex;flex-direction:column;gap:6px;font-size:14px;color:#b6bfae;grid-column:1/-1">What do you want to automate?
+            <textarea id="cs-automate" value="{{ csV.automate }}" onChange="{{ csSet.automate }}" rows="4" style="font:inherit;font-size:16px;color:#eef2e8;background:#151a13;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 14px;outline:none;width:100%;box-sizing:border-box;resize:vertical" style-focus="border-color:#9fdc6f"></textarea>
+          </label>
+          <label for="cs-website" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">Website
+            <input id="cs-website" value="{{ csV.website }}" onChange="{{ csSet.website }}" tabindex="-1" autocomplete="off">
+          </label>
+          <p style="margin:0;grid-column:1/-1;font-size:13px;color:#8d9886">We use these details only to reply to your request. See our <a href="Legal.dc.html#privacy" style="color:#9fdc6f">Privacy Policy</a>.</p>
+          <sc-if value="{{ csHasError }}" hint-placeholder-val="{{ false }}">
+            <p role="alert" style="margin:0;grid-column:1/-1;font-size:14px;color:#f0a58a">{{ csError }}</p>
+          </sc-if>
+          <button type="submit" disabled="{{ csSending }}" style="all:unset;box-sizing:border-box;cursor:pointer;grid-column:1/-1;text-align:center;background:#9fdc6f;color:#0f1a0a;padding:16px;border-radius:999px;font-weight:700;font-size:16px;opacity:{{ csBtnOpacity }}" style-hover="background:#b8ea8f" style-focus-visible="outline:2px solid #eef2e8;outline-offset:3px">{{ csBtnLabel }}</button>
+        </form>
+      </sc-if>
+
+      <sc-if value="{{ csDone }}" hint-placeholder-val="{{ false }}">
+        <div role="status" style="display:flex;flex-direction:column;gap:14px;align-items:flex-start">
+          <p style="margin:0;font-size:22px;font-weight:700">Thanks, we got your request.</p>
+          <p style="margin:0;font-size:16px;color:#b6bfae">We'll reply within 1 business day.</p>
+          <sc-if value="{{ csHasMeeting }}" hint-placeholder-val="{{ false }}">
+            <a href="{{ csMeetingUrl }}" target="_blank" rel="noopener" style="background:#9fdc6f;color:#0f1a0a;padding:14px 24px;border-radius:999px;font-weight:700;font-size:16px" style-hover="background:#b8ea8f;color:#0f1a0a">Book a meeting</a>
+          </sc-if>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</sc-if>
+
 <section id="tour" style="position:relative;height:{{ tourHeight }};background-color:#10140f;background-image:radial-gradient(rgba(170,200,150,.12) 1px,transparent 1.3px);background-size:28px 28px">
   <div style="position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden">
     <div style="max-width:1320px;margin:0 auto;padding:84px 24px 16px;width:100%;height:100%;display:flex;flex-wrap:wrap;gap:16px 40px;align-items:center;align-content:center">
@@ -567,7 +629,7 @@ a:hover{color:#9fdc6f}
         <span>✓ VPC, on-prem or dedicated runtime</span>
         <span>✓ SSO, audit logs, support SLA</span>
       </div>
-      <a href="mailto:sales@flowstudio-ai.com" style="margin-top:auto;text-align:center;background:#9fdc6f;color:#0f1a0a;padding:16px;border-radius:999px;font-weight:700;font-size:16px" style-hover="background:#b8ea8f;color:#0f1a0a">Talk to us</a>
+      <button type="button" onClick="{{ openSales }}" style="all:unset;box-sizing:border-box;cursor:pointer;margin-top:auto;text-align:center;background:#9fdc6f;color:#0f1a0a;padding:16px;border-radius:999px;font-weight:700;font-size:16px" style-hover="background:#b8ea8f;color:#0f1a0a" style-focus-visible="outline:2px solid #eef2e8;outline-offset:3px">Talk to us</button>
     </div>
   </div>
 </section>
@@ -826,7 +888,7 @@ class Component extends DCLogic {
   ];
   static BRAINS = [['Claude', 'careful thinker'], ['GPT', 'all-rounder'], ['Llama', 'open & fast']];
 
-  state = { step: 0, walking: false, flip: false, brain: 'Claude', job: 'support', tools: ['zendesk', 'slack', 'notion'], alive: false, alivePose: 'jump', pat: 'sequential', patWalk: false, patUser: false, tp: 'weather', tPhase: 'idle', tN: 0, tTab: 'code', tMsgs: [{ who: 'bot', text: Component.T_WELCOME }], tVals: {}, tEnv: {}, tTest: 'idle', tLog: [], tOut: '', tJump: false, mkt: 'agents', demoOpen: false, demoAt: 0, demoKey: 0 };
+  state = { step: 0, walking: false, flip: false, brain: 'Claude', job: 'support', tools: ['zendesk', 'slack', 'notion'], alive: false, alivePose: 'jump', pat: 'sequential', patWalk: false, patUser: false, tp: 'weather', tPhase: 'idle', tN: 0, tTab: 'code', tMsgs: [{ who: 'bot', text: Component.T_WELCOME }], tVals: {}, tEnv: {}, tTest: 'idle', tLog: [], tOut: '', tJump: false, mkt: 'agents', demoOpen: false, demoAt: 0, demoKey: 0, csOpen: false, csStatus: 'idle', csError: '', csV: { firstname: '', lastname: '', email: '', company: '', team_size: '', automate: '', website: '' } };
   tourRef = React.createRef();
 
   // Demo video: unlisted YouTube upload, played via youtube-nocookie.com.
@@ -836,7 +898,72 @@ class Component extends DCLogic {
   openDemo = () => { this.demoLastFocus = document.activeElement; document.body.style.overflow = 'hidden'; this.setState(x => ({ demoOpen: true, demoAt: 0, demoKey: x.demoKey + 1 })); };
   closeDemo = () => { document.body.style.overflow = ''; this.setState({ demoOpen: false }); if (this.demoLastFocus && this.demoLastFocus.focus) this.demoLastFocus.focus(); };
   seekDemo = (t) => this.setState(x => ({ demoAt: t, demoKey: x.demoKey + 1 }));
-  onDemoKey = (e) => { if (e.key === 'Escape' && this.state.demoOpen) this.closeDemo(); };
+  onDemoKey = (e) => {
+    if (e.key !== 'Escape') return;
+    if (this.state.demoOpen) this.closeDemo();
+    if (this.state.csOpen) this.closeSales();
+  };
+
+  // Contact sales: our own form, sent to a HubSpot form (CRM, alerts, meeting booking).
+  // Portal and form IDs are public by design. TODO before go-live: switch to the real
+  // FlowStudio HubSpot account and set SALES_MEETING_URL.
+  static HS_PORTAL_ID = '149798781';
+  static HS_FORM_ID = 'ad22315b-3b09-4f4a-9015-62a8eb638247';
+  static HS_API = 'https://api-eu1.hsforms.com';
+  static SALES_MEETING_URL = '';
+
+  // Hands events to Google Tag Manager once it is installed; harmless until then.
+  trackEvent(event, props) { (window.dataLayer = window.dataLayer || []).push({ event, ...props }); }
+
+  openSales = () => {
+    this.salesLastFocus = document.activeElement; this.salesOpenedAt = Date.now();
+    document.body.style.overflow = 'hidden';
+    this.setState(x => ({ csOpen: true, csError: '', csStatus: x.csStatus === 'done' ? 'idle' : x.csStatus }));
+    this.trackEvent('contact_sales_opened');
+    setTimeout(() => { const f = document.getElementById('cs-firstname'); if (f) f.focus(); }, 50);
+  };
+  closeSales = () => {
+    document.body.style.overflow = ''; this.setState({ csOpen: false });
+    if (this.salesLastFocus && this.salesLastFocus.focus) this.salesLastFocus.focus();
+  };
+  submitSales = async (e) => {
+    e.preventDefault();
+    const C = Component, v = this.state.csV, t = k => (v[k] || '').trim();
+    if (this.state.csStatus === 'sending') return;
+    // Spam guard: people never fill the hidden field, and take more than 3 seconds.
+    if (t('website') || Date.now() - (this.salesOpenedAt || 0) < 3000) { this.setState({ csStatus: 'done' }); return; }
+    if (!t('firstname') || !t('email') || !t('company')) return this.setState({ csError: 'Please fill in your first name, work email and company.' });
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(t('email'))) return this.setState({ csError: 'Please enter a valid email address, like name@company.com.' });
+
+    const fields = [['firstname', 'firstname'], ['lastname', 'lastname'], ['email', 'email'], ['company', 'company'],
+      ['team_size', 'team_size'], ['what_do_you_want_to_automate', 'automate']]
+      .filter(([, k]) => t(k)).map(([name, k]) => ({ objectTypeId: '0-1', name, value: t(k) }));
+    this.setState({ csStatus: 'sending', csError: '' });
+    try {
+      const res = await fetch(`${C.HS_API}/submissions/v3/integration/submit/${C.HS_PORTAL_ID}/${C.HS_FORM_ID}`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fields, context: { pageUri: location.href, pageName: document.title } })
+      });
+      if (!res.ok) throw new Error('HubSpot ' + res.status);
+      this.trackEvent('contact_sales_submitted', { team_size: t('team_size') || 'not given' });
+      this.setState({ csStatus: 'done', csV: { firstname: '', lastname: '', email: '', company: '', team_size: '', automate: '', website: '' } });
+    } catch (err) {
+      this.setState({ csStatus: 'idle', csError: "We couldn't send your request. Please try again, or email hello@flowstudio-ai.com." });
+    }
+  };
+  csVals() {
+    const s = this.state, C = Component;
+    const csSet = {};
+    Object.keys(s.csV).forEach(k => { csSet[k] = e => { const val = e.target.value; this.setState(x => ({ csV: { ...x.csV, [k]: val } })); }; });
+    return {
+      csOpen: s.csOpen, csV: s.csV, csSet,
+      csShowForm: s.csStatus !== 'done', csDone: s.csStatus === 'done',
+      csSending: s.csStatus === 'sending', csBtnLabel: s.csStatus === 'sending' ? 'Sending…' : 'Send request', csBtnOpacity: s.csStatus === 'sending' ? .6 : 1,
+      csHasError: !!s.csError, csError: s.csError,
+      csHasMeeting: !!C.SALES_MEETING_URL, csMeetingUrl: C.SALES_MEETING_URL || '#',
+      openSales: this.openSales, closeSales: this.closeSales, submitSales: this.submitSales
+    };
+  }
 
   demoVals() {
     const C = Component, h = React.createElement, s = this.state, fmt = t => Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0');
@@ -870,6 +997,7 @@ class Component extends DCLogic {
     window.addEventListener('hashchange', this.goHash);
     window.addEventListener('keydown', this.onDemoKey);
     if (location.hash === '#demo') this.openDemo();
+    if (location.hash === '#contact-sales') this.openSales();
     this.pi = setInterval(() => { if (this.state.patUser) return; const O = Component.PAT_ORDER; this.setPat(O[(O.indexOf(this.state.pat) + 1) % O.length]); }, 6500);
   }
   componentWillUnmount() { window.removeEventListener('scroll', this.onScroll); window.removeEventListener('resize', this.onScroll); clearTimeout(this.wt); clearTimeout(this.at); clearTimeout(this.pw); clearInterval(this.pi); this.tClear(); (this.ht || []).forEach(clearTimeout); window.removeEventListener('hashchange', this.goHash); window.removeEventListener('keydown', this.onDemoKey); document.body.style.overflow = ''; clearInterval(this.mp); }
@@ -993,6 +1121,7 @@ class Component extends DCLogic {
       ...this.patVals(),
       ...this.toolVals(),
       ...this.demoVals(),
+      ...this.csVals(),
       openDemo: this.openDemo, closeDemo: this.closeDemo, stopProp: e => e.stopPropagation(),
       commMarquee: this._mq || (this._mq = Component.marquee()),
       signinDisplay: s.sm ? 'none' : 'block',
