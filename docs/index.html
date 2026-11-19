@@ -128,6 +128,7 @@ a:hover{color:#9fdc6f}
 /* Contact sales pop-up */
 @keyframes csDraw{to{stroke-dashoffset:0}}
 @keyframes csFlow{to{background-position:24px 0}}
+@keyframes csSay{from{opacity:0;transform:translateY(6px) scale(.9)}to{opacity:1;transform:none}}
 @keyframes csIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @keyframes csRing{0%{box-shadow:0 0 0 0 rgba(159,220,111,.5)}100%{box-shadow:0 0 0 9px rgba(159,220,111,0)}}
 .cs-shell{position:relative;margin:auto 0;width:100%;max-width:940px;display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);border-radius:28px;overflow:hidden;color:#eef2e8;background:radial-gradient(520px 320px at 0% 0%,rgba(159,220,111,.09),transparent 65%),#10140f;border:1px solid rgba(255,255,255,.08);box-shadow:0 60px 120px -40px rgba(0,0,0,.9);animation:fsPopSide .3s ease-out both}
@@ -141,9 +142,9 @@ a:hover{color:#9fdc6f}
 .cs-title em{font-style:normal;color:#9fdc6f}
 .cs-sub{margin:0;font-size:15px;line-height:1.55;color:#b6bfae;max-width:32ch}
 .cs-stage{margin-top:auto;display:flex;flex-direction:column;gap:4px}
-.cs-track{position:relative;height:92px}
+.cs-track{position:relative;height:138px}
 .cs-bot{position:absolute;bottom:0;width:78px;margin-left:-33px;cursor:pointer;transition:left .85s cubic-bezier(.45,0,.25,1)}
-.cs-flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.cs-flow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
 .cs-step{all:unset;box-sizing:border-box;cursor:pointer;position:relative;display:flex;flex-direction:column;gap:8px;padding:0 8px 4px 0;border-radius:8px}
 .cs-step:not(:last-child)::after{content:"";position:absolute;left:17px;right:6px;top:5px;height:1px;background:rgba(255,255,255,.14)}
 .cs-step.is-done:not(:last-child)::after{height:2px;top:4.5px;background:repeating-linear-gradient(90deg,#9fdc6f 0 6px,transparent 6px 12px);background-size:24px 2px;animation:csFlow .7s linear infinite}
@@ -156,14 +157,11 @@ a:hover{color:#9fdc6f}
 .cs-step:hover .cs-flow-label,.cs-step.is-current .cs-flow-label{color:#eef2e8}
 .cs-step.is-current .cs-flow-hint{color:#9fdc6f}
 .cs-step:focus-visible{outline:2px solid #9fdc6f;outline-offset:4px}
+.cs-say{position:absolute;left:14px;bottom:calc(100% + 10px);width:max-content;max-width:210px;background:#9fdc6f;color:#0f1a0a;font-size:13.5px;font-weight:600;line-height:1.3;padding:8px 12px;border-radius:12px;transform-origin:20% 100%;animation:csSay .3s ease-out both;pointer-events:none}
+.cs-say::after{content:"";position:absolute;left:16px;bottom:-5px;width:10px;height:10px;background:#9fdc6f;transform:rotate(45deg);border-radius:2px}
 .cs-view{display:flex;flex-direction:column;gap:18px;animation:csIn .35s ease-out both}
 .cs-view-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#9fdc6f}
 .cs-view-title{margin:0;padding-right:48px;font-weight:800;font-size:clamp(24px,2.6vw,30px);line-height:1.08;letter-spacing:-.035em;text-wrap:balance}
-.cs-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px}
-.cs-list li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:2px 10px}
-.cs-list li::before{content:"";grid-row:1/3;width:8px;height:8px;margin-top:7px;border-radius:50%;background:#9fdc6f;box-shadow:0 0 0 4px rgba(159,220,111,.14)}
-.cs-list b{font-weight:600;font-size:16px}
-.cs-list span{grid-column:2;font-size:14.5px;color:#b6bfae}
 .cs-note{margin:0;font-size:15px;color:#b6bfae;max-width:44ch}
 .cs-cal{border:1px solid rgba(255,255,255,.1);border-radius:16px;overflow:hidden;background:#fff}
 .cs-cal iframe{display:block;width:100%;height:560px;border:0}
@@ -223,7 +221,7 @@ a:hover{color:#9fdc6f}
   .cs-lede{margin-right:0}
 }
 @media (max-width:480px){.cs-form{grid-template-columns:minmax(0,1fr)}}
-@media (prefers-reduced-motion:reduce){.cs-shell,.cs-check,.cs-check path,.cs-step.is-current .cs-dot,.cs-step.is-done::after,.cs-view,.cs-bot *{animation:none!important}.cs-bot{transition:none}.cs-check path{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.cs-shell,.cs-check,.cs-check path,.cs-say,.cs-step.is-current .cs-dot,.cs-step.is-done::after,.cs-view,.cs-bot *{animation:none!important}.cs-bot{transition:none}.cs-check path{stroke-dashoffset:0}}
 </style>
 </helmet>
 
@@ -323,10 +321,10 @@ a:hover{color:#9fdc6f}
         </div>
         <div class="cs-stage">
           <div class="cs-track" aria-hidden="true">
-            <div class="cs-bot" style="left:{{ csBotLeft }}" onMouseEnter="{{ csBotHop }}" onClick="{{ csBotHop }}">{{ csBot }}</div>
+            <div class="cs-bot" style="left:{{ csBotLeft }}" onMouseEnter="{{ csBotHop }}" onClick="{{ csBotHop }}">{{ csSay }}{{ csBot }}</div>
           </div>
           <div class="cs-flow" role="tablist" aria-label="What happens next">
-            <sc-for list="{{ csSteps }}" as="st" hint-placeholder-count="3">
+            <sc-for list="{{ csSteps }}" as="st" hint-placeholder-count="2">
               <button type="button" role="tab" class="{{ st.cls }}" aria-selected="{{ st.selected }}" onClick="{{ st.onClick }}"><span class="cs-dot"></span><span class="cs-flow-label">{{ st.label }}</span><span class="cs-flow-hint">{{ st.hint }}</span></button>
             </sc-for>
           </div>
@@ -338,19 +336,19 @@ a:hover{color:#9fdc6f}
           <p class="cs-lede">Tell us about your team. We reply within 1 business day.</p>
           <form class="cs-form" onSubmit="{{ submitSales }}">
             <div class="cs-field">
-              <input id="cs-firstname" placeholder=" " value="{{ csV.firstname }}" onChange="{{ csSet.firstname }}" autocomplete="given-name">
+              <input id="cs-firstname" placeholder=" " value="{{ csV.firstname }}" onChange="{{ csSet.firstname }}" onFocus="{{ csFoc.who }}" onBlur="{{ csFoc.none }}" autocomplete="given-name">
               <label for="cs-firstname">First name *</label>
             </div>
             <div class="cs-field">
-              <input id="cs-lastname" placeholder=" " value="{{ csV.lastname }}" onChange="{{ csSet.lastname }}" autocomplete="family-name">
+              <input id="cs-lastname" placeholder=" " value="{{ csV.lastname }}" onChange="{{ csSet.lastname }}" onFocus="{{ csFoc.who }}" onBlur="{{ csFoc.none }}" autocomplete="family-name">
               <label for="cs-lastname">Last name</label>
             </div>
             <div class="cs-field">
-              <input id="cs-email" type="email" placeholder=" " value="{{ csV.email }}" onChange="{{ csSet.email }}" autocomplete="email">
+              <input id="cs-email" type="email" placeholder=" " value="{{ csV.email }}" onChange="{{ csSet.email }}" onFocus="{{ csFoc.who }}" onBlur="{{ csFoc.none }}" autocomplete="email">
               <label for="cs-email">Work email *</label>
             </div>
             <div class="cs-field">
-              <input id="cs-company" placeholder=" " value="{{ csV.company }}" onChange="{{ csSet.company }}" autocomplete="organization">
+              <input id="cs-company" placeholder=" " value="{{ csV.company }}" onChange="{{ csSet.company }}" onFocus="{{ csFoc.who }}" onBlur="{{ csFoc.none }}" autocomplete="organization">
               <label for="cs-company">Company *</label>
             </div>
 
@@ -365,7 +363,7 @@ a:hover{color:#9fdc6f}
 
             <div class="cs-group cs-full">
               <div class="cs-field">
-                <textarea id="cs-automate" placeholder=" " value="{{ csV.automate }}" onChange="{{ csSet.automate }}" rows="2"></textarea>
+                <textarea id="cs-automate" placeholder=" " value="{{ csV.automate }}" onChange="{{ csSet.automate }}" onFocus="{{ csFoc.what }}" onBlur="{{ csFoc.none }}" rows="2"></textarea>
                 <label for="cs-automate">What do you want to automate?</label>
               </div>
               <div class="cs-try"><span>Try</span>
@@ -390,22 +388,9 @@ a:hover{color:#9fdc6f}
           </form>
         </sc-if>
 
-        <sc-if value="{{ csReply }}" hint-placeholder-val="{{ false }}">
-          <div class="cs-view">
-            <div class="cs-view-eyebrow">Step 2 · Reply</div>
-            <h3 class="cs-view-title">A real person replies within 1 business day.</h3>
-            <ul class="cs-list">
-              <li><b>We read your request</b><span>Your team, your tools and what you want to automate.</span></li>
-              <li><b>We reply by email</b><span>With answers and a suggested next step.</span></li>
-              <li><b>We plan it together</b><span>A call, a pilot or a plan shaped around your team.</span></li>
-            </ul>
-            <div class="cs-row"><button type="button" class="cs-submit" onClick="{{ csReplyGo }}">{{ csReplyCta }} <span aria-hidden="true">→</span></button></div>
-          </div>
-        </sc-if>
-
         <sc-if value="{{ csCall }}" hint-placeholder-val="{{ false }}">
           <div class="cs-view">
-            <div class="cs-view-eyebrow">Step 3 · Call</div>
+            <div class="cs-view-eyebrow">Step 2 · Call</div>
             <h3 class="cs-view-title">Book a call with our team.</h3>
             <p class="cs-note">{{ csCallNote }}</p>
             <sc-if value="{{ csHasMeeting }}" hint-placeholder-val="{{ false }}">
@@ -1050,7 +1035,7 @@ class Component extends DCLogic {
   ];
   static BRAINS = [['Claude', 'careful thinker'], ['GPT', 'all-rounder'], ['Llama', 'open & fast']];
 
-  state = { step: 0, walking: false, flip: false, brain: 'Claude', job: 'support', tools: ['zendesk', 'slack', 'notion'], alive: false, alivePose: 'jump', pat: 'sequential', patWalk: false, patUser: false, tp: 'weather', tPhase: 'idle', tN: 0, tTab: 'code', tMsgs: [{ who: 'bot', text: Component.T_WELCOME }], tVals: {}, tEnv: {}, tTest: 'idle', tLog: [], tOut: '', tJump: false, mkt: 'agents', demoOpen: false, demoAt: 0, demoKey: 0, csOpen: false, csStatus: 'idle', csView: 'form', csWalk: false, csFlip: false, csHop: false, csError: '', csV: { firstname: '', lastname: '', email: '', company: '', team_size: '', automate: '', website: '' } };
+  state = { step: 0, walking: false, flip: false, brain: 'Claude', job: 'support', tools: ['zendesk', 'slack', 'notion'], alive: false, alivePose: 'jump', pat: 'sequential', patWalk: false, patUser: false, tp: 'weather', tPhase: 'idle', tN: 0, tTab: 'code', tMsgs: [{ who: 'bot', text: Component.T_WELCOME }], tVals: {}, tEnv: {}, tTest: 'idle', tLog: [], tOut: '', tJump: false, mkt: 'agents', demoOpen: false, demoAt: 0, demoKey: 0, csOpen: false, csStatus: 'idle', csView: 'form', csWalk: false, csFlip: false, csHop: false, csFocus: '', csError: '', csV: { firstname: '', lastname: '', email: '', company: '', team_size: '', automate: '', website: '' } };
   tourRef = React.createRef();
 
   // Demo video: unlisted YouTube upload, played via youtube-nocookie.com.
@@ -1080,7 +1065,8 @@ class Component extends DCLogic {
   openSales = () => {
     this.salesLastFocus = document.activeElement; this.salesOpenedAt = Date.now();
     document.body.style.overflow = 'hidden';
-    this.setState(x => ({ csOpen: true, csError: '', csView: 'form', csWalk: false, csFlip: false, csStatus: x.csStatus === 'done' ? 'idle' : x.csStatus }));
+    this.setState(x => ({ csOpen: true, csError: '', csView: 'form', csWalk: false, csFlip: false, csGreet: true, csStatus: x.csStatus === 'done' ? 'idle' : x.csStatus }));
+    clearTimeout(this.csGreetT); this.csGreetT = setTimeout(() => this.setState({ csGreet: false }), 2200);
     this.trackEvent('contact_sales_opened');
     setTimeout(() => { const f = document.getElementById('cs-firstname'); if (f) f.focus(); }, 50);
   };
@@ -1114,9 +1100,9 @@ class Component extends DCLogic {
       this.setState({ csStatus: 'idle', csError: "We couldn't send your request. Please try again, or email hello@flowstudio-ai.com." });
     }
   };
-  // Side-panel steps work as tabs: Request (the form), Reply (what happens next), Call (booking).
-  static CS_STEPS = [{ key: 'form', label: 'Request', hint: 'Tell us' }, { key: 'reply', label: 'Reply', hint: 'By email' }, { key: 'call', label: 'Call', hint: 'Pick a time' }];
-  csStepIndex(view) { return view === 'reply' ? 1 : view === 'call' ? 2 : 0; }
+  // Side-panel steps work as tabs: Request (the form) and Call (booking).
+  static CS_STEPS = [{ key: 'form', label: 'Request', hint: 'Tell us' }, { key: 'call', label: 'Call', hint: 'Pick a time' }];
+  csStepIndex(view) { return view === 'call' ? 1 : 0; }
   goSalesStep = (key) => {
     const s = this.state, view = key === 'form' && s.csStatus === 'done' ? 'done' : key;
     if (view === s.csView) return;
@@ -1131,28 +1117,37 @@ class Component extends DCLogic {
     clearTimeout(this.csHopT); this.setState({ csHop: true });
     this.csHopT = setTimeout(() => this.setState({ csHop: false }), typeof ms === 'number' ? ms : 900);
   };
-  // The brand robot walks to the chosen step and acts it out: waves, works while you type,
-  // holds your request on Reply, points at the calendar on Call, and cheers when it's sent.
+  // The brand robot walks to the chosen step, acts out what the visitor is doing and says so.
   csCrewVals() {
-    const s = this.state, v = s.csV;
-    const typing = ['firstname', 'lastname', 'email', 'company', 'automate'].some(k => (v[k] || '').trim());
-    const pose = s.csWalk ? 'walk' : s.csHop ? 'jump' : s.csView === 'done' ? 'happy' : s.csView === 'reply' ? 'hold' : s.csView === 'call' ? 'point' : typing ? 'work' : 'wave';
+    const s = this.state, h = React.createElement, sending = s.csStatus === 'sending';
+    const [say, pose, hold] =
+      s.csWalk ? [s.csView === 'call' ? "Let's find a time!" : 'Back to your request!', 'walk']
+      : sending ? ['Delivering to our team…', 'walk', 'doc']
+      : s.csView === 'done' ? ['Delivered! Our team has it.', s.csHop ? 'jump' : 'happy']
+      : s.csView === 'call' ? ["Let's find a time!", 'point']
+      : s.csHop ? ['Hey there!', 'jump']
+      : s.csGreet ? ['Hi! Tell me about your team.', 'wave']
+      : s.csFocus === 'what' ? ["Ooh, cool! I'm taking notes.", 'hold', 'doc']
+      : s.csFocus === 'who' ? ['Let me get to know you!', 'wave']
+      : ['Hi! Tell me about your team.', 'wave'];
     return {
-      csBot: React.createElement(Component.Robot, { c: 'green', pose, hold: s.csView === 'reply' && !s.csWalk ? 'doc' : undefined, flip: s.csFlip }),
-      csBotLeft: (this.csStepIndex(s.csView) * 33.333) + '%',
+      csSay: h('div', { key: say, className: 'cs-say' }, say),
+      csBot: h(Component.Robot, { c: 'green', pose, hold, flip: s.csFlip }),
+      csBotLeft: (this.csStepIndex(s.csView) * 50) + '%',
       csBotHop: this.hopSalesBot
     };
   }
   csVals() {
     const s = this.state, C = Component;
     const csSet = {};
-    Object.keys(s.csV).forEach(k => { csSet[k] = e => { const val = e.target.value; this.setState(x => ({ csV: { ...x.csV, [k]: val } })); }; });
+    Object.keys(s.csV).forEach(k => { csSet[k] = e => { const val = e.target.value; this.setState(x => ({ csGreet: false, csV: { ...x.csV, [k]: val } })); }; });
     const setV = (k, val) => this.setState(x => ({ csV: { ...x.csV, [k]: val } }));
     const done = s.csStatus === 'done';
     const cur = this.csStepIndex(s.csView);
     return {
       csOpen: s.csOpen, csV: s.csV, csSet,
-      csShowForm: s.csView === 'form', csDone: s.csView === 'done', csReply: s.csView === 'reply', csCall: s.csView === 'call',
+      csShowForm: s.csView === 'form', csDone: s.csView === 'done', csCall: s.csView === 'call',
+      csFoc: { who: () => this.setState({ csFocus: 'who' }), what: () => this.setState({ csFocus: 'what', csGreet: false }), none: () => this.setState({ csFocus: '' }) },
       csSending: s.csStatus === 'sending', csBtnLabel: s.csStatus === 'sending' ? 'Sending…' : 'Send request',
       csHasError: !!s.csError, csError: s.csError,
       csHasMeeting: !!C.SALES_MEETING_URL, csNoMeeting: !C.SALES_MEETING_URL,
@@ -1162,7 +1157,6 @@ class Component extends DCLogic {
         ? "Pick a free time from our team's calendar below. You'll get a calendar invite by email."
         : done ? "Online booking isn't open yet. We'll email you a few times that suit our team, and you pick one."
                : "Online booking isn't open yet. Send your request and we'll email you a few times that suit our team.",
-      csReplyCta: done ? 'Book a call' : 'Start your request', csReplyGo: () => this.goSalesStep(done ? 'call' : 'form'),
       csToForm: () => this.goSalesStep('form'), csToCall: () => this.goSalesStep('call'),
       csThanksName: s.csName ? ', ' + s.csName : '',
       ...this.csCrewVals(),
@@ -1170,7 +1164,7 @@ class Component extends DCLogic {
       csSteps: C.CS_STEPS.map((st, i) => ({ label: st.label, hint: st.hint, selected: i === cur ? 'true' : 'false',
         cls: 'cs-step' + (done && i === 0 ? ' is-done' : '') + (i === cur ? ' is-current' : ''), onClick: () => this.goSalesStep(st.key) })),
       csTeams: ['1–10', '11–50', '51–200', '200+'].map(label => ({ label, pressed: s.csV.team_size === label ? 'true' : 'false',
-        onClick: () => setV('team_size', s.csV.team_size === label ? '' : label) })),
+        onClick: () => { setV('team_size', s.csV.team_size === label ? '' : label); this.setState({ csFocus: 'who', csGreet: false }); } })),
       csIdeas: ['Support tickets', 'Competitor research', 'Weekly reports', 'Lead qualification'].map(label => ({ label,
         onClick: () => { const cur = s.csV.automate.trim(); if (cur.toLowerCase().includes(label.toLowerCase())) return;
           setV('automate', cur ? cur + ', ' + label.toLowerCase() : label); const ta = document.getElementById('cs-automate'); if (ta) ta.focus(); } })),
