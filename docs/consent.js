@@ -16,7 +16,7 @@
 
   /* ---------- Settings ---------- */
   // Public PostHog project key (safe to publish). Empty = PostHog is not loaded at all.
-  var POSTHOG_KEY = window.FS_POSTHOG_KEY || '';
+  var POSTHOG_KEY = window.FS_POSTHOG_KEY || 'phc_uHQssm9rB2uHFsaFNvW6spf5xKVD4ouEjXJKX7GTuVkD';
   var POSTHOG_HOST = 'https://eu.i.posthog.com';
   // Bump when the privacy policy or the cookie list changes: everyone is asked again.
   var CONSENT_REVISION = 1;
