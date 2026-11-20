@@ -1095,7 +1095,7 @@ class Component extends DCLogic {
   static DEMO_YT_ID = 'NRExiACTdUU';
   static DEMO_CHAPTERS = [[0, 'Intro'], [13, 'Sign up'], [27, 'Agents & Workflows'], [65, 'Tools & MCP'], [85, 'Data sources'], [102, 'Triggers & Dashboard'], [124, 'Get started']];
 
-  openDemo = () => { this.demoLastFocus = document.activeElement; document.body.style.overflow = 'hidden'; this.setState(x => ({ demoOpen: true, demoAt: 0, demoKey: x.demoKey + 1 })); };
+  openDemo = () => { this.demoLastFocus = document.activeElement; document.body.style.overflow = 'hidden'; this.setState(x => ({ demoOpen: true, demoAt: 0, demoKey: x.demoKey + 1 })); this.trackEvent('demo_opened'); };
   closeDemo = () => { document.body.style.overflow = ''; this.setState({ demoOpen: false }); if (this.demoLastFocus && this.demoLastFocus.focus) this.demoLastFocus.focus(); };
   seekDemo = (t) => this.setState(x => ({ demoAt: t, demoKey: x.demoKey + 1 }));
   onDemoKey = (e) => {
@@ -1126,8 +1126,13 @@ class Component extends DCLogic {
   // Team size: site label → HubSpot dropdown option internal name (Settings → Properties → Team size).
   static HS_TEAM_SIZE = { '1–10': '1_10', '11–50': '11_50', '51–200': '51_200', '200+': '200_plus' };
 
-  // Hands events to Google Tag Manager once it is installed; harmless until then.
-  trackEvent(event, props) { (window.dataLayer = window.dataLayer || []).push({ event, ...props }); }
+  // Named events for marketing: to Google Tag Manager (once installed) and to PostHog.
+  // PostHog follows the cookie choice in consent.js: full tracking after Accept, anonymous counting after Reject.
+  // Never pass names, emails or other personal details here.
+  trackEvent(event, props) {
+    (window.dataLayer = window.dataLayer || []).push({ event, ...props });
+    if (window.posthog && window.posthog.capture) window.posthog.capture(event, props || {});
+  }
 
   openSales = () => {
     this.salesLastFocus = document.activeElement; this.salesOpenedAt = Date.now();
