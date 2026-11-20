@@ -58,7 +58,7 @@
 #cc-main .pm__table-td,#cc-main .pm__table-th{padding:.7em .8em .7em 0;vertical-align:top;overflow-wrap:anywhere}
 #cc-main .pm__table-td:first-child{font-family:'JetBrains Mono',monospace;font-size:.82em;color:#9fdc6f;width:38%}
 #cc-main .pm__table-th:first-child{width:38%}
-#cc-main .pm__table-th:first-child,#cc-main .pm__table-td:first-child{padding-left:1.1em}
+#cc-main .pm__table-th:first-child,#cc-main .pm__table-td:first-child{padding-left:16px}
 @media (max-width:640px){
   #cc-main .pm__table-tr{padding:.6em 1.1em}
   #cc-main .pm__table-td,#cc-main .pm__table-td:first-child{width:auto;padding-top:.25em;padding-bottom:.25em}
