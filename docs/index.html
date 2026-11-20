@@ -1063,6 +1063,8 @@ class Component extends DCLogic {
   static HS_FORM_ID = 'ad22315b-3b09-4f4a-9015-62a8eb638247';
   static HS_API = 'https://api-eu1.hsforms.com';
   static SALES_MEETING_URL = '';
+  // Team size: site label → HubSpot dropdown option internal name (Settings → Properties → Team size).
+  static HS_TEAM_SIZE = { '1–10': '1_10', '11–50': '11_50', '51–200': '51_200', '200+': '200_' };
 
   // Hands events to Google Tag Manager once it is installed; harmless until then.
   trackEvent(event, props) { (window.dataLayer = window.dataLayer || []).push({ event, ...props }); }
@@ -1090,7 +1092,9 @@ class Component extends DCLogic {
 
     const fields = [['firstname', 'firstname'], ['lastname', 'lastname'], ['email', 'email'], ['company', 'company'],
       ['team_size', 'team_size'], ['what_do_you_want_to_automate', 'automate']]
-      .filter(([, k]) => t(k)).map(([name, k]) => ({ objectTypeId: '0-1', name, value: t(k) }));
+      .filter(([, k]) => t(k))
+      // Dropdowns must send HubSpot's internal option name (e.g. "1_10"), not the label shown on the site ("1–10").
+      .map(([name, k]) => ({ objectTypeId: '0-1', name, value: name === 'team_size' ? (C.HS_TEAM_SIZE[t(k)] || t(k)) : t(k) }));
     this.setState({ csStatus: 'sending', csError: '' });
     try {
       const res = await fetch(`${C.HS_API}/submissions/v3/integration/submit/${C.HS_PORTAL_ID}/${C.HS_FORM_ID}`, {
