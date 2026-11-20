@@ -17,7 +17,8 @@
   /* ---------- Settings ---------- */
   // Public PostHog project key (safe to publish). Empty = PostHog is not loaded at all.
   var POSTHOG_KEY = window.FS_POSTHOG_KEY || 'phc_uHQssm9rB2uHFsaFNvW6spf5xKVD4ouEjXJKX7GTuVkD';
-  var POSTHOG_HOST = 'https://eu.i.posthog.com';
+  // Must match the project's region: us.i.posthog.com (US) or eu.i.posthog.com (EU). The TEST project is US.
+  var POSTHOG_HOST = 'https://us.i.posthog.com';
   // Bump when the privacy policy or the cookie list changes: everyone is asked again.
   var CONSENT_REVISION = 1;
   // Share the choice with app.flowstudio-ai.com; fall back to the current host when testing locally.
