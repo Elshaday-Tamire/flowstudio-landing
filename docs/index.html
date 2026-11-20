@@ -1087,7 +1087,12 @@ class Component extends DCLogic {
     if (this.state.csStatus === 'sending') return;
     // Spam guard: people never fill the hidden field, and take more than 3 seconds.
     if (t('website') || Date.now() - (this.salesOpenedAt || 0) < 3000) { this.setState({ csStatus: 'done', csView: 'done' }); return; }
-    if (!t('firstname') || !t('email') || !t('company')) return this.setState({ csError: 'Please fill in your first name, work email and company.' });
+    const missing = [['firstname', 'first name'], ['email', 'work email'], ['company', 'company']].filter(([k]) => !t(k)).map(([, label]) => label);
+    if (missing.length) {
+      const list = missing.length === 1 ? missing[0] : missing.slice(0, -1).join(', ') + ' and ' + missing[missing.length - 1];
+      document.getElementById('cs-' + (t('firstname') ? (t('email') ? 'company' : 'email') : 'firstname'))?.focus();
+      return this.setState({ csError: 'Please fill in your ' + list + '.' });
+    }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(t('email'))) return this.setState({ csError: 'Please enter a valid email address, like name@company.com.' });
 
     const fields = [['firstname', 'firstname'], ['lastname', 'lastname'], ['email', 'email'], ['company', 'company'],
