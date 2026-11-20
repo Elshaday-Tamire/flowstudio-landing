@@ -1062,7 +1062,7 @@ class Component extends DCLogic {
   static HS_PORTAL_ID = '149798781';
   static HS_FORM_ID = 'ad22315b-3b09-4f4a-9015-62a8eb638247';
   static HS_API = 'https://api-eu1.hsforms.com';
-  static SALES_MEETING_URL = '';
+  static SALES_MEETING_URL = 'https://meetings-eu1.hubspot.com/yosef-numlock'; // TEST booking page; swap for the marketing manager's before go-live
   // Team size: site label → HubSpot dropdown option internal name (Settings → Properties → Team size).
   static HS_TEAM_SIZE = { '1–10': '1_10', '11–50': '11_50', '51–200': '51_200', '200+': '200_plus' };
 
@@ -1109,7 +1109,9 @@ class Component extends DCLogic {
       if (!res.ok) throw new Error('HubSpot ' + res.status);
       this.trackEvent('contact_sales_submitted', { team_size: t('team_size') || 'not given' });
       this.hopSalesBot(1400);
-      this.setState({ csStatus: 'done', csView: 'done', csName: t('firstname'), csV: { firstname: '', lastname: '', email: '', company: '', team_size: '', automate: '', website: '' } });
+      this.setState({ csStatus: 'done', csView: 'done', csName: t('firstname'),
+        // Kept only in memory, so the booking calendar can be pre-filled.
+        csBooker: { firstname: t('firstname'), lastname: t('lastname'), email: t('email') }, csV: { firstname: '', lastname: '', email: '', company: '', team_size: '', automate: '', website: '' } });
     } catch (err) {
       this.setState({ csStatus: 'idle', csError: "We couldn't send your request. Please try again, or email hello@flowstudio-ai.com." });
     }
@@ -1165,7 +1167,8 @@ class Component extends DCLogic {
       csSending: s.csStatus === 'sending', csBtnLabel: s.csStatus === 'sending' ? 'Sending…' : 'Send request',
       csHasError: !!s.csError, csError: s.csError,
       csHasMeeting: !!C.SALES_MEETING_URL, csNoMeeting: !C.SALES_MEETING_URL,
-      csMeetingEmbed: C.SALES_MEETING_URL ? C.SALES_MEETING_URL + (C.SALES_MEETING_URL.includes('?') ? '&' : '?') + 'embed=true' : '',
+      csMeetingEmbed: C.SALES_MEETING_URL ? C.SALES_MEETING_URL + (C.SALES_MEETING_URL.includes('?') ? '&' : '?') + new URLSearchParams(
+        Object.entries({ embed: 'true', ...(s.csBooker || {}) }).filter(([, v]) => v)).toString() : '',
       csCanRequest: !done,
       csCallNote: C.SALES_MEETING_URL
         ? "Pick a free time from our team's calendar below. You'll get a calendar invite by email."
