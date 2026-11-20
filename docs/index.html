@@ -1064,7 +1064,7 @@ class Component extends DCLogic {
   static HS_API = 'https://api-eu1.hsforms.com';
   static SALES_MEETING_URL = '';
   // Team size: site label → HubSpot dropdown option internal name (Settings → Properties → Team size).
-  static HS_TEAM_SIZE = { '1–10': '1_10', '11–50': '11_50', '51–200': '51_200', '200+': '200_' };
+  static HS_TEAM_SIZE = { '1–10': '1_10', '11–50': '11_50', '51–200': '51_200', '200+': '200_plus' };
 
   // Hands events to Google Tag Manager once it is installed; harmless until then.
   trackEvent(event, props) { (window.dataLayer = window.dataLayer || []).push({ event, ...props }); }
