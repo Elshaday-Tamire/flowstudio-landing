@@ -1,0 +1,57 @@
+/* FlowStudio look for the cookie banner (overrides vendor/cookieconsent/cookieconsent.css). */
+#cc-main{
+  --cc-font-family:'Bricolage Grotesque',system-ui,sans-serif;
+  --cc-modal-border-radius:16px;
+  --cc-btn-border-radius:999px;
+  --cc-bg:#151b13;
+  --cc-primary-color:#eef2e8;
+  --cc-secondary-color:#a9b4a2;
+
+  /* Accept and Reject look the same on purpose (equal choice). */
+  --cc-btn-primary-bg:#9fdc6f;
+  --cc-btn-primary-color:#0f1a0a;
+  --cc-btn-primary-border-color:#9fdc6f;
+  --cc-btn-primary-hover-bg:#b6e98e;
+  --cc-btn-primary-hover-color:#0f1a0a;
+  --cc-btn-primary-hover-border-color:#b6e98e;
+
+  --cc-btn-secondary-bg:transparent;
+  --cc-btn-secondary-color:#eef2e8;
+  --cc-btn-secondary-border-color:rgba(238,242,232,.22);
+  --cc-btn-secondary-hover-bg:rgba(238,242,232,.08);
+  --cc-btn-secondary-hover-color:#eef2e8;
+  --cc-btn-secondary-hover-border-color:rgba(238,242,232,.4);
+
+  --cc-separator-border-color:rgba(255,255,255,.08);
+  --cc-toggle-on-bg:#9fdc6f;
+  --cc-toggle-off-bg:#4a5446;
+  --cc-toggle-on-knob-bg:#10140f;
+  --cc-toggle-off-knob-bg:#eef2e8;
+  --cc-toggle-readonly-bg:#2c3529;
+  --cc-toggle-readonly-knob-bg:#a9b4a2;
+  --cc-toggle-readonly-knob-icon-color:#2c3529;
+  --cc-section-category-border:rgba(255,255,255,.08);
+  --cc-cookie-category-block-bg:#1b2318;
+  --cc-cookie-category-block-border:rgba(255,255,255,.08);
+  --cc-cookie-category-block-hover-bg:#202a1c;
+  --cc-cookie-category-block-hover-border:rgba(255,255,255,.12);
+  --cc-cookie-category-expanded-block-bg:#1b2318;
+  --cc-cookie-category-expanded-block-hover-bg:#202a1c;
+  --cc-overlay-bg:rgba(8,10,7,.72);
+  --cc-webkit-scrollbar-bg:#2c3529;
+  --cc-webkit-scrollbar-hover-bg:#3a4536;
+  --cc-footer-bg:#10140f;
+  --cc-footer-color:#a9b4a2;
+  --cc-footer-border-color:rgba(255,255,255,.08);
+}
+#cc-main .cm,#cc-main .pm{border:1px solid rgba(255,255,255,.1);box-shadow:0 24px 60px rgba(0,0,0,.45)}
+#cc-main .cm__title,#cc-main .pm__title{letter-spacing:-.02em}
+#cc-main .cm__desc a,#cc-main .pm__section-desc a{color:#9fdc6f;text-decoration:underline;text-underline-offset:2px}
+#cc-main .pm__badge{background:rgba(159,220,111,.14);color:#9fdc6f}
+#cc-main .cm__btn,#cc-main .pm__btn{font-weight:600}
+#cc-main .cm__btn:focus-visible,#cc-main .pm__btn:focus-visible{outline:2px solid #9fdc6f;outline-offset:2px}
+/* Same width for Accept and Reject, whatever the label length. */
+@media (min-width:641px){
+#cc-main .cm .cm__btn[data-role=all],#cc-main .cm .cm__btn[data-role=necessary],
+#cc-main .pm .pm__btn[data-role=all],#cc-main .pm .pm__btn[data-role=necessary]{flex:0 0 auto;width:156px;max-width:none}
+}
