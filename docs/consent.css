@@ -2,7 +2,8 @@
 #cc-main{
   --cc-font-family:'Bricolage Grotesque',system-ui,sans-serif;
   --cc-modal-border-radius:16px;
-  --cc-btn-border-radius:999px;
+  /* The library also uses this radius for the setting blocks, so keep it small; pill buttons are set below. */
+  --cc-btn-border-radius:12px;
   --cc-bg:#151b13;
   --cc-primary-color:#eef2e8;
   --cc-secondary-color:#a9b4a2;
@@ -48,7 +49,22 @@
 #cc-main .cm__title,#cc-main .pm__title{letter-spacing:-.02em}
 #cc-main .cm__desc a,#cc-main .pm__section-desc a{color:#9fdc6f;text-decoration:underline;text-underline-offset:2px}
 #cc-main .pm__badge{background:rgba(159,220,111,.14);color:#9fdc6f}
-#cc-main .cm__btn,#cc-main .pm__btn{font-weight:600}
+#cc-main .cm__btn,#cc-main .pm__btn{font-weight:600;border-radius:999px}
+#cc-main .pm__section-desc{line-height:1.55}
+
+/* Cookie table: two clean columns that wrap, never cut off. */
+#cc-main .pm__section-table{margin-top:.9em;table-layout:fixed;width:100%}
+#cc-main .pm__table-th{font-family:'JetBrains Mono',monospace;font-size:.68em;letter-spacing:.12em;text-transform:uppercase;color:#a9b4a2;font-weight:500}
+#cc-main .pm__table-td,#cc-main .pm__table-th{padding:.7em .8em .7em 0;vertical-align:top;overflow-wrap:anywhere}
+#cc-main .pm__table-td:first-child{font-family:'JetBrains Mono',monospace;font-size:.82em;color:#9fdc6f;width:38%}
+#cc-main .pm__table-th:first-child{width:38%}
+#cc-main .pm__table-th:first-child,#cc-main .pm__table-td:first-child{padding-left:1.1em}
+@media (max-width:640px){
+  #cc-main .pm__table-tr{padding:.6em 1.1em}
+  #cc-main .pm__table-td,#cc-main .pm__table-td:first-child{width:auto;padding-top:.25em;padding-bottom:.25em}
+  #cc-main .pm__table-td:first-child{padding-left:0}
+  #cc-main .pm__table-td:before{font-family:'JetBrains Mono',monospace;font-size:.68em;letter-spacing:.12em;text-transform:uppercase;color:#a9b4a2}
+}
 #cc-main .cm__btn:focus-visible,#cc-main .pm__btn:focus-visible{outline:2px solid #9fdc6f;outline-offset:2px}
 /* Same width for Accept and Reject, whatever the label length. */
 @media (min-width:641px){

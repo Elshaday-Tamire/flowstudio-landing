@@ -101,8 +101,8 @@
         translations: {
           en: {
             consentModal: {
-              title: 'Cookies, your call.',
-              description: 'We use analytics cookies to see which pages help people and to improve FlowStudio. If you reject them, we only count visits anonymously, with no cookies. <a href="Legal.dc.html#privacy">Privacy Policy</a>',
+              title: 'We value your privacy',
+              description: 'We use cookies to enhance your browsing experience and analyze our traffic. By clicking “Accept all”, you consent to our use of cookies. If you reject them, we only count visits anonymously, with no cookies. <a href="Legal.dc.html#privacy">Privacy Policy</a>',
               acceptAllBtn: 'Accept all',
               acceptNecessaryBtn: 'Reject all',
               showPreferencesBtn: 'Manage preferences'
@@ -114,26 +114,32 @@
               savePreferencesBtn: 'Save my choice',
               closeIconLabel: 'Close',
               sections: [
-                { description: 'Choose which cookies we may use. You can change this at any time from the "Cookie settings" link at the bottom of every page.' },
+                { description: 'Choose which cookies we may use. You can change your choice anytime from “Cookie settings” at the bottom of every page.' },
                 {
                   title: 'Strictly necessary <span class="pm__badge">Always on</span>',
-                  description: 'Needed for the site to work and to remember your cookie choice.',
-                  linkedCategory: 'necessary'
+                  description: 'These keep the site working and remember your cookie choice. They can’t be turned off.',
+                  linkedCategory: 'necessary',
+                  cookieTable: {
+                    headers: { name: 'Cookie', desc: 'Purpose' },
+                    body: [
+                      { name: 'fs_consent', desc: 'Remembers your cookie choice for 6 months.' }
+                    ]
+                  }
                 },
                 {
                   title: 'Analytics',
-                  description: 'Helps us understand how visitors use the site and which campaigns bring them (PostHog, hosted in the EU). If you turn this off, we still count visits anonymously, with no cookies or stored IDs.',
+                  description: 'These help us understand how visitors use the site and which campaigns bring them, so we can improve it. We use PostHog, hosted in the EU. If you turn this off, we only count visits anonymously, with no cookies.',
                   linkedCategory: 'analytics',
                   cookieTable: {
-                    headers: { name: 'Cookie', domain: 'Domain', desc: 'Purpose' },
+                    headers: { name: 'Cookie', desc: 'Purpose' },
                     body: [
-                      { name: 'ph_*_posthog', domain: 'flowstudio-ai.com', desc: 'Remembers an anonymous visitor ID so repeat visits are counted once.' }
+                      { name: 'ph_…_posthog', desc: 'An anonymous visitor ID, so repeat visits are counted once.' }
                     ]
                   }
                 },
                 {
                   title: 'More information',
-                  description: 'Questions about cookies or your data? See our <a href="Legal.dc.html#privacy">Privacy Policy</a>.'
+                  description: 'Questions about cookies or your data? Read our <a href="Legal.dc.html#privacy">Privacy Policy</a>.'
                 }
               ]
             }
