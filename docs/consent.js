@@ -158,6 +158,18 @@
     window.CookieConsent.showPreferences();
   });
 
+  /* ---------- 5. "Get early access" clicks (signup_clicked) ---------- */
+  // Every sign-up link carries data-cta="<where it sits>": nav, nav_mobile, hero, try, pricing, final_cta…
+  // Follows the cookie choice like every PostHog event. No personal details are sent.
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest && e.target.closest('a[href*="app.flowstudio-ai.com/signup"]');
+    if (!a) return;
+    var props = { location: a.getAttribute('data-cta') || 'other', page: location.pathname };
+    window.dataLayer.push({ event: 'signup_clicked', cta_location: props.location, cta_page: props.page });
+    // The browser leaves the page right away, so send this one immediately.
+    if (window.posthog && window.posthog.capture) window.posthog.capture('signup_clicked', props, { send_instantly: true, transport: 'sendBeacon' });
+  });
+
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
   else start();
 })();
