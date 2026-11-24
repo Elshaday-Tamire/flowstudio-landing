@@ -1118,11 +1118,10 @@ class Component extends DCLogic {
 
   // Contact sales: our own form, sent to a HubSpot form (CRM, alerts, meeting booking).
   // Portal and form IDs are public by design. Production FlowStudio HubSpot account (EU region, eu1).
-  // TODO before go-live: set SALES_MEETING_URL to the FlowStudio Team booking page.
   static HS_PORTAL_ID = '149849873';
   static HS_FORM_ID = '932a9c29-d7e4-4e23-bed8-d8a85e9597c7';
   static HS_API = 'https://api-eu1.hsforms.com';
-  static SALES_MEETING_URL = 'https://meetings-eu1.hubspot.com/yosef-numlock'; // TEST booking page; swap for the marketing manager's before go-live
+  static SALES_MEETING_URL = 'https://meetings-eu1.hubspot.com/flowstudio'; // FlowStudio Team booking page (admin@ calendar, 30 min)
   // Team size: site label → HubSpot dropdown option internal name (Settings → Properties → Team size).
   static HS_TEAM_SIZE = { '1–10': '1_10', '11–50': '11_50', '51–200': '51_200', '200+': '200_plus' };
 
