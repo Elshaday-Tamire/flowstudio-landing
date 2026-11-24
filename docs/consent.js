@@ -16,13 +16,16 @@
 
   /* ---------- Settings ---------- */
   // Public PostHog project key (safe to publish). Empty = PostHog is not loaded at all.
-  var POSTHOG_KEY = window.FS_POSTHOG_KEY || 'phc_uHQssm9rB2uHFsaFNvW6spf5xKVD4ouEjXJKX7GTuVkD';
-  // Must match the project's region: us.i.posthog.com (US) or eu.i.posthog.com (EU). The TEST project is US.
+  var POSTHOG_KEY = window.FS_POSTHOG_KEY || 'phc_sgeZW8yYQhPbTS38Ju5jQSTCWo4FkqDtU5AFcjYrLGKQ';
+  // Must match the project's region: us.i.posthog.com (US) or eu.i.posthog.com (EU). Both the TEST and the production project are US.
   var POSTHOG_HOST = 'https://us.i.posthog.com';
   // Bump when the privacy policy or the cookie list changes: everyone is asked again.
   var CONSENT_REVISION = 1;
   // Share the choice with app.flowstudio-ai.com; fall back to the current host when testing locally.
-  var COOKIE_DOMAIN = /(^|\.)flowstudio-ai\.com$/.test(location.hostname) ? '.flowstudio-ai.com' : location.hostname;
+  var IS_LIVE = /(^|\.)flowstudio-ai\.com$/.test(location.hostname);
+  var COOKIE_DOMAIN = IS_LIVE ? '.flowstudio-ai.com' : location.hostname;
+  // Added to every PostHog event: 'production' on flowstudio-ai.com, 'local' anywhere else.
+  var ENVIRONMENT = IS_LIVE ? 'production' : 'local';
 
   /* ---------- 1. Google Consent Mode v2: denied by default ---------- */
   window.dataLayer = window.dataLayer || [];
@@ -53,7 +56,12 @@
       cross_subdomain_cookie: true,
       disable_session_recording: true,
       // We don't use feature flags; skip that call so nothing is sent before the visitor answers.
-      advanced_disable_flags: true
+      advanced_disable_flags: true,
+      // Tag every event, so live traffic and local tests can be told apart in PostHog.
+      before_send: function (event) {
+        if (event && event.properties) event.properties.environment = ENVIRONMENT;
+        return event;
+      }
     });
   }
 
@@ -129,7 +137,7 @@
                 },
                 {
                   title: 'Analytics',
-                  description: 'These help us understand how visitors use the site and which campaigns bring them, so we can improve it. We use PostHog, hosted in the EU. If you turn this off, we only count visits anonymously, with no cookies.',
+                  description: 'These help us understand how visitors use the site and which campaigns bring them, so we can improve it. We use PostHog, hosted in the US. If you turn this off, we only count visits anonymously, with no cookies.',
                   linkedCategory: 'analytics',
                   cookieTable: {
                     headers: { name: 'Cookie', desc: 'Purpose' },
