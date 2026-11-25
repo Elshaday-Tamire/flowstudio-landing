@@ -3,6 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="./vendor/cookieconsent/cookieconsent.css">
+<link rel="stylesheet" href="./consent.css">
+<script src="./vendor/cookieconsent/cookieconsent.umd.js"></script>
+<script src="./consent.js"></script>
 <title>FlowStudio | Agent Workflow Builder by Crestward Labs</title>
 <meta name="description" content="FlowStudio is where agents, tools, and workflows come together. Build anything from a simple automation to a full agent team, all on one canvas.">
 <meta name="author" content="Crestward Labs">
@@ -125,6 +129,132 @@ a:hover{color:#9fdc6f}
 @keyframes fsDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
 @keyframes fsMarq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes fsNudge{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+/* Contact sales pop-up: the request is built like a FlowStudio workflow */
+.cs-overlay{scrollbar-width:thin;scrollbar-color:rgba(159,220,111,.35) transparent}
+@keyframes csIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes csFlow{to{stroke-dashoffset:-16}}
+@keyframes csSpin{to{transform:rotate(360deg)}}
+.cs-shell{position:relative;margin:auto 0;width:100%;max-width:1080px;box-sizing:border-box;display:flex;flex-direction:column;gap:22px;padding:30px 40px 28px;border-radius:28px;color:#eef2e8;background:#10140f;border:1px solid rgba(255,255,255,.08);box-shadow:0 40px 90px -30px rgba(0,0,0,.85);animation:fsPopSide .3s ease-out both}
+.cs-shell ::selection{background:rgba(159,220,111,.32);color:#fff}
+.cs-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.cs-head{padding-right:60px}
+.cs-title{margin:0;font-weight:800;font-size:clamp(26px,3vw,34px);line-height:1.05;letter-spacing:-.035em;text-wrap:balance}
+.cs-sub{margin:8px 0 0;font-size:16px;line-height:1.5;color:#a9b4a2;max-width:64ch;text-wrap:pretty}
+.cs-close{all:unset;cursor:pointer;position:absolute;z-index:2;top:26px;right:26px;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:#a9b4a2;border:1px solid rgba(255,255,255,.12);transition:transform .3s cubic-bezier(.22,1,.36,1),color .2s,border-color .2s}
+.cs-close:hover{transform:rotate(90deg);color:#9fdc6f;border-color:#9fdc6f}
+.cs-canvas{position:relative;width:1000px;height:430px;margin:0;border-radius:20px;border:1px solid rgba(255,255,255,.06);background-color:#0d110c;background-image:radial-gradient(rgba(170,200,150,.13) 1px,transparent 1.3px);background-size:22px 22px}
+.cs-edges{position:absolute;inset:0;pointer-events:none}
+.cs-edge{fill:none;stroke:rgba(255,255,255,.18);stroke-width:1.6;stroke-dasharray:4 5;transition:stroke .4s}
+.cs-edge.lit{stroke:#9fdc6f;stroke-dasharray:none}
+.cs-edge.run{stroke:#9fdc6f;stroke-dasharray:8 8;animation:csFlow .6s linear infinite}
+.cs-node{position:absolute;box-sizing:border-box;margin:0;min-width:0;display:flex;flex-direction:column;gap:10px;padding:14px 16px 16px;background:#151b13;border:1px solid rgba(255,255,255,.1);border-radius:16px;transition:border-color .3s,box-shadow .3s,transform .3s}
+.cs-node:focus-within{border-color:rgba(159,220,111,.7);box-shadow:0 0 0 4px rgba(159,220,111,.1),0 18px 40px -18px rgba(0,0,0,.8);transform:translateY(-2px)}
+.cs-node.ok{border-color:rgba(159,220,111,.4)}
+.cs-node.is-bad{border-color:rgba(240,165,138,.6)}
+.cs-node legend{float:left;width:100%;padding:0;display:flex;align-items:center;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:12px;color:#a9b4a2;text-transform:lowercase}
+.cs-dot{width:10px;height:10px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);transition:background .3s,border-color .3s,box-shadow .3s}
+.cs-node.ok .cs-dot{background:#9fdc6f;border-color:#9fdc6f;box-shadow:0 0 0 4px rgba(159,220,111,.15)}
+.cs-n-you{left:24px;top:24px;width:270px;min-height:150px}
+.cs-n-reach{left:24px;top:230px;width:270px;min-height:110px}
+.cs-n-company{left:360px;top:24px;width:270px;min-height:110px}
+.cs-n-team{left:360px;top:190px;width:270px;min-height:150px}
+.cs-n-goal{left:696px;top:24px;width:280px;min-height:202px}
+.cs-n-run{left:696px;top:272px;width:280px;min-height:138px}
+.cs-in{box-sizing:border-box;width:100%;font:inherit;font-size:16px;color:#eef2e8;caret-color:#9fdc6f;background:#0f130e;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;outline:none;transition:border-color .2s}
+.cs-in::placeholder{color:#7d8876}
+.cs-in:hover{border-color:rgba(255,255,255,.16)}
+.cs-in:focus{border-color:#9fdc6f}
+.cs-in.is-bad{border-color:#f0a58a}
+.cs-in:disabled{color:#a9b4a2}
+textarea.cs-in{resize:none;line-height:1.45}
+.cs-ferr{display:flex;align-items:center;gap:6px;margin:-4px 0 0;font-size:12.5px;line-height:1.3;color:#f0a58a;animation:csIn .25s ease-out both}
+.cs-ferr svg{flex:none}
+.cs-pills{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.cs-pill{all:unset;cursor:pointer;text-align:center;padding:9px 0;border-radius:10px;border:1px solid rgba(255,255,255,.1);color:#a9b4a2;font-size:14px;transition:all .2s}
+.cs-pill:hover{color:#eef2e8;border-color:rgba(159,220,111,.5)}
+.cs-pill[aria-pressed="true"]{background:#9fdc6f;color:#0f1a0a;border-color:#9fdc6f;font-weight:600}
+.cs-pill:disabled{cursor:default}
+.cs-ideas{display:flex;flex-wrap:wrap;gap:6px}
+.cs-idea{all:unset;cursor:pointer;font-size:12px;line-height:1.3;color:#a9b4a2;padding:4px 8px;border-radius:999px;border:1px dashed rgba(159,220,111,.35);transition:all .2s}
+.cs-idea:hover{color:#9fdc6f;border-color:#9fdc6f}
+.cs-idea:disabled{cursor:default;opacity:.5}
+.cs-run{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:14px 0;border-radius:12px;background:#9fdc6f;color:#0f1a0a;font-weight:700;font-size:16px;transition:background .2s,opacity .2s,transform .15s}
+.cs-run:hover{background:#b8ea8f}.cs-run:active{transform:scale(.98)}
+.cs-run.wait{opacity:.45}
+.cs-run.busy{background:#86c25b;cursor:progress}
+.cs-run.done{background:transparent;color:#9fdc6f;border:1px solid rgba(159,220,111,.5);cursor:default}
+.cs-spin{width:14px;height:14px;border-radius:50%;border:2px solid rgba(15,26,10,.25);border-top-color:#0f1a0a;animation:csSpin .7s linear infinite}
+.cs-runhint{font-family:'JetBrains Mono',monospace;font-size:12px;color:#a9b4a2;text-align:center}
+.cs-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 24px;min-height:48px}
+.cs-note{margin:0;font-size:13.5px;line-height:1.5;color:#8d9886}
+.cs-note a{color:#b6bfae;text-decoration:underline;text-underline-offset:2px}
+.cs-note a:hover{color:#9fdc6f}
+.cs-solid svg{transition:transform .25s cubic-bezier(.22,1,.36,1)}.cs-solid:hover svg{transform:translateX(3px)}
+.cs-actions{display:flex;flex-wrap:wrap;gap:10px}
+.cs-solid{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:999px;background:#9fdc6f;color:#0f1a0a;font-size:15px;font-weight:700;transition:background .2s}
+.cs-solid:hover{background:#b8ea8f}
+.cs-ghost{all:unset;cursor:pointer;padding:12px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.16);color:#eef2e8;font-size:15px;font-weight:500;transition:border-color .2s,color .2s}
+.cs-ghost:hover{border-color:#9fdc6f;color:#9fdc6f}
+.cs-error{flex-basis:100%;display:flex;align-items:center;gap:8px;margin:0;font-size:14px;color:#f0a58a}
+.cs-callpanel{display:flex;flex-direction:column;gap:14px;padding:22px;border-radius:20px;border:1px solid rgba(255,255,255,.06);background:#0d110c;animation:csIn .35s ease-out both}
+.cs-callhead{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px}
+.cs-calltitle{margin:0;font-size:24px;font-weight:800;letter-spacing:-.03em}
+.cs-calltitle:focus{outline:none}
+.cs-meta{font-family:'JetBrains Mono',monospace;font-size:13px;color:#a9b4a2}
+.cs-cal{border-radius:14px;overflow:hidden;background:#fff}
+.cs-cal iframe{display:block;width:100%;height:560px;border:0}
+.cs-close:focus-visible,.cs-pill:focus-visible,.cs-idea:focus-visible,.cs-run:focus-visible,.cs-solid:focus-visible,.cs-ghost:focus-visible{outline:2px solid #9fdc6f;outline-offset:3px}
+/* Below the full canvas width the workflow becomes one vertical path */
+.cs-done{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:22px;animation:csIn .45s cubic-bezier(.22,1,.36,1) both}
+.cs-trail{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:8px 0;margin:0;padding:0;list-style:none}
+.cs-trail li{position:relative;display:flex;align-items:center;gap:8px;min-width:0;padding:7px 12px;border-radius:999px;border:1px solid rgba(159,220,111,.4);background:rgba(159,220,111,.06);font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#d7e3cd;animation:csIn .4s cubic-bezier(.22,1,.36,1) both}
+.cs-trail-t{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cs-trail li svg{flex:none;color:#9fdc6f}
+.cs-trail li+li::before{content:"";position:absolute;right:100%;top:50%;width:22px;height:2px;margin-top:-1px;background:#9fdc6f}
+.cs-trail li+li{margin-left:22px}
+.cs-trail li:last-child{background:#9fdc6f;border-color:#9fdc6f;color:#0f1a0a;font-weight:500}
+.cs-trail li:last-child svg{color:#0f1a0a}
+.cs-trail li:nth-child(2){animation-delay:.08s}.cs-trail li:nth-child(3){animation-delay:.16s}.cs-trail li:nth-child(4){animation-delay:.24s}.cs-trail li:nth-child(5){animation-delay:.32s}
+.cs-hero{display:flex;flex-direction:column;gap:14px;padding:22px 24px 26px;border-radius:20px;border:1px solid rgba(255,255,255,.06);background-color:#0d110c;background-image:radial-gradient(rgba(170,200,150,.13) 1px,transparent 1.3px);background-size:22px 22px}
+.cs-stage{position:relative;height:178px}
+.cs-stage .cs-bot{position:absolute;left:14px;bottom:0;width:96px}
+.cs-say{position:absolute;left:4px;bottom:132px;width:max-content;max-width:280px;background:#9fdc6f;color:#0f1a0a;font-size:15px;font-weight:700;line-height:1.3;padding:10px 14px;border-radius:14px;transform-origin:18% 100%;animation:csSay .4s .15s cubic-bezier(.22,1,.36,1) both}
+.cs-say::after{content:"";position:absolute;left:30px;bottom:-5px;width:11px;height:11px;background:#9fdc6f;transform:rotate(45deg);border-radius:2px}
+@keyframes csSay{from{opacity:0;transform:translateY(8px) scale(.85)}to{opacity:1;transform:none}}
+.cs-done-title{margin:0;font-size:clamp(30px,3.4vw,40px);line-height:1;font-weight:800;letter-spacing:-.04em}
+.cs-done-title:focus{outline:none}
+.cs-done-text{margin:0;font-size:16px;line-height:1.5;color:#a9b4a2}
+.cs-done-text b{color:#eef2e8;font-weight:500;word-break:break-all}
+.cs-bookcard{position:relative;display:flex;flex-direction:column;gap:14px;padding:24px;border-radius:20px;border:1px solid rgba(159,220,111,.35);background:linear-gradient(180deg,rgba(159,220,111,.08),rgba(159,220,111,.02) 60%),#121810;overflow:hidden}
+.cs-week{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:14px;border-radius:14px;background:#0d110c;border:1px solid rgba(255,255,255,.06)}
+.cs-week>div{display:flex;flex-direction:column;gap:6px}
+.cs-week span{font-family:'JetBrains Mono',monospace;font-size:11px;color:#8d9886;text-align:center;padding-bottom:4px}
+.cs-week i{display:block;height:14px;border-radius:5px;background:rgba(255,255,255,.07)}
+.cs-week i.off{background:transparent;border:1px dashed rgba(255,255,255,.08)}
+.cs-week i.pick{background:#9fdc6f;animation:csRing 1.8s ease-out infinite}
+@keyframes csRing{0%{box-shadow:0 0 0 0 rgba(159,220,111,.55)}100%{box-shadow:0 0 0 8px rgba(159,220,111,0)}}
+.cs-book-title{margin:4px 0 0;font-size:24px;line-height:1.1;font-weight:800;letter-spacing:-.03em}
+.cs-book-text{margin:0;font-size:15px;line-height:1.5;color:#a9b4a2}
+.cs-bookcard .cs-actions{margin-top:auto}
+@media (max-width:760px){.cs-done{grid-template-columns:minmax(0,1fr)}.cs-stage{height:160px}}
+@media (max-width:1099px){
+  .cs-shell{max-width:640px}
+  .cs-canvas{width:auto;height:auto;display:flex;flex-direction:column;gap:18px;padding:18px}
+  .cs-edges{display:none}
+  .cs-node{position:relative;left:auto;top:auto;width:auto;min-height:0}
+  .cs-node:not(.cs-n-run)::after{content:"";position:absolute;left:26px;bottom:-19px;width:2px;height:18px;background:rgba(255,255,255,.16);transition:background .3s}
+  .cs-node.ok:not(.cs-n-run)::after{background:#9fdc6f}
+  .cs-node:focus-within{transform:none}
+}
+@media (max-width:560px){
+  .cs-shell{padding:22px 18px 22px;border-radius:24px}
+  .cs-head{padding-right:48px}
+  .cs-close{top:16px;right:16px}
+  .cs-canvas{padding:12px}
+  .cs-actions{width:100%}.cs-actions>*{flex:1 1 auto;justify-content:center;text-align:center;white-space:nowrap}
+  .cs-trail li+li{margin-left:14px}.cs-trail li+li::before{width:14px}
+}
+@media (prefers-reduced-motion:reduce){.cs-shell,.cs-ferr,.cs-callpanel,.cs-spin,.cs-edge.run,.cs-done,.cs-trail li,.cs-say,.cs-week i.pick{animation:none!important}.cs-close,.cs-node,.cs-edge,.cs-dot{transition:none!important}}
 </style>
 </helmet>
 
@@ -146,7 +276,7 @@ a:hover{color:#9fdc6f}
     </div>
     <div style="margin-left:auto;display:flex;gap:6px;align-items:center;font-size:14px;flex-shrink:0;white-space:nowrap">
       <a href="https://app.flowstudio-ai.com/login" style="color:#d4dbcc;padding:9px 14px;display:{{ signinDisplay }}">Sign in</a>
-      <a href="https://app.flowstudio-ai.com/signup" style="background:#9fdc6f;color:#0f1a0a;padding:10px 18px;border-radius:999px;font-weight:600;display:{{ ctaDisplay }}" style-hover="background:#b8ea8f;color:#0f1a0a">Get early access for free</a>
+      <a href="https://app.flowstudio-ai.com/signup" data-cta="nav" style="background:#9fdc6f;color:#0f1a0a;padding:10px 18px;border-radius:999px;font-weight:600;display:{{ ctaDisplay }}" style-hover="background:#b8ea8f;color:#0f1a0a">Get early access for free</a>
       <button onClick="{{ toggleMenu }}" aria-label="Menu" style="all:unset;cursor:pointer;display:{{ burgerDisplay }};flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.08)">
         <span style="width:18px;height:2px;border-radius:2px;background:#eef2e8;transform:{{ burger.t }};transition:transform .3s"></span>
         <span style="width:18px;height:2px;border-radius:2px;background:#eef2e8;opacity:{{ burger.o }};transition:opacity .2s"></span>
@@ -164,7 +294,7 @@ a:hover{color:#9fdc6f}
       <a href="#pricing" onClick="{{ closeMenu }}" style="padding:14px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px;font-weight:700;letter-spacing:-.03em;color:#eef2e8;display:flex;justify-content:space-between">Pricing<span style="color:#9fdc6f">→</span></a>
       <div style="display:flex;gap:10px;margin-top:16px">
         <a href="https://app.flowstudio-ai.com/login" style="flex:1;text-align:center;padding:14px;border-radius:999px;border:1px solid rgba(255,255,255,.18);color:#eef2e8;font-weight:600;font-size:15px">Sign in</a>
-        <a href="https://app.flowstudio-ai.com/signup" style="flex:1;text-align:center;padding:14px;border-radius:999px;background:#9fdc6f;color:#0f1a0a;font-weight:700;font-size:15px">Get early access for free</a>
+        <a href="https://app.flowstudio-ai.com/signup" data-cta="nav_mobile" style="flex:1;text-align:center;padding:14px;border-radius:999px;background:#9fdc6f;color:#0f1a0a;font-weight:700;font-size:15px">Get early access for free</a>
       </div>
     </div>
   </sc-if>
@@ -178,7 +308,7 @@ a:hover{color:#9fdc6f}
       <h1 style="margin:0;display:flex;flex-direction:column;gap:.08em;font-weight:800;font-size:clamp(30px,min(5.4vw,4.6vh + 1.6vw),72px);line-height:1;letter-spacing:-.05em;color:#eef2e8"><span style="display:flex;align-items:baseline;gap:clamp(10px,1.4vw,18px)"><span style="font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1vw,13px);font-weight:500;letter-spacing:.1em;color:#6f7a68;flex-shrink:0;transform:translateY(-.2em)">01</span><span style="white-space:nowrap;color:#eef2e8">Build it on a canvas.</span></span><span style="display:flex;align-items:baseline;gap:clamp(10px,1.4vw,18px)"><span style="font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1vw,13px);font-weight:500;letter-spacing:.1em;color:#6f7a68;flex-shrink:0;transform:translateY(-.2em)">02</span><span style="white-space:nowrap;color:#eef2e8">Put it on a schedule.</span></span><span style="display:flex;align-items:baseline;gap:clamp(10px,1.4vw,18px)"><span style="font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1vw,13px);font-weight:500;letter-spacing:.1em;color:#6f7a68;flex-shrink:0;transform:translateY(-.2em)">03</span><span style="white-space:nowrap;color:#9fdc6f">Let it run.</span></span></h1>
       <p style="margin:0;font-size:19px;line-height:1.55;color:#b6bfae;max-width:44ch;text-wrap:pretty">FlowStudio is where AI agents team up to do real work for you. No code, just a canvas.</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <a href="https://app.flowstudio-ai.com/signup" style="background:#9fdc6f;color:#0f1a0a;padding:16px 26px;border-radius:999px;font-weight:700;font-size:16px" style-hover="background:#b8ea8f;color:#0f1a0a">Get early access for free</a>
+        <a href="https://app.flowstudio-ai.com/signup" data-cta="hero" style="background:#9fdc6f;color:#0f1a0a;padding:16px 26px;border-radius:999px;font-weight:700;font-size:16px" style-hover="background:#b8ea8f;color:#0f1a0a">Get early access for free</a>
         <button onClick="{{ openDemo }}" aria-label="Watch the FlowStudio demo video" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.18);color:#eef2e8;padding:10px 22px 10px 10px;border-radius:999px;font-size:16px;font-weight:600" style-hover="border-color:#9fdc6f;color:#9fdc6f">
           <span style="width:36px;height:36px;border-radius:50%;background:#9fdc6f;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true"><path d="M1 1.2v11.6a.6.6 0 0 0 .9.5l9.4-5.8a.6.6 0 0 0 0-1L1.9.7a.6.6 0 0 0-.9.5z" fill="#0f1a0a"/></svg></span>
           Watch demo <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;color:#8d9886">2:19</span>
@@ -207,6 +337,137 @@ a:hover{color:#9fdc6f}
           <button onClick="{{ c.onClick }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }};font-size:14px;font-weight:500;transition:all .2s"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;opacity:.75">{{ c.time }}</span>{{ c.label }}</button>
         </sc-for>
       </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ csOpen }}" hint-placeholder-val="{{ false }}">
+  <div role="dialog" aria-modal="true" aria-labelledby="cs-title cs-call-title" class="cs-overlay" onClick="{{ closeSales }}" style="position:fixed;inset:0;z-index:100;display:flex;justify-content:center;padding:16px;overflow-y:auto;overscroll-behavior:contain;background:rgba(8,10,7,.88);backdrop-filter:blur(10px);animation:fsPopSide .25s ease-out both">
+    <div class="cs-shell" onClick="{{ stopProp }}">
+      <button type="button" class="cs-close" onClick="{{ closeSales }}" aria-label="Close"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></button>
+      <sc-if value="{{ csShowFlow }}" hint-placeholder-val="{{ true }}">
+      <div class="cs-head">
+        <h2 class="cs-title" id="cs-title">Build your request like a workflow.</h2>
+        <p class="cs-sub">Tell us about your team for a Custom or Enterprise plan. Fill in each step until the path lights up, then press Run.</p>
+      </div>
+        <form class="cs-canvas" onSubmit="{{ submitSales }}" onKeyDown="{{ csFormKey }}" noValidate>
+          <svg class="cs-edges" width="1000" height="430" viewBox="0 0 1000 430" aria-hidden="true">
+            <path class="{{ csE.e1 }}" d="M294 99 C327 99, 327 79, 360 79"></path>
+            <path class="{{ csE.e2 }}" d="M294 285 C327 285, 327 265, 360 265"></path>
+            <path class="{{ csE.e3 }}" d="M630 79 C663 79, 663 124, 696 124"></path>
+            <path class="{{ csE.e4 }}" d="M630 265 C663 265, 663 340, 696 340"></path>
+            <path class="{{ csE.e5 }}" d="M836 226 C836 249, 836 249, 836 272"></path>
+          </svg>
+
+          <fieldset class="{{ csN.you }}">
+            <legend>You <span class="cs-dot"></span></legend>
+            <label class="cs-sr" for="cs-firstname">First name (required)</label>
+            <input id="cs-firstname" class="{{ csF.firstname.cls }}" placeholder="First name *" value="{{ csV.firstname }}" onChange="{{ csSet.firstname }}" onBlur="{{ csBlur.firstname }}" aria-required="true" aria-invalid="{{ csF.firstname.inv }}" aria-describedby="cs-firstname-err" autocomplete="given-name" disabled="{{ csLocked }}">
+            <sc-if value="{{ csF.firstname.bad }}" hint-placeholder-val="{{ false }}"><p class="cs-ferr" id="cs-firstname-err"><svg width="13" height="13" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="6" fill="none" stroke="currentColor" stroke-width="1.4"></circle><path d="M7 3.8v3.7M7 9.8v.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>{{ csF.firstname.msg }}</p></sc-if>
+            <label class="cs-sr" for="cs-lastname">Last name</label>
+            <input id="cs-lastname" class="{{ csF.lastname.cls }}" placeholder="Last name" value="{{ csV.lastname }}" onChange="{{ csSet.lastname }}" autocomplete="family-name" disabled="{{ csLocked }}">
+          </fieldset>
+          <fieldset class="{{ csN.reach }}">
+            <legend>Reach <span class="cs-dot"></span></legend>
+            <label class="cs-sr" for="cs-email">Work email (required)</label>
+            <input id="cs-email" class="{{ csF.email.cls }}" type="email" placeholder="Work email *" value="{{ csV.email }}" onChange="{{ csSet.email }}" onBlur="{{ csBlur.email }}" aria-required="true" aria-invalid="{{ csF.email.inv }}" aria-describedby="cs-email-err" autocomplete="email" disabled="{{ csLocked }}">
+            <sc-if value="{{ csF.email.bad }}" hint-placeholder-val="{{ false }}"><p class="cs-ferr" id="cs-email-err"><svg width="13" height="13" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="6" fill="none" stroke="currentColor" stroke-width="1.4"></circle><path d="M7 3.8v3.7M7 9.8v.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>{{ csF.email.msg }}</p></sc-if>
+          </fieldset>
+          <fieldset class="{{ csN.company }}">
+            <legend>Company <span class="cs-dot"></span></legend>
+            <label class="cs-sr" for="cs-company">Company (required)</label>
+            <input id="cs-company" class="{{ csF.company.cls }}" placeholder="Company *" value="{{ csV.company }}" onChange="{{ csSet.company }}" onBlur="{{ csBlur.company }}" aria-required="true" aria-invalid="{{ csF.company.inv }}" aria-describedby="cs-company-err" autocomplete="organization" disabled="{{ csLocked }}">
+            <sc-if value="{{ csF.company.bad }}" hint-placeholder-val="{{ false }}"><p class="cs-ferr" id="cs-company-err"><svg width="13" height="13" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="6" fill="none" stroke="currentColor" stroke-width="1.4"></circle><path d="M7 3.8v3.7M7 9.8v.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>{{ csF.company.msg }}</p></sc-if>
+          </fieldset>
+          <fieldset class="{{ csN.team }}">
+            <legend>Team size <span class="cs-dot"></span></legend>
+            <div class="cs-pills">
+              <sc-for list="{{ csTeams }}" as="tm" hint-placeholder-count="4">
+                <button type="button" class="cs-pill" aria-pressed="{{ tm.pressed }}" onClick="{{ tm.onClick }}" disabled="{{ csLocked }}">{{ tm.label }}</button>
+              </sc-for>
+            </div>
+          </fieldset>
+          <fieldset class="{{ csN.goal }}">
+            <legend>Automate <span class="cs-dot"></span></legend>
+            <label class="cs-sr" for="cs-automate">What do you want to automate?</label>
+            <textarea id="cs-automate" class="cs-in" rows="2" placeholder="What do you want to automate?" value="{{ csV.automate }}" onChange="{{ csSet.automate }}" disabled="{{ csLocked }}"></textarea>
+            <div class="cs-ideas">
+              <sc-for list="{{ csIdeas }}" as="ia" hint-placeholder-count="3">
+                <button type="button" class="cs-idea" onClick="{{ ia.onClick }}" disabled="{{ csLocked }}">+ {{ ia.label }}</button>
+              </sc-for>
+            </div>
+          </fieldset>
+          <fieldset class="{{ csN.run }}">
+            <legend>Run <span class="cs-dot"></span></legend>
+            <button type="submit" class="{{ csRunCls }}" aria-disabled="{{ csRunOff }}" aria-busy="{{ csSending }}">
+              <sc-if value="{{ csSending }}" hint-placeholder-val="{{ false }}"><span class="cs-spin" aria-hidden="true"></span></sc-if>
+              <sc-if value="{{ csPlayIcon }}" hint-placeholder-val="{{ true }}"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 2l9 5-9 5z" fill="currentColor"></path></svg></sc-if>
+              <sc-if value="{{ csIsDone }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2.5 7.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></sc-if>
+              {{ csRunLabel }}
+            </button>
+            <span class="cs-runhint" aria-live="polite">{{ csRunHint }}</span>
+          </fieldset>
+
+          <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+            <label for="cs-website">Website</label>
+            <input id="cs-website" value="{{ csV.website }}" onChange="{{ csSet.website }}" tabindex="-1" autocomplete="off">
+          </div>
+        </form>
+
+        <div class="cs-foot">
+          <sc-if value="{{ csNotDone }}" hint-placeholder-val="{{ true }}">
+            <p class="cs-note">Required: you, reach and company. We reply within 1 business day and use these details only for that. <a href="Legal.dc.html#privacy">Privacy Policy</a></p>
+          </sc-if>
+          <sc-if value="{{ csHasError }}" hint-placeholder-val="{{ false }}">
+            <p class="cs-error" role="alert"><svg width="13" height="13" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="6" fill="none" stroke="currentColor" stroke-width="1.4"></circle><path d="M7 3.8v3.7M7 9.8v.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>{{ csError }}</p>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ csShowDone }}" hint-placeholder-val="{{ false }}">
+        <div class="cs-done">
+          <ol class="cs-trail" aria-label="Your request">
+            <sc-for list="{{ csTrail }}" as="tr" hint-placeholder-count="4"><li title="{{ tr }}"><svg width="12" height="12" viewBox="0 0 14 14" aria-hidden="true"><path d="M2.5 7.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="cs-trail-t">{{ tr }}</span></li></sc-for>
+          </ol>
+          <div class="cs-hero">
+            <div class="cs-stage" aria-hidden="true">
+              <div class="cs-say">{{ csSay }}</div>
+              <div class="cs-bot">{{ csBot }}</div>
+            </div>
+            <h2 class="cs-done-title" id="cs-title" tabindex="-1">Request delivered{{ csThanksComma }}.</h2>
+            <p class="cs-done-text">Our team has your request and will reply within 1 business day at <b>{{ csDoneEmail }}</b>.</p>
+          </div>
+          <div class="cs-bookcard">
+            <div class="cs-week" aria-hidden="true">
+              <div><span>Mon</span><i></i><i class="off"></i><i></i></div>
+              <div><span>Tue</span><i class="off"></i><i></i><i></i></div>
+              <div><span>Wed</span><i></i><i class="pick"></i><i class="off"></i></div>
+              <div><span>Thu</span><i></i><i></i><i class="off"></i></div>
+              <div><span>Fri</span><i class="off"></i><i></i><i></i></div>
+            </div>
+            <h3 class="cs-book-title">Want to talk sooner?</h3>
+            <p class="cs-book-text">Book a 30-minute intro call on Google Meet. Your name and email are already filled in.</p>
+            <div class="cs-actions">
+              <button type="button" class="cs-solid" id="cs-book" onClick="{{ csToCall }}">Book a call <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 3.5L13.5 8 9 12.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+              <button type="button" class="cs-ghost" onClick="{{ closeSales }}">Back to the site</button>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ csCall }}" hint-placeholder-val="{{ false }}">
+        <div class="cs-callpanel">
+          <div class="cs-callhead">
+            <h3 class="cs-calltitle" id="cs-call-title" tabindex="-1">Add a call to your workflow</h3>
+            <span class="cs-meta">30 min · Google Meet</span>
+          </div>
+          <p class="cs-note">{{ csCallNote }}</p>
+          <sc-if value="{{ csHasMeeting }}" hint-placeholder-val="{{ false }}">
+            <div class="cs-cal"><iframe src="{{ csMeetingEmbed }}" title="Book a call with FlowStudio" loading="lazy"></iframe></div>
+          </sc-if>
+          <div><button type="button" class="cs-ghost" onClick="{{ csBack }}">Back</button></div>
+        </div>
+      </sc-if>
     </div>
   </div>
 </sc-if>
@@ -409,7 +670,7 @@ a:hover{color:#9fdc6f}
       <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:6px">
         <button onClick="{{ bringToLife }}" style="all:unset;cursor:pointer;background:#151a13;color:#eef2e8;padding:16px 26px;border-radius:999px;font-weight:700;font-size:16px" style-hover="background:#2f6a1f">{{ lifeLabel }}</button>
         <sc-if value="{{ alive }}" hint-placeholder-val="{{ false }}">
-          <a href="https://app.flowstudio-ai.com/signup" style="background:#9fdc6f;color:#0f1a0a;padding:16px 26px;border-radius:999px;font-weight:700;font-size:16px" style-hover="background:#b8ea8f;color:#0f1a0a">Build it for real →</a>
+          <a href="https://app.flowstudio-ai.com/signup" data-cta="try" style="background:#9fdc6f;color:#0f1a0a;padding:16px 26px;border-radius:999px;font-weight:700;font-size:16px" style-hover="background:#b8ea8f;color:#0f1a0a">Build it for real →</a>
         </sc-if>
       </div>
     </div>
@@ -557,7 +818,7 @@ a:hover{color:#9fdc6f}
         <span>✓ Generous monthly usage to build and test</span>
         <span>✓ Bring your own AI keys</span>
       </div>
-      <a href="https://app.flowstudio-ai.com/signup" style="margin-top:auto;text-align:center;background:#151a13;color:#eef2e8;padding:16px;border-radius:999px;font-weight:700;font-size:16px" style-hover="background:#2f6a1f;color:#fff">Get early access for free</a>
+      <a href="https://app.flowstudio-ai.com/signup" data-cta="pricing" style="margin-top:auto;text-align:center;background:#151a13;color:#eef2e8;padding:16px;border-radius:999px;font-weight:700;font-size:16px" style-hover="background:#2f6a1f;color:#fff">Get early access for free</a>
     </div>
     <div style="background:#10140f;color:#eef2e8;border-radius:28px;padding:36px;display:flex;flex-direction:column;gap:22px">
       <span style="font-size:16px;color:#b6bfae">Custom &amp; Enterprise</span>
@@ -567,7 +828,7 @@ a:hover{color:#9fdc6f}
         <span>✓ VPC, on-prem or dedicated runtime</span>
         <span>✓ SSO, audit logs, support SLA</span>
       </div>
-      <a href="mailto:sales@flowstudio-ai.com" style="margin-top:auto;text-align:center;background:#9fdc6f;color:#0f1a0a;padding:16px;border-radius:999px;font-weight:700;font-size:16px" style-hover="background:#b8ea8f;color:#0f1a0a">Talk to us</a>
+      <button type="button" onClick="{{ openSales }}" style="all:unset;box-sizing:border-box;cursor:pointer;margin-top:auto;text-align:center;background:#9fdc6f;color:#0f1a0a;padding:16px;border-radius:999px;font-weight:700;font-size:16px" style-hover="background:#b8ea8f;color:#0f1a0a" style-focus-visible="outline:2px solid #eef2e8;outline-offset:3px">Talk to us</button>
     </div>
   </div>
 </section>
@@ -577,7 +838,7 @@ a:hover{color:#9fdc6f}
     <h2 style="margin:0;font-weight:800;font-size:clamp(40px,5.6vw,84px);line-height:.92;letter-spacing:-.06em;text-wrap:balance">Your crew is ready <span style="color:#9fdc6f">when you are.</span></h2>
     <p style="margin:0;font-size:18px;color:#b6bfae">No waitlist. Sign up and start building.</p>
     <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
-      <a href="https://app.flowstudio-ai.com/signup" style="background:#9fdc6f;color:#0f1a0a;padding:16px 26px;border-radius:999px;font-weight:700;font-size:16px" style-hover="background:#b8ea8f;color:#0f1a0a">Get early access for free</a>
+      <a href="https://app.flowstudio-ai.com/signup" data-cta="final_cta" style="background:#9fdc6f;color:#0f1a0a;padding:16px 26px;border-radius:999px;font-weight:700;font-size:16px" style-hover="background:#b8ea8f;color:#0f1a0a">Get early access for free</a>
       <a href="mailto:hello@flowstudio-ai.com" style="border:1px solid rgba(255,255,255,.18);color:#eef2e8;padding:16px 26px;border-radius:999px;font-size:16px;font-weight:500" style-hover="border-color:#9fdc6f;color:#9fdc6f">hello@flowstudio-ai.com</a>
     </div>
   </div>
@@ -592,6 +853,7 @@ a:hover{color:#9fdc6f}
       <a href="Marketplace.dc.html">Marketplace</a>
       <a href="Legal.dc.html#terms">Terms</a>
       <a href="Legal.dc.html#privacy">Privacy</a>
+      <a href="#cookie-settings">Cookie settings</a>
       <span>© 2026 FlowStudio AI</span>
     </div>
   </footer>
@@ -826,17 +1088,166 @@ class Component extends DCLogic {
   ];
   static BRAINS = [['Claude', 'careful thinker'], ['GPT', 'all-rounder'], ['Llama', 'open & fast']];
 
-  state = { step: 0, walking: false, flip: false, brain: 'Claude', job: 'support', tools: ['zendesk', 'slack', 'notion'], alive: false, alivePose: 'jump', pat: 'sequential', patWalk: false, patUser: false, tp: 'weather', tPhase: 'idle', tN: 0, tTab: 'code', tMsgs: [{ who: 'bot', text: Component.T_WELCOME }], tVals: {}, tEnv: {}, tTest: 'idle', tLog: [], tOut: '', tJump: false, mkt: 'agents', demoOpen: false, demoAt: 0, demoKey: 0 };
+  state = { step: 0, walking: false, flip: false, brain: 'Claude', job: 'support', tools: ['zendesk', 'slack', 'notion'], alive: false, alivePose: 'jump', pat: 'sequential', patWalk: false, patUser: false, tp: 'weather', tPhase: 'idle', tN: 0, tTab: 'code', tMsgs: [{ who: 'bot', text: Component.T_WELCOME }], tVals: {}, tEnv: {}, tTest: 'idle', tLog: [], tOut: '', tJump: false, mkt: 'agents', demoOpen: false, demoAt: 0, demoKey: 0, csOpen: false, csStatus: 'idle', csView: 'form', csTried: false, csTouched: {}, csError: '', csV: { firstname: '', lastname: '', email: '', company: '', team_size: '', automate: '', website: '' } };
   tourRef = React.createRef();
 
   // Demo video: unlisted YouTube upload, played via youtube-nocookie.com.
   static DEMO_YT_ID = 'NRExiACTdUU';
   static DEMO_CHAPTERS = [[0, 'Intro'], [13, 'Sign up'], [27, 'Agents & Workflows'], [65, 'Tools & MCP'], [85, 'Data sources'], [102, 'Triggers & Dashboard'], [124, 'Get started']];
 
-  openDemo = () => { this.demoLastFocus = document.activeElement; document.body.style.overflow = 'hidden'; this.setState(x => ({ demoOpen: true, demoAt: 0, demoKey: x.demoKey + 1 })); };
+  openDemo = () => { this.demoLastFocus = document.activeElement; document.body.style.overflow = 'hidden'; this.setState(x => ({ demoOpen: true, demoAt: 0, demoKey: x.demoKey + 1 })); this.trackEvent('demo_opened'); };
   closeDemo = () => { document.body.style.overflow = ''; this.setState({ demoOpen: false }); if (this.demoLastFocus && this.demoLastFocus.focus) this.demoLastFocus.focus(); };
   seekDemo = (t) => this.setState(x => ({ demoAt: t, demoKey: x.demoKey + 1 }));
-  onDemoKey = (e) => { if (e.key === 'Escape' && this.state.demoOpen) this.closeDemo(); };
+  onDemoKey = (e) => {
+    // Keep keyboard focus inside the Contact sales pop-up (the cookie banner stays reachable).
+    if (e.key === 'Tab' && this.state.csOpen) {
+      const shell = document.querySelector('.cs-shell'), cc = document.getElementById('cc-main');
+      if (shell && !(cc && cc.contains(document.activeElement))) {
+        const f = [...shell.querySelectorAll('button:not([disabled]),input:not([tabindex="-1"]),textarea,a[href],iframe')].filter(el => el.offsetParent !== null);
+        const first = f[0], last = f[f.length - 1];
+        if (!shell.contains(document.activeElement)) { e.preventDefault(); first && first.focus(); }
+        else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+      return;
+    }
+    if (e.key !== 'Escape') return;
+    if (this.state.demoOpen) this.closeDemo();
+    if (this.state.csOpen) this.closeSales();
+  };
+
+  // Contact sales: our own form, sent to a HubSpot form (CRM, alerts, meeting booking).
+  // Portal and form IDs are public by design. Production FlowStudio HubSpot account (EU region, eu1).
+  static HS_PORTAL_ID = '149849873';
+  static HS_FORM_ID = '932a9c29-d7e4-4e23-bed8-d8a85e9597c7';
+  static HS_API = 'https://api-eu1.hsforms.com';
+  static SALES_MEETING_URL = 'https://meetings-eu1.hubspot.com/flowstudio'; // FlowStudio Team booking page (admin@ calendar, 30 min)
+  // Team size: site label → HubSpot dropdown option internal name (Settings → Properties → Team size).
+  static HS_TEAM_SIZE = { '1–10': '1_10', '11–50': '11_50', '51–200': '51_200', '200+': '200_plus' };
+
+  // Named events for marketing: to Google Tag Manager (once installed) and to PostHog.
+  // PostHog follows the cookie choice in consent.js: full tracking after Accept, anonymous counting after Reject.
+  // Never pass names, emails or other personal details here.
+  trackEvent(event, props) {
+    (window.dataLayer = window.dataLayer || []).push({ event, ...props });
+    if (window.posthog && window.posthog.capture) window.posthog.capture(event, props || {});
+  }
+
+  openSales = () => {
+    this.salesLastFocus = document.activeElement; this.salesOpenedAt = Date.now();
+    document.body.style.overflow = 'hidden';
+    // A finished request starts fresh the next time the pop-up opens.
+    this.setState(x => ({ csOpen: true, csError: '', csTried: false, csTouched: {}, csView: 'form',
+      ...(x.csStatus === 'done' ? { csStatus: 'idle', csV: { firstname: '', lastname: '', email: '', company: '', team_size: '', automate: '', website: '' } } : {}) }));
+    this.trackEvent('contact_sales_opened');
+    setTimeout(() => document.getElementById('cs-firstname')?.focus(), 50);
+  };
+  closeSales = () => {
+    document.body.style.overflow = ''; this.setState({ csOpen: false });
+    if (this.salesLastFocus && this.salesLastFocus.focus) this.salesLastFocus.focus();
+  };
+  submitSales = async (e) => {
+    e.preventDefault();
+    const C = Component, s = this.state, v = s.csV, t = k => (v[k] || '').trim();
+    if (s.csStatus === 'sending' || s.csStatus === 'done') return;
+    // Spam guard: people never fill the hidden field, and take more than 3 seconds.
+    if (t('website') || Date.now() - (this.salesOpenedAt || 0) < 3000) { this.setState({ csStatus: 'done' }); return; }
+    const firstBad = C.CS_REQ.map(([k]) => k).find(k => !t(k) || (k === 'email' && !C.CS_EMAIL.test(t(k))));
+    if (firstBad) { document.getElementById('cs-' + firstBad)?.focus(); return this.setState({ csTried: true, csError: '' }); }
+
+    const fields = [['firstname', 'firstname'], ['lastname', 'lastname'], ['email', 'email'], ['company', 'company'],
+      ['team_size', 'team_size'], ['what_do_you_want_to_automate', 'automate']]
+      .filter(([, k]) => t(k))
+      // Dropdowns must send HubSpot's internal option name (e.g. "1_10"), not the label shown on the site ("1–10").
+      .map(([name, k]) => ({ objectTypeId: '0-1', name, value: name === 'team_size' ? (C.HS_TEAM_SIZE[t(k)] || t(k)) : t(k) }));
+    this.setState({ csStatus: 'sending', csError: '' });
+    try {
+      // The run animation plays for at least 0.9 s, so a fast reply still reads as a run.
+      const [res] = await Promise.all([
+        fetch(`${C.HS_API}/submissions/v3/integration/submit/${C.HS_PORTAL_ID}/${C.HS_FORM_ID}`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fields, context: { pageUri: location.href, pageName: document.title } })
+        }),
+        new Promise(r => setTimeout(r, 900))
+      ]);
+      if (!res.ok) throw new Error('HubSpot ' + res.status);
+      this.trackEvent('contact_sales_submitted', { team_size: t('team_size') || 'not given' });
+      // Name and email are kept only in memory, so the booking calendar can be pre-filled.
+      this.setState({ csStatus: 'done', csName: t('firstname'), csTried: false, csTouched: {},
+        csBooker: { firstname: t('firstname'), lastname: t('lastname'), email: t('email') } });
+      clearTimeout(this.csCheerT); this.setState({ csCheer: true }); this.csCheerT = setTimeout(() => this.setState({ csCheer: false }), 1600);
+      setTimeout(() => document.getElementById('cs-title')?.focus(), 80);
+    } catch (err) {
+      this.setState({ csStatus: 'idle', csError: "We couldn't send your request. Please try again, or email hello@flowstudio-ai.com." });
+    }
+  };
+  static CS_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  // Required fields, in order: [key, label used in messages].
+  static CS_REQ = [['firstname', 'first name'], ['email', 'work email'], ['company', 'company']];
+  // Switch between the workflow and the booking calendar, and move focus to match.
+  csGo = (view) => {
+    this.setState({ csView: view });
+    if (view === 'call') this.trackEvent('contact_sales_booking_opened');
+    setTimeout(() => document.getElementById(view === 'call' ? 'cs-call-title' : this.state.csStatus === 'done' ? 'cs-book' : 'cs-firstname')?.focus({ preventScroll: true }), 60);
+  };
+  // Per-field state: shown as invalid only after the visitor leaves the field, or presses Run.
+  csFieldVals() {
+    const s = this.state, out = {};
+    Component.CS_REQ.forEach(([k, label]) => {
+      const val = (s.csV[k] || '').trim(), shown = s.csTried || (s.csTouched || {})[k];
+      const msg = !val ? 'Please add your ' + label + '.' : k === 'email' && !Component.CS_EMAIL.test(val) ? 'That email looks incomplete, like name@company.com.' : '';
+      const bad = !!(shown && msg);
+      out[k] = { bad, msg, inv: bad ? 'true' : 'false', cls: 'cs-in' + (bad ? ' is-bad' : '') };
+    });
+    out.lastname = { cls: 'cs-in' };
+    return out;
+  }
+  csVals() {
+    const s = this.state, C = Component, v = s.csV, t = k => (v[k] || '').trim();
+    const csSet = {};
+    Object.keys(v).forEach(k => { csSet[k] = e => { const val = e.target.value; this.setState(x => ({ csV: { ...x.csV, [k]: val } })); }; });
+    const setV = (k, val) => this.setState(x => ({ csV: { ...x.csV, [k]: val } }));
+    const sending = s.csStatus === 'sending', done = s.csStatus === 'done';
+    const ok = { you: !!t('firstname'), reach: C.CS_EMAIL.test(t('email')), company: !!t('company'), team: !!v.team_size, goal: !!t('automate') };
+    const ready = ok.you && ok.reach && ok.company;
+    const F = this.csFieldVals();
+    const node = (k, on, bad) => 'cs-node cs-n-' + k + (on || done ? ' ok' : '') + (bad ? ' is-bad' : '');
+    const edge = on => 'cs-edge' + (sending ? ' run' : on || done ? ' lit' : '');
+    const count = [ok.you, ok.reach, ok.company].filter(Boolean).length;
+    return {
+      csOpen: s.csOpen, csV: v, csSet, csF: F, csLocked: done,
+      csBlur: Object.fromEntries(C.CS_REQ.map(([k]) => [k, () => this.setState(x => ({ csTouched: { ...x.csTouched, [k]: true } }))])),
+      csN: { you: node('you', ok.you, F.firstname.bad), reach: node('reach', ok.reach, F.email.bad), company: node('company', ok.company, F.company.bad),
+        team: node('team', ok.team), goal: node('goal', ok.goal), run: node('run', false) },
+      csE: { e1: edge(ok.you), e2: edge(ok.reach), e3: edge(ok.company), e4: edge(ok.team || ok.reach), e5: edge(ok.goal || ok.company) },
+      csSending: sending, csIsDone: done, csNotDone: !done, csPlayIcon: !sending && !done,
+      csRunCls: 'cs-run' + (sending ? ' busy' : done ? ' done' : ready ? '' : ' wait'),
+      csRunOff: sending || done ? 'true' : 'false',
+      csRunLabel: sending ? 'Running…' : done ? 'Delivered' : 'Run',
+      csRunHint: done ? 'Delivered to our team' : sending ? 'Sending to our team' : ready ? 'All set. Press Run.' : s.csTried ? 'Fill the highlighted steps' : count + ' of 3 required steps',
+      csHasError: !!s.csError, csError: s.csError,
+      csFormKey: e => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); this.submitSales(e); } },
+      csCall: s.csView === 'call', csShowFlow: s.csView !== 'call' && !done, csShowDone: s.csView !== 'call' && done,
+      csTrail: [t('firstname'), t('company'), v.team_size ? v.team_size + ' people' : '', 'Delivered'].filter(Boolean),
+      csSay: s.csCheer ? 'Delivered!' : 'Our team has it!',
+      csBot: React.createElement(C.Robot, { c: 'green', pose: s.csCheer ? 'jump' : 'wave', hold: 'doc' }),
+      csThanksComma: s.csName ? ', ' + s.csName : '', csDoneEmail: (s.csBooker && s.csBooker.email) || 'the email you gave us',
+      csToCall: () => this.csGo('call'), csBack: () => this.csGo('form'),
+      csHasMeeting: !!C.SALES_MEETING_URL,
+      csMeetingEmbed: C.SALES_MEETING_URL ? C.SALES_MEETING_URL + (C.SALES_MEETING_URL.includes('?') ? '&' : '?') + new URLSearchParams(
+        Object.entries({ embed: 'true', ...(s.csBooker || {}) }).filter(([, x]) => x)).toString() : '',
+      csCallNote: C.SALES_MEETING_URL
+        ? "Pick a free time from our team's calendar. You'll get a calendar invite by email."
+        : done ? "Online booking isn't open yet. We'll email you a few times that suit our team, and you pick one."
+               : "Online booking isn't open yet. Send your request and we'll email you a few times that suit our team.",
+      csTeams: ['1–10', '11–50', '51–200', '200+'].map(label => ({ label, pressed: v.team_size === label ? 'true' : 'false',
+        onClick: () => setV('team_size', v.team_size === label ? '' : label) })),
+      csIdeas: ['Support tickets', 'Weekly reports', 'Lead qualification'].map(label => ({ label,
+        onClick: () => { const cur = t('automate'); if (cur.toLowerCase().includes(label.toLowerCase())) return;
+          setV('automate', cur ? cur + ', ' + label.toLowerCase() : label); document.getElementById('cs-automate')?.focus(); } })),
+      openSales: this.openSales, closeSales: this.closeSales, submitSales: this.submitSales
+    };
+  }
 
   demoVals() {
     const C = Component, h = React.createElement, s = this.state, fmt = t => Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0');
@@ -870,6 +1281,7 @@ class Component extends DCLogic {
     window.addEventListener('hashchange', this.goHash);
     window.addEventListener('keydown', this.onDemoKey);
     if (location.hash === '#demo') this.openDemo();
+    if (location.hash === '#contact-sales') this.openSales();
     this.pi = setInterval(() => { if (this.state.patUser) return; const O = Component.PAT_ORDER; this.setPat(O[(O.indexOf(this.state.pat) + 1) % O.length]); }, 6500);
   }
   componentWillUnmount() { window.removeEventListener('scroll', this.onScroll); window.removeEventListener('resize', this.onScroll); clearTimeout(this.wt); clearTimeout(this.at); clearTimeout(this.pw); clearInterval(this.pi); this.tClear(); (this.ht || []).forEach(clearTimeout); window.removeEventListener('hashchange', this.goHash); window.removeEventListener('keydown', this.onDemoKey); document.body.style.overflow = ''; clearInterval(this.mp); }
@@ -993,6 +1405,7 @@ class Component extends DCLogic {
       ...this.patVals(),
       ...this.toolVals(),
       ...this.demoVals(),
+      ...this.csVals(),
       openDemo: this.openDemo, closeDemo: this.closeDemo, stopProp: e => e.stopPropagation(),
       commMarquee: this._mq || (this._mq = Component.marquee()),
       signinDisplay: s.sm ? 'none' : 'block',

@@ -3,6 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="./vendor/cookieconsent/cookieconsent.css">
+<link rel="stylesheet" href="./consent.css">
+<script src="./vendor/cookieconsent/cookieconsent.umd.js"></script>
+<script src="./consent.js"></script>
 <title>Marketplace | FlowStudio</title>
 <meta name="description" content="Agents and workflows, ready to run. Use a single agent as a node in your own canvas, or install a complete workflow built and tested by the community.">
 <meta name="author" content="Crestward Labs">
@@ -67,7 +71,7 @@ a:hover{color:#9fdc6f}
     </div>
     <div style="margin-left:auto;display:flex;gap:6px;align-items:center;font-size:14px;flex-shrink:0;white-space:nowrap">
       <a href="https://app.flowstudio-ai.com/login" style="color:#d4dbcc;padding:9px 14px;display:{{ signinDisplay }}">Sign in</a>
-      <a href="https://app.flowstudio-ai.com/signup" style="background:#9fdc6f;color:#0f1a0a;padding:10px 18px;border-radius:999px;font-weight:600;display:{{ ctaDisplay }}" style-hover="background:#b8ea8f;color:#0f1a0a">Get early access for free</a>
+      <a href="https://app.flowstudio-ai.com/signup" data-cta="nav" style="background:#9fdc6f;color:#0f1a0a;padding:10px 18px;border-radius:999px;font-weight:600;display:{{ ctaDisplay }}" style-hover="background:#b8ea8f;color:#0f1a0a">Get early access for free</a>
       <button onClick="{{ toggleMenu }}" aria-label="Menu" style="all:unset;cursor:pointer;display:{{ burgerDisplay }};flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.08)">
         <span style="width:18px;height:2px;border-radius:2px;background:#eef2e8;transform:{{ burger.t }};transition:transform .3s"></span>
         <span style="width:18px;height:2px;border-radius:2px;background:#eef2e8;opacity:{{ burger.o }};transition:opacity .2s"></span>
@@ -84,7 +88,7 @@ a:hover{color:#9fdc6f}
       <a href="./#pricing" onClick="{{ closeMenu }}" style="padding:14px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px;font-weight:700;letter-spacing:-.03em;color:#eef2e8;display:flex;justify-content:space-between">Pricing<span style="color:#9fdc6f">→</span></a>
       <div style="display:flex;gap:10px;margin-top:16px">
         <a href="https://app.flowstudio-ai.com/login" style="flex:1;text-align:center;padding:14px;border-radius:999px;border:1px solid rgba(255,255,255,.18);color:#eef2e8;font-weight:600;font-size:15px">Sign in</a>
-        <a href="https://app.flowstudio-ai.com/signup" style="flex:1;text-align:center;padding:14px;border-radius:999px;background:#9fdc6f;color:#0f1a0a;font-weight:700;font-size:15px">Get early access for free</a>
+        <a href="https://app.flowstudio-ai.com/signup" data-cta="nav_mobile" style="flex:1;text-align:center;padding:14px;border-radius:999px;background:#9fdc6f;color:#0f1a0a;font-weight:700;font-size:15px">Get early access for free</a>
       </div>
     </div>
   </sc-if>
@@ -211,7 +215,7 @@ a:hover{color:#9fdc6f}
       <span style="font-size:24px;font-weight:700;letter-spacing:-.035em">Built something others would use?</span>
       <span style="font-size:15px;line-height:1.6;color:#b6bfae">Publish your agent or workflow. Set a price or share it free, and every listing is reviewed before it goes live.</span>
     </div>
-    <a href="https://app.flowstudio-ai.com/signup" style="background:#9fdc6f;color:#0f1a0a;padding:14px 22px;border-radius:999px;font-weight:500;font-size:15px" style-hover="background:#b8ea8f;color:#0f1a0a">Become a publisher</a>
+    <a href="https://app.flowstudio-ai.com/signup" data-cta="publisher" style="background:#9fdc6f;color:#0f1a0a;padding:14px 22px;border-radius:999px;font-weight:500;font-size:15px" style-hover="background:#b8ea8f;color:#0f1a0a">Become a publisher</a>
   </div>
 </main>
 
@@ -293,6 +297,7 @@ a:hover{color:#9fdc6f}
       <a href="Marketplace.dc.html">Marketplace</a>
       <a href="Legal.dc.html#terms">Terms</a>
       <a href="Legal.dc.html#privacy">Privacy</a>
+      <a href="#cookie-settings">Cookie settings</a>
       <span>© 2026 FlowStudio AI</span>
     </div>
   </div>
